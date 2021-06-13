@@ -38,8 +38,8 @@ public class QnAController {
     @ApiOperation(value ="QnA 정보", notes =  "글번호에 해당하는 QnA의 정보를 반환한다.", response = QnA.class)
 	@GetMapping("{no}")
 	public ResponseEntity<QnA> QnADetail(@PathVariable int no) {
-    	System.out.println("branch1 수정");
-    	System.out.println("eunjin 수정22");
+    	System.out.println("branch1 수정111");
+    	System.out.println("eunjin 수정111");
     	return null;
 	}
 
