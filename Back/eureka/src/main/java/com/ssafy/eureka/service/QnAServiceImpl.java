@@ -16,6 +16,7 @@ public class QnAServiceImpl implements QnAService {
 
 	@Override
 	public List<QnA> retrieveQnA() {
+		String test = "testing";
 		return null;
 	}
 
