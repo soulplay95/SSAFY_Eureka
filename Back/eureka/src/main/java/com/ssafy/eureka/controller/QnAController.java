@@ -39,7 +39,7 @@ public class QnAController {
 	@GetMapping("{no}")
 	public ResponseEntity<QnA> QnADetail(@PathVariable int no) {
     	System.out.println("branch1 수정");
-    	System.out.println("eunjin 수정");
+    	System.out.println("eunjin 수정22");
     	return null;
 	}
 
