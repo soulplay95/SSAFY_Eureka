@@ -15,4 +15,5 @@ public interface MemberService {
 	public int joinMember(Member member);
 	public int deleteMember(String member_userid);
 	public int modifyMember(Member member);
+	public boolean checkInfo(Member member);
 }

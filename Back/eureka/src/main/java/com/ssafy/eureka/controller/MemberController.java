@@ -56,13 +56,25 @@ public class MemberController {
 //	@GetMapping("/{userid}")
 //	private ResponseEntity<Member> memberInfo(@PathVariable("userid") Member member) {
 //		return null;
-//
+//	
 //	}
 	
+	
+	
 	@ApiOperation(value = "비밀번호 찾기", notes = "이메일로 비밀번호를 찾습니다.")
-	@GetMapping("/{userid}")
-	private ResponseEntity<Object> findPwd() {
-		return null;
+	@PostMapping("/findpwd")
+	private ResponseEntity<Object> findPwd(@RequestBody Member member) {
+		
+		if(service.checkInfo(member)) {
+			if(service.findPwd(member) == 1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} else {
+			return new ResponseEntity<Object>("회원정보가 존재하지 않습니다.", HttpStatus.NO_CONTENT);
+		}
+		
 	}
 
 	@ApiOperation(value = "회원 등록", notes = "입력한 회원 정보를 등록합니다.")

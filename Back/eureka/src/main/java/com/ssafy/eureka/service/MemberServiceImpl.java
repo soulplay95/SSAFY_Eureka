@@ -34,18 +34,33 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int joinMember(Member member) {
-		return dao.joinMember(member);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public int deleteMember(String member_userid) {
-		return dao.deleteMember(member_userid);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	public int modifyMember(Member member) {
 		
-		return dao.modifyMember(member);
+		return 0;
+	}
+
+	@Override
+	public boolean checkInfo(Member member) {
+		
+		Member checked = dao.checkInfo(member);
+		
+		if(checked == null) {
+			return false;
+		} else {
+			return true;
+		}
+		
 	}
 
 }

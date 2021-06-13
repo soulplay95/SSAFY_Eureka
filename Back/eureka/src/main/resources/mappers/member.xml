@@ -68,6 +68,14 @@
 		WHERE member_userid = #{member_userid}
 		
 	</update>
+	
+	<select id="checkInfo" resultType="member">
+		SELECT * 
+		FROM member
+		WHERE member_userid = #{member_userid} AND
+				member_name = #{member_name} AND
+				member_phone = #{member_phone}
+	</select>
 
 </mapper>
 
