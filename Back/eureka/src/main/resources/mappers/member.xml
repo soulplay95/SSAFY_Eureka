@@ -69,6 +69,9 @@
 		
 	</update>
 
+	<update id="updatePwd"  parameterType="Member">
+		UPDATE member SET member_userpwd = #{member_userpwd} where member_userid = #{member_userid}
+	</update>
 </mapper>
 
 

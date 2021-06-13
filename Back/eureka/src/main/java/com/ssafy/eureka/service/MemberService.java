@@ -11,8 +11,13 @@ public interface MemberService {
 
 	public Member login(Map<String, String> map);
 	public String getServerInfo();
-	public String findPwd(Map<String, String> map);
 	public int joinMember(Member member);
 	public int deleteMember(String member_userid);
 	public int modifyMember(Member member);
+	
+	//이메일발송
+	public void sendEmail(Member member, String div);
+	//비밀번호찾기
+	public int findPwd(Member member);
+
 }
