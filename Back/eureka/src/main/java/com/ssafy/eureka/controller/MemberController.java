@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.service.MemberService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,8 @@ import io.swagger.annotations.ApiResponse;
 @Api(value = "eureka")
 public class MemberController {
 	
+	@Autowired
+	MemberService service;
 	
 	@ApiOperation(value = "로그인", notes = "로그인 합니다.")
 	@PostMapping("/login")
@@ -64,14 +68,21 @@ public class MemberController {
 	@ApiOperation(value = "회원 등록", notes = "입력한 회원 정보를 등록합니다.")
 	@PostMapping
 	private ResponseEntity<String> memberJoin(@RequestBody Member member) {
-		return null;
+		if(service.joinMember(member) == 1) {
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@ApiOperation(value = "회원 삭제", notes = "해당 회원의 정보를 삭제합니다.")
 	@DeleteMapping("/{userid}")
 	private ResponseEntity<String> memberDelete(@PathVariable("userid") String userid) {
-		return null;
-
+		if(service.deleteMember(userid) == 1) {
+			return new ResponseEntity<String>("success", HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 	@ApiOperation(value = "회원 수정", notes = "입력된 회원 정보로 수정합니다.", response = Member.class)
