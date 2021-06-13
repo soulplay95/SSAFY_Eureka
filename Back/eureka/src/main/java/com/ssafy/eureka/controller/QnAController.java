@@ -31,7 +31,7 @@ public class QnAController {
 
     @ApiOperation(value ="모든 QnA 리스트", notes = "모든 QnA의 정보를 반환한다.", response = List.class)
 	@GetMapping
-	public ResponseEntity<List<QnA>> QnARetrieve() throws Exception {
+	public ResponseEntity<List<QnA>> retrieveQnA() throws Exception {
 		return null;
 	}
 
@@ -43,19 +43,19 @@ public class QnAController {
 
     @ApiOperation(value = "QnA 등록", notes = "새로운 QnA 정보를 입력한다.", response = String.class)
 	@PostMapping
-	public ResponseEntity<String> QnAWrite(@RequestBody QnA QnA) {
+	public ResponseEntity<String> writeQnA(@RequestBody QnA QnA) {
     	return null;
 	}
 
     @ApiOperation(value = "QnA 수정", notes = "글번호에 해당하는 QnA의 정보를 수정한다.", response = String.class)
 	@PutMapping("{no}")
-	public ResponseEntity<String> QnAUpdate(@RequestBody QnA QnA) {
+	public ResponseEntity<String> updateQnA(@RequestBody QnA QnA) {
     	return null;
 	}
 
     @ApiOperation(value = "QnA 삭제", notes = "글번호에 해당하는 QnA의 정보를 삭제한다.", response = String.class)
 	@DeleteMapping("{no}")
-	public ResponseEntity<String> QnADelete(@PathVariable int no) {
+	public ResponseEntity<String> deleteQnA(@PathVariable int no) {
     	return null;
 	}
 
@@ -64,23 +64,23 @@ public class QnAController {
 //	public ResponseEntity<Comment> getComment(@PathVariable int articleno) {
 //		return null;
 //	}
-//
-//	@ApiOperation(value = "답글 등록", notes = "새로운 답글 정보를 입력한다.", response = String.class)
-//	@PostMapping("/comment")
-//	public ResponseEntity<String> writeComment(@RequestBody Comment comment) {
-//		return null;
-//	}
-//
-//	@ApiOperation(value = "답글 수정", notes = "글번호에 해당하는 답글의 정보를 수정한다.", response = String.class)
-//	@PutMapping("/comment/{no}")
-//	public ResponseEntity<String> updateComment(@RequestBody Comment comment) {
-//		return null;
-//	}
-//
-//	@ApiOperation(value = "답글 삭제", notes = "글번호에 해당하는 답글의 정보를 삭제한다.", response = String.class)
-//	@DeleteMapping("/comment/{commentno}")
-//	public ResponseEntity<String> deleteComment(@PathVariable int commentno) {
-//		return null;
-//	}
+
+	@ApiOperation(value = "답글 등록", notes = "새로운 답글 정보를 입력한다.", response = String.class)
+	@PostMapping("/comment")
+	public ResponseEntity<String> writeComment(@RequestBody Comment comment) {
+		return null;
+	}
+
+	@ApiOperation(value = "답글 수정", notes = "글번호에 해당하는 답글의 정보를 수정한다.", response = String.class)
+	@PutMapping("/comment/{no}")
+	public ResponseEntity<String> updateComment(@RequestBody Comment comment) {
+		return null;
+	}
+
+	@ApiOperation(value = "답글 삭제", notes = "글번호에 해당하는 답글의 정보를 삭제한다.", response = String.class)
+	@DeleteMapping("/comment/{commentno}")
+	public ResponseEntity<String> deleteComment(@PathVariable int commentno) {
+		return null;
+	}
 
 }
