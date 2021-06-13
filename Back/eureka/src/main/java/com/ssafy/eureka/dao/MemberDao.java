@@ -14,4 +14,5 @@ public interface MemberDao {
 	public int deleteMember(String member_userid);
 	public int modifyMember(Member member);
 	public int updatePwd(Member member);
+	public Member checkInfo(Member member);
 }
