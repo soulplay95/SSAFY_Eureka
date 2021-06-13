@@ -2,8 +2,11 @@ package com.ssafy.eureka.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.ssafy.eureka.dto.QnA;
 
+@Service
 public class QnAServiceImpl implements QnAService {
 
 	@Override

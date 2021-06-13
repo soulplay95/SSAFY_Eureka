@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.eureka.dao.MemberDao">
 
-	<select id="selectDeals" resultType="houseDeal"><!-- 파라미터 : gugun -->
+	<select id="selectDeals"><!-- 파라미터 : gugun -->
 		select * 
 		from ( 	select * 
 				from housedeal h
@@ -21,7 +21,7 @@
 		WHEN ASCII(SUBSTRING(resort.aptName,1)) &lt; 128 THEN 2 ELSE 1 END), resort.aptName
 	</select>
 		
-	<select id="selectApts" parameterType="map" resultType="houseDeal"><!-- 파라미터 : gugun, dong, aptName -->
+	<select id="selectApts" parameterType="map"><!-- 파라미터 : gugun, dong, aptName -->
 		select *
 		from housedeal
 		where gugunCode = (	SELECT DISTINCT SUBSTR(dongcode, 1, 5) 

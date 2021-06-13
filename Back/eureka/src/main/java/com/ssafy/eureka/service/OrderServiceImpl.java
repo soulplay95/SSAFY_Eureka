@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ssafy.eureka.dao.OrderDao;
 import com.ssafy.eureka.dto.Order;
 
+@Service
 public class OrderServiceImpl implements OrderService {
 
 	@Autowired

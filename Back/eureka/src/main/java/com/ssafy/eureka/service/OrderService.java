@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.eureka.dto.Order;
 
-@Service
+
 public interface OrderService {
 
 	List<Order> showOrderList(String member_userid);

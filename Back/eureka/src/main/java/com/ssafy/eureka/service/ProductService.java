@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.eureka.dto.Product;
 
-@Service
 public interface ProductService {
 
 	List<Product> showSearchResult(String keyword);

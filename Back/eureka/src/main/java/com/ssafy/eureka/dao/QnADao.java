@@ -2,8 +2,12 @@ package com.ssafy.eureka.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.ssafy.eureka.dto.QnA;
 
+
+@Mapper
 public interface QnADao {
 
 	public QnA retrieveQnA();
