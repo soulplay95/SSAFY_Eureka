@@ -58,6 +58,16 @@
 		VALUES (#{member_userid}, #{member_userpwd}, #{member_name}, #{member_address},#{member_phone}, now(),#{member_type},now());
 	</insert>
 	
+	
+	<update id="modifyMember">
+		UPDATE member
+		SET member_userpwd = #{member_userpwd},
+			member_name = #{member_name},
+			member_address = #{member_address},
+			member_phone = #{member_phone}
+		WHERE member_userid = #{member_userid}
+		
+	</update>
 
 </mapper>
 

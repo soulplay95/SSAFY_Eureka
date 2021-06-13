@@ -23,9 +23,9 @@ import com.ssafy.eureka.service.MemberService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import io.swagger.annotations.ApiResponse;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @Slf4j
@@ -91,7 +91,12 @@ public class MemberController {
 	@PutMapping
 	private ResponseEntity<Member> memberModify(@RequestBody Member member) {
 		
-		return null;
+		if(service.modifyMember(member) == 1) {
+			return new ResponseEntity<Member>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Member>(HttpStatus.NO_CONTENT);
+		}
+		
 	}
 	
 

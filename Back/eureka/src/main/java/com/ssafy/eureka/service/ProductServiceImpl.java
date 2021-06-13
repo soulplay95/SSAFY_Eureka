@@ -17,50 +17,38 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<Product> showSearchResult(String keyword) {
-
-		List<Product> list = dao.showSearchResult(keyword);
 		
-		return null;
+		return dao.showSearchResult(keyword);
 	}
 
 	@Override
 	public List<Product> showItemList(String category) {
-
-		List<Product> list = dao.showItemList(category);
 		
-		return null;
+		return dao.showItemList(category);
 	}
 
 	@Override
 	public Map<String, Object> showDetail(String product_id) {
 
-		Map<String, Object> map = dao.showDetail(product_id);
-		
-		return null;
+		return dao.showDetail(product_id);
 	}
 
 	@Override
 	public int registProduct(Product product) {
 
-		dao.registProduct(product);
-		
-		return 0;
+		return dao.registProduct(product);
 	}
 
 	@Override
 	public int modifyProduct(Product product) {
 
-		dao.modifyProduct(product);
-		
-		return 0;
+		return dao.modifyProduct(product);
 	}
 
 	@Override
 	public int deleteProduct(String product_id) {
 
-		dao.deleteProduct(product_id);
-
-		return 0;
+		return dao.deleteProduct(product_id);
 	}
 
 }
