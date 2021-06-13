@@ -21,7 +21,6 @@ public class QnAServiceImpl implements QnAService {
 
 	@Override
 	public QnA QnADetail() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
