@@ -14,5 +14,5 @@ public interface MemberService {
 	public String findPwd(Map<String, String> map);
 	public int joinMember(Member member);
 	public int deleteMember(String member_userid);
-	public Member modifyMember(Member member);
+	public int modifyMember(Member member);
 }

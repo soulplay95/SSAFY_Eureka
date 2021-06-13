@@ -18,57 +18,43 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> showOrderList(String member_userid) {
 		
-		List<Order> list = dao.showOrderList(member_userid);
-		
-		return null;
+		return dao.showOrderList(member_userid);
 	}
 
 	@Override
 	public int addOrder(Map<String, Object> map) {
-		
-		dao.addOrder(map);
-		
-		return 0;
+
+		return dao.addOrder(map);
 	}
 
 	@Override
 	public int showOrderList(String member_userid, String product_id) {
-
-		dao.showOrderList(member_userid, product_id);
 		
-		return 0;
+		return dao.showOrderList(member_userid, product_id);
 	}
 
 	@Override
 	public int addCart(Map<String, String> map) {
-
-		dao.addCart(map);
 		
-		return 0;
+		return dao.addCart(map);
 	}
 
 	@Override
 	public int deleteCart(String member_userid, String product_id) {
-
-		dao.deleteCart(member_userid, product_id);
 		
-		return 0;
+		return dao.deleteCart(member_userid, product_id);
 	}
 
 	@Override
 	public int addWish(Map<String, String> map) {
-
-		dao.addWish(map);
 		
-		return 0;
+		return dao.addWish(map);
 	}
 
 	@Override
 	public int deleteWish(String product_id, String member_userid) {
 		
-		dao.deleteWish(product_id, member_userid);
-		
-		return 0;
+		return dao.deleteWish(product_id, member_userid);
 	}
 
 }

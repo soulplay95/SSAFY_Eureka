@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,16 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.service.MemberService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import io.swagger.annotations.ApiResponse;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @Slf4j
@@ -32,6 +34,8 @@ import io.swagger.annotations.ApiResponse;
 @Api(value = "eureka")
 public class MemberController {
 	
+	@Autowired
+	MemberService service;
 	
 	@ApiOperation(value = "로그인", notes = "로그인 합니다.")
 	@PostMapping("/login")
@@ -80,7 +84,12 @@ public class MemberController {
 	@PutMapping
 	private ResponseEntity<Member> memberModify(@RequestBody Member member) {
 		
-		return null;
+		if(service.modifyMember(member) == 1) {
+			return new ResponseEntity<Member>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Member>(HttpStatus.NO_CONTENT);
+		}
+		
 	}
 	
 
