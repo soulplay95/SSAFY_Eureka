@@ -2,12 +2,17 @@ package com.ssafy.eureka.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.eureka.dao.QnADao;
 import com.ssafy.eureka.dto.QnA;
 
 @Service
 public class QnAServiceImpl implements QnAService {
+	
+	@Autowired
+	QnADao dao;
 
 	@Override
 	public List<QnA> retrieveQnA() {
