@@ -16,7 +16,6 @@ public class QnAServiceImpl implements QnAService {
 
 	@Override
 	public List<QnA> retrieveQnA() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
