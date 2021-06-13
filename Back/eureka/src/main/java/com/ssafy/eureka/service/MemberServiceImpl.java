@@ -60,11 +60,11 @@ public class MemberServiceImpl implements MemberService {
 		// Mail Server 설정
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.gmail.com"; // 네이버 이용시 smtp.naver.com
-		String hostSMTPid = "sqk86577@gmail.com";
-		String hostSMTPpwd = "Kwon7703'";
+		String hostSMTPid = "eurekassafy@gmail.com";
+		String hostSMTPpwd = "eurekassafy00";
 
 		// 보내는 사람 EMail, 제목, 내용
-		String fromEmail = "sqk86577@gmail.com";
+		String fromEmail = "eurekassafy@gmail.com";
 		String fromName = "유레카";
 		String subject = "";
 		String msg = "";
