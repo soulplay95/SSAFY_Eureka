@@ -79,6 +79,7 @@ public class MemberController {
 			@ApiResponse(code = 404, message = "페이지 없어") })
 	@PutMapping
 	private ResponseEntity<Member> memberModify(@RequestBody Member member) {
+		
 		return null;
 	}
 	

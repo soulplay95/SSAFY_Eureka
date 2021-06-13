@@ -21,7 +21,7 @@ public class SwaggerConfiguration {
 
 	@Bean
 	public Docket qnaApi() {
-		return new Docket(DocumentationType.SWAGGER_2).groupName("qna-api").apiInfo(apiInfo()).select()
+		return new Docket(DocumentationType.SWAGGER_2).groupName("Eureka-api").apiInfo(apiInfo()).select()
 				.paths(postPaths()).build();
 	}
 	
@@ -30,9 +30,9 @@ public class SwaggerConfiguration {
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("SSAFYHOUSE API")
-				.description("<h3>SSAFYHOUSE API Reference for Developers</h3>Swagger를 이용한 HappyHouse API")
-				.contact(new Contact("SSAFYHOUSE", "https://edu.ssafy.com", "ssafy@ssafy.com")).license("SSAFY License")
+		return new ApiInfoBuilder().title("Eureka API")
+				.description("<h3>Eureka API Reference for Developers</h3>Swagger를 이용한 Eureka API")
+				.contact(new Contact("Eureka", "https://edu.ssafy.com", "ssafy@ssafy.com")).license("SSAFY License")
 				.licenseUrl("https://www.ssafy.com/ksp/jsp/swp/etc/swpPrivacy.jsp").version("1.0").build();
 	}
 }
