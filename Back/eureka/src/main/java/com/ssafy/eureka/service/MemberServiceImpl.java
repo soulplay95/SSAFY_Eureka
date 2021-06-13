@@ -34,14 +34,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int joinMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.joinMember(member);
 	}
 
 	@Override
 	public int deleteMember(String member_userid) {
-		// TODO Auto-generated method stub
-		return 0;
+		return dao.deleteMember(member_userid);
 	}
 
 	@Override

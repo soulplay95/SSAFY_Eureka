@@ -68,14 +68,21 @@ public class MemberController {
 	@ApiOperation(value = "회원 등록", notes = "입력한 회원 정보를 등록합니다.")
 	@PostMapping
 	private ResponseEntity<String> memberJoin(@RequestBody Member member) {
-		return null;
+		if(service.joinMember(member) == 1) {
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+		}
 	}
 
 	@ApiOperation(value = "회원 삭제", notes = "해당 회원의 정보를 삭제합니다.")
 	@DeleteMapping("/{userid}")
 	private ResponseEntity<String> memberDelete(@PathVariable("userid") String userid) {
-		return null;
-
+		if(service.deleteMember(userid) == 1) {
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+		}
 	}
 
 	@ApiOperation(value = "회원 수정", notes = "입력된 회원 정보로 수정합니다.", response = Member.class)
