@@ -69,9 +69,9 @@ public class MemberController {
 	@PostMapping
 	private ResponseEntity<String> memberJoin(@RequestBody Member member) {
 		if(service.joinMember(member) == 1) {
-			return new ResponseEntity<String>("success", HttpStatus.OK);
+			return new ResponseEntity<String>(HttpStatus.OK);
 		}else {
-			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		}
 	}
 
@@ -79,9 +79,9 @@ public class MemberController {
 	@DeleteMapping("/{userid}")
 	private ResponseEntity<String> memberDelete(@PathVariable("userid") String userid) {
 		if(service.deleteMember(userid) == 1) {
-			return new ResponseEntity<String>("success", HttpStatus.OK);
+			return new ResponseEntity<String>(HttpStatus.OK);
 		}else {
-			return new ResponseEntity<String>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		}
 	}
 
