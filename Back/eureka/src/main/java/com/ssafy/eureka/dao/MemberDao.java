@@ -13,6 +13,6 @@ public interface MemberDao {
 	public int joinMember(Member member);
 	public int deleteMember(String member_userid);
 	public int modifyMember(Member member);
+	public int updatePwd(Member member);
 	public Member checkInfo(Member member);
-	
 }

@@ -2,8 +2,6 @@ package com.ssafy.eureka.service;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import com.ssafy.eureka.dto.Member;
 
@@ -11,9 +9,12 @@ public interface MemberService {
 
 	public Member login(Map<String, String> map);
 	public String getServerInfo();
-	public String findPwd(Map<String, String> map);
 	public int joinMember(Member member);
 	public int deleteMember(String member_userid);
 	public int modifyMember(Member member);
+	//이메일발송
+	public void sendEmail(Member member, String div);
+	//비밀번호찾기
+	public int findPwd(Member member);
 	public boolean checkInfo(Member member);
 }
