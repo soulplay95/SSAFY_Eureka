@@ -17,14 +17,17 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member login(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Member member;
+		member = dao.login(map);
+		if (member.getMember_userid()!= null)
+			return member;
+		else
+			throw new RuntimeException("존재안함");
 	}
 
 	@Override
 	public String getServerInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		return "made by eureka";
 	}
 
 	@Override
