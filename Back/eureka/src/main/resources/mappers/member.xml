@@ -79,6 +79,23 @@
 	<update id="updatePwd"  parameterType="Member">
 		UPDATE member SET member_userpwd = #{member_userpwd} where member_userid = #{member_userid}
 	</update>
+	
+	<select id="login" parameterType="map" resultType="Member">
+		select *
+		from member
+		where member_userid = #{member_userid} and member_userpwd = #{member_userpwd}
+	</select>
+	
+	<select id="getMemberByToken" parameterType="String" resultType="Member">
+		select *
+		from member
+		where member_refreshtoken = #{member_refreshtoken}
+	</select>
+	
+	<update id="setRefreshToken"  parameterType="map">
+		UPDATE member SET member_refreshtoken = #{member_refreshtoken} where member_userid = #{member_userid}
+	</update>
+	
 </mapper>
 
 
