@@ -8,11 +8,16 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
+    "@vue/composition-api": "^1.0.0-rc.11",
     "bootstrap": "^5.0.1",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "vue": "^3.1.1",
+    "vue-position-sticky": "^0.2.1",
     "vue-router": "^4.0.8",
+    "vue3-carousel": "^0.1.21",
+    "vuesax": "^4.0.1-alpha.25",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
