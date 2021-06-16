@@ -26,7 +26,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String getServerInfo() {
+	public String getMemberInfo() {
 		return "made by eureka";
 	}
 
@@ -118,6 +118,11 @@ public class MemberServiceImpl implements MemberService {
 		if(cnt == 1)
 			sendEmail(member, "findpw");
 		return cnt;
+	}
+
+	@Override
+	public int logout(String member_userid) {
+		return dao.logout(member_userid);
 	}
 
 }
