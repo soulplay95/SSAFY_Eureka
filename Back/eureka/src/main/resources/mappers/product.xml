@@ -6,6 +6,26 @@
 	
 	
 
+	<delete id="deleteProduct" parameterType="String">
+		DELETE FROM product
+		WHERE product_id = #{product_id}
+	</delete>
+	
+	<update id="modifyProduct" parameterType="Product">
+		UPDATE product
+		SET product_name = #{product_name},  
+			product_category = #{product_category}, 
+			product_price = #{product_price},	  
+			product_img =#{product_img}, 
+			product_rating = #{product_rating},  
+			product_brand = #{product_brand},  
+			product_deliveryprice =#{product_deliveryprice},  
+			product_detailimg = #{product_detailimg},  
+			product_count = #{product_count},  
+			member_userid = #{member_userid}
+		WHERE product_id = #{product_id}
+	</update>
+	
 </mapper>
 
 
