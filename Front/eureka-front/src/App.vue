@@ -1,10 +1,20 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/user/join">Join</router-link>
+    <!-- <router-link to="/">Home</router-link> |
+    <router-link to="/user/join">Join</router-link> -->
   </div>
   <router-view />
 </template>
+
+<script>
+import { defineComponent } from '@vue/composition-api'
+export default defineComponent({
+  setup() {
+    
+  },
+})
+</script>
+
 
 <style>
 #app {
