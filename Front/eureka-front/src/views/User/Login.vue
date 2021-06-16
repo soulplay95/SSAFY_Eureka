@@ -6,11 +6,9 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: "Login",
   components: {},
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

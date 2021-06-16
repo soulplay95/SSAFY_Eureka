@@ -1,17 +1,13 @@
 // index.js에서 import 필요
 
 const userStore = {
-  state: {
-  },
+  state: {},
   mutations: {},
   actions: {},
   modules: {},
+};
 
-}
-
-export default userStore
-
-
+export default userStore;
 
 // axios({
 //   method: 'post',

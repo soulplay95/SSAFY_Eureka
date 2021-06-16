@@ -7,7 +7,6 @@ export default createStore({
     // 검색 정보
     // 메인 페이지 상품 정보
     // Footer 정보
-
   },
   mutations: {},
   actions: {},
