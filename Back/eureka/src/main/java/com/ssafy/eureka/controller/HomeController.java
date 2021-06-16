@@ -15,13 +15,14 @@ import io.swagger.annotations.ApiOperation;
 
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
-@RequestMapping("/")
+@RequestMapping("/home")
 @Api(value = "eureka")
 public class HomeController {
 
 	 @ApiOperation(value ="판매순 추천 리스트", notes = "판매량이 높은 상품을 n개 반환", response = List.class)
 		@GetMapping
 		public ResponseEntity<List<Object>> topN() throws Exception {
+		 	System.out.println("interceptor 통과");
 			return null;
 		}
 }
