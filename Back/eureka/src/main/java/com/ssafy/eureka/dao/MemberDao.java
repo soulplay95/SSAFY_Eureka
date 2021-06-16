@@ -15,4 +15,6 @@ public interface MemberDao {
 	public int modifyMember(Member member);
 	public int updatePwd(Member member);
 	public Member checkInfo(Member member);
+	public int setRefreshToken(Map<String,String> map);
+	public Member getMemberByToken(String member_refreshtoken);
 }

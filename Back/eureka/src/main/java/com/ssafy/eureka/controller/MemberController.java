@@ -1,10 +1,12 @@
 package com.ssafy.eureka.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.dto.Token;
+import com.ssafy.eureka.service.JWTService;
 import com.ssafy.eureka.service.MemberService;
 
 import io.swagger.annotations.Api;
@@ -37,18 +41,54 @@ public class MemberController {
 	@Autowired
 	MemberService service;
 	
+	@Autowired
+	private JWTService jwtService;
+	
 	@ApiOperation(value = "로그인", notes = "로그인 합니다.")
 	@PostMapping("/login")
 	public ResponseEntity<Map<String,Object>> memberLogin(@RequestBody Member member, HttpServletResponse res){
-
-		return null;
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("member_userid", member.getMember_userid());
+		map.put("member_userpwd", member.getMember_userpwd());
+		try {
+			
+			Member loginUser = service.login(map);
+			Token token = jwtService.create(loginUser);
+			res.setHeader("jwt-auth-access-token", token.getAccessJws());
+			res.setHeader("jwt-auth-refresh-token", token.getRefreshJws());
+			resultMap.put("auth_token", token);
+			System.out.println(token);
+			
+			resultMap.put("status", true);
+			resultMap.put("data", loginUser);
+			status = HttpStatus.ACCEPTED;
+		}catch(RuntimeException e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
 	
 	@ApiOperation(value = "회원 조회", notes = "해당 회원의 정보를 반환합니다.")
 	@PostMapping("/info")
 	public ResponseEntity<Map<String,Object>> memberInfo(HttpServletRequest req, @RequestBody Member member){
-
-		return null;
+		Map<String,Object> resultMap = new HashMap<>();
+		HttpStatus status = null;
+		try {
+			String info = service.getServerInfo();
+			resultMap.putAll(jwtService.get(req.getHeader("jwt-auth-token")));
+			
+			resultMap.put("status", true);
+			resultMap.put("info", info);
+			resultMap.put("request_body", member);
+			status = HttpStatus.ACCEPTED;
+		}catch(RuntimeException e) {
+			resultMap.put("message", e.getMessage());
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
 
 
