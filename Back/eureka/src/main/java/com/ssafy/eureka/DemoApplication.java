@@ -22,7 +22,12 @@ public class DemoApplication implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+<<<<<<< HEAD
 		registry.addInterceptor(jwtInterceptor).addPathPatterns("/home", "/order");
+=======
+		registry.addInterceptor(jwtInterceptor).addPathPatterns(Arrays.asList("/home","/order"));
+//		.excludePathPatterns(Arrays.asList("/member/**", "/api/aptrest/**","/api/interest","/api/notice/get/**", "/api/member/join", "/api/member/findpwd","/swagger-ui.html"));
+>>>>>>> 7a0f85ebe18fde1ac3fb60e4f2bc193291c2a3df
 	}
 
 	@Override
@@ -31,7 +36,8 @@ public class DemoApplication implements WebMvcConfigurer {
 		.allowedOrigins("*")
 		.allowedMethods("*")
 		.allowedHeaders("*")
-		.exposedHeaders("jwt-auth-token");
+		.exposedHeaders("jwt-auth-access-token")
+		.exposedHeaders("jwt-auth-refresh-token");
 	}
 	
 

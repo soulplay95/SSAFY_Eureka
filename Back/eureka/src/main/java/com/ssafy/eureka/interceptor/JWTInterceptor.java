@@ -47,21 +47,24 @@ public class JWTInterceptor implements HandlerInterceptor {
 				if(jwtService.checkValid(token)) {
 					log.trace("토큰 사용 가능:{}", token);
 					if(!jwtService.checkValid(refreshtoken)) {
-						jwtService.createJws(salt, (long)10080, null);
+						String newtoken = jwtService.createJws(salt, (long)10080, null);
+						response.setHeader("jwt-auth-access-token", newtoken);
+						
 					}
 					return true;
 				}else {
 					if(jwtService.checkValid(refreshtoken)) {
 						Member member = jwtService.getMemberByToken(refreshtoken);
-						jwtService.createJws(salt, expireMin, member);
+						String newtoken = jwtService.createJws(salt, expireMin, member);
+						response.setHeader("jwt-auth-refresh-token", newtoken);
 						return true;
 					}
 				}
 			} else {
-				
 				throw new RuntimeException("인증토큰이 없습니다.");
 			}
 		}
+		System.out.println("토큰 둘다 만료!");
 		return false;
 	}
 	
