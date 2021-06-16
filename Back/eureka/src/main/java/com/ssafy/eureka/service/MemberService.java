@@ -8,9 +8,10 @@ import com.ssafy.eureka.dto.Member;
 public interface MemberService {
 
 	public Member login(Map<String, String> map);
-	public String getServerInfo();
+	public String getMemberInfo();
 	public int joinMember(Member member);
 	public int deleteMember(String member_userid);
+	public int logout(String member_userid);
 	public int modifyMember(Member member);
 	//이메일발송
 	public void sendEmail(Member member, String div);
