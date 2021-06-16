@@ -1,6 +1,6 @@
-// import { createRouter, createWebHistory } from "vue-router";
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from "vue-router";
+// import Vue from 'vue';
+// import VueRouter from 'vue-router';
 
 // Views imports
 // Home
@@ -21,7 +21,7 @@ import CSQnaHistory from '@/views/CS/CSQnaHistory.vue';
 import CSFAQ from '@/views/CS/CSFAQ.vue';
 import CSQuestionForm from '@/views/CS/CSQuestionForm.vue';
 
-Vue.use(VueRouter);
+// Vue.use(VueRouter);
 
 const routes = [
   // Home
