@@ -78,6 +78,14 @@ public class Product {
 	public void setMember_userid(String member_userid) {
 		this.member_userid = member_userid;
 	}
+	@Override
+	public String toString() {
+		return "Product [product_id=" + product_id + ", product_name=" + product_name + ", product_category="
+				+ product_category + ", product_price=" + product_price + ", product_img=" + product_img
+				+ ", product_rating=" + product_rating + ", product_brand=" + product_brand + ", product_deliveryprice="
+				+ product_deliveryprice + ", product_detailimg=" + product_detailimg + ", product_count="
+				+ product_count + ", member_userid=" + member_userid + "]";
+	}
 	
 	
 }

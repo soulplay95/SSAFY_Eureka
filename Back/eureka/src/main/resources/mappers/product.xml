@@ -4,6 +4,28 @@
 <mapper namespace="com.ssafy.eureka.dao.ProductDao">
 
 	
+	<select id="getProduct" resultType="product">
+		SELECT *
+		FROM product p
+		WHERE product_id=#{product_id};
+	</select>
+	
+	<select id="getProductqna" resultType="productqna">
+		SELECT *
+		FROM productqna
+		WHERE product_id=#{product_id};
+	</select>
+	
+	<select id="getReview" resultType="review">
+		SELECT *
+		FROM review
+		WHERE product_id=#{product_id};
+	</select>
+	
+	<insert id="registProduct">
+		INSERT INTO `product` (product_name, product_category, product_price, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, member_userid) 
+		VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_img}, #{product_rating}, #{product_brand}, #{product_deliveryprice}, #{product_detailimg}, #{product_count}, #{member_userid});
+	</insert>
 	
 
 	<delete id="deleteProduct" parameterType="String">
