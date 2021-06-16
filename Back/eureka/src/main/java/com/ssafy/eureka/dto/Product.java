@@ -8,7 +8,7 @@ public class Product {
 	String product_img;
 	String product_rating;
 	String product_brand;
-	String product_delivery;
+	String product_deliveryprice;
 	String product_detailimg;
 	String product_count;
 	String member_userid;
@@ -54,11 +54,11 @@ public class Product {
 	public void setProduct_brand(String product_brand) {
 		this.product_brand = product_brand;
 	}
-	public String getProduct_delivery() {
-		return product_delivery;
+	public String getProduct_deliveryprice() {
+		return product_deliveryprice;
 	}
-	public void setProduct_delivery(String product_delivery) {
-		this.product_delivery = product_delivery;
+	public void setProduct_deliveryprice(String product_deliveryprice) {
+		this.product_deliveryprice = product_deliveryprice;
 	}
 	public String getProduct_detailimg() {
 		return product_detailimg;
