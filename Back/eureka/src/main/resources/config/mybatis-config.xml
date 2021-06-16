@@ -4,5 +4,8 @@
 <configuration>
 	<mappers>
 		 <mapper resource="mappers/member.xml"/>
+		 <mapper resource="mappers/product.xml"/>
+		 <mapper resource="mappers/order.xml"/>
+		 <mapper resource="mappers/qna.xml"/>
 	</mappers>
 </configuration>

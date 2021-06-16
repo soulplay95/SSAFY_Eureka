@@ -3,52 +3,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.eureka.dao.MemberDao">
 
-	<select id="selectDeals"><!-- 파라미터 : gugun -->
-		select * 
-		from ( 	select * 
-				from housedeal h
-				where h.gugunCode = (	SELECT DISTINCT SUBSTR(dongcode, 1, 5) 
-										FROM dongcode	 
-										WHERE gugun=#{gugun}	)
-				order by h.aptName,
-				CAST(h.dealYear AS UNSIGNED) desc,
-				CAST(h.dealMonth AS UNSIGNED) desc,
-				CAST(h.dealDay AS UNSIGNED) desc
-				LIMIT 18446744073709551615 ) AS resort
-		group by resort.aptName
-		order by (CASE
-		WHEN ASCII(SUBSTRING(resort.aptName,1)) BETWEEN 48 AND 57 THEN 3 
-		WHEN ASCII(SUBSTRING(resort.aptName,1)) &lt; 128 THEN 2 ELSE 1 END), resort.aptName
-	</select>
-		
-	<select id="selectApts" parameterType="map"><!-- 파라미터 : gugun, dong, aptName -->
-		select *
-		from housedeal
-		where gugunCode = (	SELECT DISTINCT SUBSTR(dongcode, 1, 5) 
-							FROM dongcode	 
-							WHERE gugun=#{gugun}	) AND dong = #{dong} AND aptName = #{aptName}
-		order by
-		CAST(dealYear AS UNSIGNED) desc,
-		CAST(dealMonth AS UNSIGNED) desc,
-		CAST(dealDay AS UNSIGNED) desc
-	</select>	
-
-	<insert id="insertQuestion">
-		INSERT INTO qnaboard
-		(qnaboardid, userid, qnatitle, qnacontent, qna_timestamp)
-		VALUES (null, #{userid}, #{qnatitle}, #{qnacontent}, now());
-	</insert>
-
-	<update id="updateQuestion">
-		UPDATE qnaboard
-		SET qnatitle = #{qnatitle}, qnacontent = #{qnacontent}
-		WHERE qnaboardid = #{qnaboardid};
-	</update>
-	
-	<delete id="deleteQuestion">
-		DELETE FROM qnaboard
-		WHERE qnaboardid = #{qnaboardid}
-	</delete>
 	<delete id="deleteMember" parameterType="String">
 		DELETE FROM member
 		WHERE member_userid = #{member_userid}
