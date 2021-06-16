@@ -96,6 +96,10 @@
 		UPDATE member SET member_refreshtoken = #{member_refreshtoken} where member_userid = #{member_userid}
 	</update>
 	
+	<update id="logout"  parameterType="String">
+		UPDATE member SET member_refreshtoken = null where member_userid = #{member_userid}
+	</update>
+
 </mapper>
 
 
