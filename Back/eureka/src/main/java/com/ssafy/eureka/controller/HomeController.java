@@ -22,7 +22,7 @@ public class HomeController {
 	 @ApiOperation(value ="판매순 추천 리스트", notes = "판매량이 높은 상품을 n개 반환", response = List.class)
 		@GetMapping
 		public ResponseEntity<List<Object>> topN() throws Exception {
-		 	System.out.println("test");
+		 	System.out.println("커밋 ");
 			return null;
 		}
 }
