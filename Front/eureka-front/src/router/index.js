@@ -20,6 +20,8 @@ import AdminItemList from '@/views/Admin/AdminItemList.vue';
 import CSQnaHistory from '@/views/CS/CSQnaHistory.vue';
 import CSFAQ from '@/views/CS/CSFAQ.vue';
 import CSQuestionForm from '@/views/CS/CSQuestionForm.vue';
+// 상품
+import ItemList from '@/views/Item/ItemList.vue';
 
 // Vue.use(VueRouter);
 
@@ -104,6 +106,12 @@ const routes = [
     path: '/cs/questionForm',
     name: 'CSQuestionForm',
     component: CSQuestionForm,
+  },
+  // 상품 검색
+  {
+    path: '/item/item-list',
+    name: 'ItemList',
+    component: ItemList,
   },
 ];
 
