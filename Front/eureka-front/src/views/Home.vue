@@ -21,8 +21,9 @@
         </li>
         <div style=float:none;>
           <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <!-- <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> -->
+            <input class="form-control me-2" type="search" v-model.trim="searchText" @keyup.enter="searchItem">
+            <button class="btn btn-outline-success" type="submit" @click="searchItem">Search</button>
           </form>
         </div>
           <li class="nav-item dropdown">
@@ -80,13 +81,13 @@ import pic from '@/assets/food.png'
 // import { defineComponent } from 'vue';
 // import vuePositionSticky from 'vue-position-sticky'
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
-
 import 'vue3-carousel/dist/carousel.css';
 
 export default {
   data: function() {
     return {
       pic: pic,
+      searchText: '',
     }
   },
   components: {
@@ -95,6 +96,12 @@ export default {
     Navigation,
     // vuePositionSticky,
   },
+  methods: {
+    searchItem: function () {
+      this.$store.dispatch("itemStore/searchItem", this.searchText)
+      this.$router.push({ name: 'ItemList' })
+    }
+  }
 }
 </script>
 
