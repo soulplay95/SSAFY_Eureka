@@ -5,6 +5,8 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -12,7 +14,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.ssafy.eureka.interceptor.JWTInterceptor;
 
 @SpringBootApplication
-public class EurekaApplication implements WebMvcConfigurer {
+public class EurekaApplication extends SpringBootServletInitializer implements WebMvcConfigurer {
+	
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(EurekaApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(EurekaApplication.class, args);
