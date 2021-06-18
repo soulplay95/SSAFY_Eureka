@@ -95,8 +95,7 @@
 		    <version>2.3.1</version>
 		</dependency>
 				
-
-
+		
 	</dependencies>
 
 	<build>
@@ -105,24 +104,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-		<plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-            <warsourcedirectory>src/main/webapp</warsourcedirectory>
-            <webxml>src/main/webapp/WEB-INF/web.xml</webxml>
-        </configuration>
-    </plugin>
- 
-    <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>tomcat-maven-plugin</artifactId>
-        <version>1.1</version>
-        <configuration>
-            <url>http://http://52.79.66.237:8080//manager/text</url>
-            <path>/eureka</path>
-        </configuration>
-    </plugin>
 		</plugins>
 	</build>
 
