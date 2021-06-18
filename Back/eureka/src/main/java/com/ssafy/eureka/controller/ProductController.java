@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,8 +35,7 @@ public class ProductController {
 	private ResponseEntity<List<Product>> showSearchResult(@RequestParam String keyword) {
 		
 		List<Product> list = service.showSearchResult(keyword);
-		
-		return null;
+		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 	}
 	
 	@GetMapping("/listview/{category}")
@@ -58,16 +58,17 @@ public class ProductController {
 	
 //	판매자 메뉴
 	@PostMapping("/regist")
-	@ApiOperation(value = "상품등록", notes = "상품등록시 ProductDto를 전달받아 DB에 ProductDto 저장. 리턴값 없음")
+	@ApiOperation(value = "상품등록", notes = "상품등록시 Product객체(product_id제외)를 전달받아 DB에 ProductDto 저장. 리턴값 없음")
 	private ResponseEntity<String> registProduct(@RequestBody Product product) {
 		
+		System.out.println(product.toString());
 		if(service.registProduct(product) == 1) {};
 		
 		return null;
 	}
 	
 	@PutMapping("/modify")
-	@ApiOperation(value = "상품수정", notes = "상품수정시 ProductDto를 전달받아 해당 product_id의 상품정보를 DB에서 수정. 리턴값 없음")
+	@ApiOperation(value = "상품수정", notes = "상품수정시 Product객체(product_id제외)를 전달받아 해당 product_id의 상품정보를 DB에서 수정. 리턴값 없음")
 	private ResponseEntity<String> modifyProduct(@RequestBody Product product) {
 		
 		if(service.modifyProduct(product) == 1) {};

@@ -1,5 +1,6 @@
 package com.ssafy.eureka.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.eureka.dao.ProductDao;
 import com.ssafy.eureka.dto.Product;
+import com.ssafy.eureka.dto.Productqna;
+import com.ssafy.eureka.dto.Review;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -30,7 +33,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Map<String, Object> showDetail(String product_id) {
 
-		return dao.showDetail(product_id);
+		Product p = dao.getProduct(product_id);
+		Productqna pq = dao.getProductqna(product_id);
+		Review r = dao.getReview(product_id);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("product", p);
+		map.put("productqna", pq);
+		map.put("review", r);
+		
+		return map;
 	}
 
 	@Override

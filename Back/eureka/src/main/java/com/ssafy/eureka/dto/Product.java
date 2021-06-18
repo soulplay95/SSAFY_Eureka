@@ -8,7 +8,7 @@ public class Product {
 	String product_img;
 	String product_rating;
 	String product_brand;
-	String product_delivery;
+	String product_deliveryprice;
 	String product_detailimg;
 	String product_count;
 	String member_userid;
@@ -54,11 +54,11 @@ public class Product {
 	public void setProduct_brand(String product_brand) {
 		this.product_brand = product_brand;
 	}
-	public String getProduct_delivery() {
-		return product_delivery;
+	public String getProduct_deliveryprice() {
+		return product_deliveryprice;
 	}
-	public void setProduct_delivery(String product_delivery) {
-		this.product_delivery = product_delivery;
+	public void setProduct_deliveryprice(String product_deliveryprice) {
+		this.product_deliveryprice = product_deliveryprice;
 	}
 	public String getProduct_detailimg() {
 		return product_detailimg;
@@ -77,6 +77,14 @@ public class Product {
 	}
 	public void setMember_userid(String member_userid) {
 		this.member_userid = member_userid;
+	}
+	@Override
+	public String toString() {
+		return "Product [product_id=" + product_id + ", product_name=" + product_name + ", product_category="
+				+ product_category + ", product_price=" + product_price + ", product_img=" + product_img
+				+ ", product_rating=" + product_rating + ", product_brand=" + product_brand + ", product_deliveryprice="
+				+ product_deliveryprice + ", product_detailimg=" + product_detailimg + ", product_count="
+				+ product_count + ", member_userid=" + member_userid + "]";
 	}
 	
 	
