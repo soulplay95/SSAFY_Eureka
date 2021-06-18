@@ -1,6 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
-// import Vue from 'vue';
-// import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 // Views imports
 // Home
@@ -12,6 +10,10 @@ import MyPage from '@/views/User/MyPage.vue';
 import UserModify from '@/views/User/UserModify.vue';
 import SearchId from '@/views/User/SearchId.vue';
 import SearchPassword from '@/views/User/SearchPassword.vue';
+
+// 장바구니
+import CartView from '@/views/Cart/CartView.vue';
+
 // 관리자
 import AdminProfile from '@/views/Admin/AdminProfile.vue';
 import AdminUserList from '@/views/Admin/AdminUserList.vue';
@@ -22,8 +24,6 @@ import CSFAQ from '@/views/CS/CSFAQ.vue';
 import CSQuestionForm from '@/views/CS/CSQuestionForm.vue';
 // 상품
 import ItemList from '@/views/Item/ItemList.vue';
-
-// Vue.use(VueRouter);
 
 const routes = [
   // Home
@@ -68,6 +68,13 @@ const routes = [
     path: '/user/search-password',
     name: 'SearchPassword',
     component: SearchPassword,
+  },
+  /* ------------------------ @도명 ------------------------ */
+  // 장바구니
+  {
+    path: '/cart',
+    name: 'CartView',
+    component: CartView,
   },
   /* ------------------------ 관리자 ------------------------ */
   // 관리자 화면 Home - 관리자 정보
