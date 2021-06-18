@@ -10,7 +10,7 @@
           type="email"
           placeholder="아이디(이메일)"
           autocomplete="email"
-          required
+
         />
         <!-- 비밀번호 -->
         <input
@@ -19,7 +19,7 @@
           minlength="8"
           placeholder="비밀번호"
           autocomplete="new-password"
-          required
+
         />
         <!-- 비밀번호 확인 -->
         <input
@@ -28,14 +28,14 @@
           minlength="8"
           placeholder="비밀번호 확인"
           autocomplete="new-password"
-          required
+
         />
         <!-- 이름 -->
         <input 
           v-model="credentials.username" 
           type="text" 
           placeholder="이름"
-          required
+
         />
         <!-- 연락처 -->
         <input
@@ -43,17 +43,13 @@
           type="tel"
           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
           placeholder="연락처"
-
         />
         <!-- 주소 -->
+        <addressForm class="addressForm"/>
         <input
-          v-model="credentials.address"
-          type="email"
-          id="userId"
-          placeholder="주소"
-          required
+          type="submit" 
+          value="회원가입"
         />
-        <input type="submit" value="회원가입" />
       </fieldset>
     </form>
   </div>
@@ -61,6 +57,7 @@
 
 <script>
 // useStore 훅을 사용하여 store에 접근합니다.
+import addressForm from '@/components/User/Join/addressForm'
 import { useStore } from "vuex";
 // import { mapActions } from 'vuex'
 
@@ -71,8 +68,12 @@ export default {
       return { store }
   },
   name: "Join",
+  components: {
+    addressForm
+  },
   data() {
     return {
+      issamepassword: false,
       credentials: {
         // 명칭 재정의 필요
         userid: "",
@@ -81,8 +82,7 @@ export default {
         username: "",
         phone: "",
         address: "",
-      },
-      issamepassword: false
+      }
     }
   },
   // 비밀번호와 비밀번호 확인은 local에서 처리
@@ -90,15 +90,17 @@ export default {
   methods: {
     onSubmit: function () {
       this.checkPassword()
+      if (this.issamepassword) {
         // 회원가입 진행
-        // this.store.dispatch("userStore/register", this.credentials)
+        this.store.dispatch("userStore/register", this.credentials)
+      }
     },
     checkPassword: function () {
       if (this.credentials.userpwd !== this.credentials.userpwdconfirmation) {
         this.resetPassword()
         alert("입력하신 비밀번호가 다릅니다!")
       } else {
-        issamepassword == true
+        this.issamepassword = true
       }
     },
     resetPassword: function () {
@@ -106,9 +108,6 @@ export default {
         this.credentials.userpwdconfirmation = ""
     }
   },
-  created() {
-    this.issamepassword == false
-  }
 }
 </script>
 <style scoped>
@@ -132,6 +131,10 @@ export default {
 
   fieldset input:focus {
     outline:none;
+  }
+
+  .addressForm {
+    display: flex;
   }
 
 </style>
