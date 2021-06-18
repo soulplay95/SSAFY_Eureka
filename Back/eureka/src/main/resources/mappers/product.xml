@@ -48,6 +48,14 @@
 		WHERE product_id = #{product_id}
 	</update>
 	
+	
+	<select id="showSearchResult" parameterType="String" resultType="product">
+		SELECT *
+		FROM product p
+		WHERE product_name  LIKE concat('%', #{keyword}, '%')
+		OR product_brand LIKE concat('%', #{keyword}, '%')
+		OR product_category LIKE concat('%', #{keyword}, '%');
+	</select>
 </mapper>
 
 
