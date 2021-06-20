@@ -18,6 +18,7 @@
     />
     <input
       type="text"
+      v-model="detailAddress"
       ref="detailAddress"
       placeholder="상세주소"
     />
@@ -37,14 +38,14 @@ export default {
       address: '',
       extraAddr: '',
       postcode: '',
+      detailAddress: '',
     }
   },
   methods: {
     getAddress() {
-      console.log(this.address)
       new window.daum.Postcode({
         oncomplete: (userData) => {
-          console.log(userData.zonecode)
+          this.extraAddr = ''
           if (userData.userSelectedType === 'R') {
             this.address = userData.roadAddress
           } else {
@@ -59,7 +60,7 @@ export default {
               this.extraAddr += (this.extraAddr !== '' ? ' , ' + userData.buildingName : userData.buildingName)
             }
             if (this.extraAddr !== ''){
-              this.extraAddr = ' (' + this.extraAddr + ')'
+              this.extraAddr = '(' + this.extraAddr + ')'
             }
           }
           this.postcode = userData.zonecode

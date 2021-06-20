@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>회원가입 페이지!</h1>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit()">
       <fieldset>
         <!-- id camelCase? kebab-case? -->
         <!-- 아이디 -->
@@ -10,7 +10,8 @@
           type="email"
           placeholder="아이디(이메일)"
           autocomplete="email"
-
+          pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
+          
         />
         <!-- 비밀번호 -->
         <input
@@ -19,7 +20,7 @@
           minlength="8"
           placeholder="비밀번호"
           autocomplete="new-password"
-
+          
         />
         <!-- 비밀번호 확인 -->
         <input
@@ -28,14 +29,14 @@
           minlength="8"
           placeholder="비밀번호 확인"
           autocomplete="new-password"
-
+          
         />
         <!-- 이름 -->
         <input 
           v-model="credentials.username" 
           type="text" 
           placeholder="이름"
-
+          
         />
         <!-- 연락처 -->
         <input
@@ -43,9 +44,12 @@
           type="tel"
           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
           placeholder="연락처"
+          
         />
         <!-- 주소 -->
-        <addressForm class="addressForm"/>
+        <addressForm class="addressForm"
+        ref="addressForm"
+        />
         <input
           type="submit" 
           value="회원가입"
@@ -81,7 +85,11 @@ export default {
         userpwdconfirmation: "",
         username: "",
         phone: "",
-        address: "",
+        address: {
+          baseAddr: "",
+          extraAddr: "",
+          postcode: "",
+        },
       }
     }
   },
@@ -90,7 +98,9 @@ export default {
   methods: {
     onSubmit: function () {
       this.checkPassword()
+      // 주소정보 업데이트
       if (this.issamepassword) {
+        this.updateAddress()
         // 회원가입 진행
         this.store.dispatch("userStore/register", this.credentials)
       }
@@ -106,6 +116,14 @@ export default {
     resetPassword: function () {
         this.credentials.userpwd = ""
         this.credentials.userpwdconfirmation = ""
+    },
+    updateAddress: function () {
+      this.credentials.address.baseAddr = this.$refs.addressForm.address
+      this.credentials.address.extraAddr = this.$refs.addressForm.extraAddr
+      this.credentials.address.postcode = this.$refs.addressForm.postcode
+      if (this.$refs.addressForm.detailAddress) {
+        this.credentials.address.baseAddr += ' ' + this.$refs.addressForm.detailAddress
+      }
     }
   },
 }
