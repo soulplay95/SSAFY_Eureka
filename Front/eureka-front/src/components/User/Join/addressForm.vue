@@ -34,7 +34,7 @@ export default {
   name: "addressForm",
   data() {
     return {
-      address: '2',
+      address: '',
       extraAddr: '',
       postcode: '',
     }
@@ -43,12 +43,12 @@ export default {
     getAddress() {
       console.log(this.address)
       new window.daum.Postcode({
-        oncomplete: function(userData) {
-          console.log('내부', this.address)
+        oncomplete: (userData) => {
+          console.log(userData.zonecode)
           if (userData.userSelectedType === 'R') {
-            this.addr = userData.roadAddress
+            this.address = userData.roadAddress
           } else {
-            this.addr = userData.jibunAddress
+            this.address = userData.jibunAddress
           }
           // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
           if (userData.userSelectedType === 'R') {
@@ -61,11 +61,9 @@ export default {
             if (this.extraAddr !== ''){
               this.extraAddr = ' (' + this.extraAddr + ')'
             }
-            this.postcode = userData.zonecode
-            console.log('끝', this.address)
-            // console.log(this.$refs.detailAddress)
-            // this.$refs.detailAddress.focus()
           }
+          this.postcode = userData.zonecode
+          this.$refs.detailAddress.focus()
         }
       }).open()
     }
