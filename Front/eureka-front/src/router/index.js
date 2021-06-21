@@ -10,10 +10,10 @@ import MyPage from '@/views/User/MyPage.vue';
 import UserModify from '@/views/User/UserModify.vue';
 import SearchId from '@/views/User/SearchId.vue';
 import SearchPassword from '@/views/User/SearchPassword.vue';
-
 // 장바구니
 import CartView from '@/views/Cart/CartView.vue';
-
+// 주문결제
+import OrderView from '@/views/Order/OrderView.vue';
 // 관리자
 import AdminProfile from '@/views/Admin/AdminProfile.vue';
 import AdminUserList from '@/views/Admin/AdminUserList.vue';
@@ -75,6 +75,11 @@ const routes = [
     path: '/cart',
     name: 'CartView',
     component: CartView,
+  },
+  {
+    path: '/order',
+    name: 'OrderView',
+    component: OrderView,
   },
   /* ------------------------ 관리자 ------------------------ */
   // 관리자 화면 Home - 관리자 정보
