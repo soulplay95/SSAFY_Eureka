@@ -11,6 +11,8 @@ public class Review {
 	String review_img;
 	String member_userid;
 	String product_id;
+	String orderbycol;
+	boolean isAsc;
 	
 	public Review(int review_id, String review_title, String review_content, String review_rating, String review_date,
 			String review_liked, String review_img, String member_userid, String product_id) {

@@ -15,9 +15,11 @@ public interface ProductDao {
 
 	List<Product> showItemList(String category);
 
+	List<Product> getCategoryTopList(String product_category);
+
 	Product getProduct(String product_id);
-	Productqna getProductqna(String product_id);
-	Review getReview(String product_id);
+	List<Productqna> getProductqna(String product_id);
+	List<Review> getReview(String product_id);
 
 	int registProduct(Product product);
 
