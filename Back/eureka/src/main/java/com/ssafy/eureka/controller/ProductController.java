@@ -47,6 +47,15 @@ public class ProductController {
 		return null;
 	}
 	
+	@GetMapping("/categorytops/{category}")
+	@ApiOperation(value = "카테고리별 상품추천", notes = "미정", response = List.class)
+	private ResponseEntity<List<Product>> categoryTopList(@PathVariable String category) {
+		
+		List<Product> list = service.categoryTopList(category);
+		
+		return null;
+	}
+	
 	@GetMapping("/detailview/{product_id}")
 	@ApiOperation(value = "상품상세정보", notes = "상품클릭시 product_id를 전달받아 해당product_id의 ProductDto, Review, Qna반환", response = Map.class)
 	private ResponseEntity<Map<String, Object>> showDetail(@PathVariable String product_id) {

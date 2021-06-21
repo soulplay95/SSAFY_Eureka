@@ -7,5 +7,6 @@
 		 <mapper resource="mappers/product.xml"/>
 		 <mapper resource="mappers/order.xml"/>
 		 <mapper resource="mappers/qna.xml"/>
+		 <mapper resource="mappers/review.xml"/>
 	</mappers>
 </configuration>

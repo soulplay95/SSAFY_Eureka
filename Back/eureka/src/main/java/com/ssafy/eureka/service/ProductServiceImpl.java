@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
 	public Map<String, Object> showDetail(String product_id) {
 
 		Product p = dao.getProduct(product_id);
-		Productqna pq = dao.getProductqna(product_id);
-		Review r = dao.getReview(product_id);
+		List<Productqna> pq = dao.getProductqna(product_id);
+		List<Review> r = dao.getReview(product_id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("product", p);
 		map.put("productqna", pq);
@@ -60,6 +60,11 @@ public class ProductServiceImpl implements ProductService {
 	public int deleteProduct(String product_id) {
 
 		return dao.deleteProduct(product_id);
+	}
+
+	@Override
+	public List<Product> categoryTopList(String category) {
+		return dao.getCategoryTopList(category);
 	}
 
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.eureka.dao.ReviewDao">
+
+
+	<select id="getReviewDetail" resultType="review">
+		SELECT *
+		FROM review r
+		WHERE Review_id=#{review_id};
+	</select>
+	
+	<select id="getReviewList" parameterType="map" resultType="review">
+		SELECT *
+		FROM review
+		WHERE product_id=#{product_id}
+		<if test="orderbycol != null">
+			ORDER BY #{orderbycol} #{isAsc}	
+		</if>
+	</select>
+	
+	<insert id="registReview" parameterType="review">
+		INSERT INTO `review` (review_title, review_content,review_date, review_rating, review_liked, review_img, member_userid, product_id) 
+		VALUES (#{review_title}, #{review_content},now() ,#{review_rating}, "0", #{review_img}, #{member_userid}, #{product_id});
+	</insert>
+
+	<update id="modifyReview"  parameterType="review">
+		UPDATE review 
+		SET review_title = #{review_title},
+		 review_content =  #{review_content}, 
+		 review_rating = #{review_rating}, 
+		 review_liked = #{review_liked}, 
+		 review_img = #{review_img}, 
+		 member_userid = #{member_userid}
+		 WHERE review_id = #{review_id}
+	</update>
+	
+	<update id="likedReview"  parameterType="String">
+		UPDATE review SET review_liked = review_liked+1
+		WHERE review_id = #{review_id};
+	</update>
+
+	<delete id="deleteReview" parameterType="String">
+		DELETE FROM review
+		WHERE review_id = #{review_id}
+	</delete>
+
+</mapper>
