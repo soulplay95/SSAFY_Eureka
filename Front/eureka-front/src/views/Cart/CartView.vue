@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .container {
   max-width: 1500px; /* 최대 너비 지정 */
 }

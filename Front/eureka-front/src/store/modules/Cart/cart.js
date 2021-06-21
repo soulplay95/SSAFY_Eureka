@@ -11,7 +11,7 @@ export const cart = {
         id: 1,
         image: 'https://picsum.photos/720/960/?image=476',
         title: '비비고 열무김치',
-        price: 750020,
+        price: 75000,
         badge: 'new',
         quantity: 1,
         deliveryCharge: 2500,

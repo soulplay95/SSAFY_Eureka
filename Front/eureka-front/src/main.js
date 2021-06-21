@@ -1,11 +1,16 @@
 // import Vue from 'vue'
-import { createApp } from 'vue';
+import 'bootstrap';
 import App from './App.vue';
-import router from './router';
 import store from './store';
+import router from './router';
+import { createApp } from 'vue';
+
+//sidebar
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+
 // import bootstrap5
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
 
@@ -34,4 +39,4 @@ app.config.globalProperties.$filters = {
 };
 
 app.use(store).use(router).mount('#app');
-
+app.use(VueSidebarMenu)

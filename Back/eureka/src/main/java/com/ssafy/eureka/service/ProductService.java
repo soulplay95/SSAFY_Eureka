@@ -20,5 +20,7 @@ public interface ProductService {
 	int modifyProduct(Product product);
 
 	int deleteProduct(String product_id);
+
+	List<Product> categoryTopList(String category);
 	
 }
