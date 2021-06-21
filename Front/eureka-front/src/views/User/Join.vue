@@ -77,7 +77,6 @@ export default {
   },
   data() {
     return {
-      issamepassword: false,
       credentials: {
         // 명칭 재정의 필요
         userid: "",
@@ -90,7 +89,8 @@ export default {
           extraAddr: "",
           postcode: "",
         },
-      }
+      },
+      issamepassword: false,
     }
   },
   // 비밀번호와 비밀번호 확인은 local에서 처리
@@ -98,13 +98,13 @@ export default {
   methods: {
     onSubmit: function () {
       this.checkPassword()
-      // 주소정보 업데이트
       if (this.issamepassword) {
         this.updateAddress()
         // 회원가입 진행
         this.store.dispatch("userStore/register", this.credentials)
       }
     },
+    // password 일치하는 지 체크
     checkPassword: function () {
       if (this.credentials.userpwd !== this.credentials.userpwdconfirmation) {
         this.resetPassword()
@@ -113,10 +113,12 @@ export default {
         this.issamepassword = true
       }
     },
+    // 패스워드 입력창 초기화
     resetPassword: function () {
         this.credentials.userpwd = ""
         this.credentials.userpwdconfirmation = ""
     },
+    // 주소 업데이트
     updateAddress: function () {
       this.credentials.address.baseAddr = this.$refs.addressForm.address
       this.credentials.address.extraAddr = this.$refs.addressForm.extraAddr
