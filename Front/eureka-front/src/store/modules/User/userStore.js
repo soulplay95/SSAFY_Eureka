@@ -6,9 +6,9 @@
 // action은 store.dispatch("moduleName/actionName", params)으로 부릅니다. `
 
 
+import axios from 'axios'
 
 // index.js에서 import 필요
-
 export const userStore = {
   namespaced: true,
   state: {
@@ -19,7 +19,7 @@ export const userStore = {
   },
   mutations: {
     SET_AUTH (state, data) {
-      // 백엔드 변수명 확인 필요
+      // userid, name, phone, address 정보 받아옴
       state.user = data.user
       state.isAuthenticated = true
       window.localStorage.setItem('refreshToken', data.refreshToken)
@@ -28,6 +28,7 @@ export const userStore = {
   },
   actions: {
     register (commit, credentials) {
+      console.log(credentials)
       axios({
         // 백엔드에 전달할 변수명 확인 필요
         method: 'post',
@@ -43,10 +44,23 @@ export const userStore = {
         alert(err)
       })
     },
-    getters: {
-      isAuthenticated(state) {
-        state.isAuthenticated
-      }
+    login (commit, credentials) {
+      console.log(credentials)
+      axios({
+        methods: 'get',
+        url: 'siteurl',
+        data: {
+          credentials
+        }
+      })
+      .then((res) => {
+        commit("SET_AUTH", res.data)
+      })
+    }
+  },
+  getters: {
+    isAuthenticated(state) {
+      return state.isAuthenticated
     }
   },
   modules: {},

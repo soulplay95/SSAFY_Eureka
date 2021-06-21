@@ -6,6 +6,9 @@ import store from './store';
 // import bootstrap5
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
+// import axios
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 
 
@@ -28,4 +31,4 @@ app.config.globalProperties.$filters = {
   },
 };
 
-app.use(store).use(router).mount('#app');
+app.use(store).use(router).use(VueAxios, axios).mount('#app');

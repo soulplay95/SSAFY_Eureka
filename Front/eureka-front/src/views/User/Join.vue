@@ -24,7 +24,7 @@
         />
         <!-- 비밀번호 확인 -->
         <input
-          v-model="credentials.userpwdconfirmation"
+          v-model="userpwdconfirmation"
           type="password"
           minlength="8"
           placeholder="비밀번호 확인"
@@ -33,7 +33,7 @@
         />
         <!-- 이름 -->
         <input 
-          v-model="credentials.username" 
+          v-model="credentials.name" 
           type="text" 
           placeholder="이름"
           
@@ -81,8 +81,7 @@ export default {
         // 명칭 재정의 필요
         userid: "",
         userpwd: "",
-        userpwdconfirmation: "",
-        username: "",
+        name: "",
         phone: "",
         address: {
           baseAddr: "",
@@ -90,13 +89,14 @@ export default {
           postcode: "",
         },
       },
+      userpwdconfirmation: "",
       issamepassword: false,
     }
   },
   // 비밀번호와 비밀번호 확인은 local에서 처리
   // 이후, 가입은 vuex에서 처리
   methods: {
-    onSubmit: function () {
+    onSubmit() {
       this.checkPassword()
       if (this.issamepassword) {
         this.updateAddress()
@@ -105,8 +105,8 @@ export default {
       }
     },
     // password 일치하는 지 체크
-    checkPassword: function () {
-      if (this.credentials.userpwd !== this.credentials.userpwdconfirmation) {
+    checkPassword() {
+      if (this.credentials.userpwd !== this.userpwdconfirmation) {
         this.resetPassword()
         alert("입력하신 비밀번호가 다릅니다!")
       } else {
@@ -114,12 +114,12 @@ export default {
       }
     },
     // 패스워드 입력창 초기화
-    resetPassword: function () {
+    resetPassword() {
         this.credentials.userpwd = ""
-        this.credentials.userpwdconfirmation = ""
+        this.userpwdconfirmation = ""
     },
     // 주소 업데이트
-    updateAddress: function () {
+    updateAddress() {
       this.credentials.address.baseAddr = this.$refs.addressForm.address
       this.credentials.address.extraAddr = this.$refs.addressForm.extraAddr
       this.credentials.address.postcode = this.$refs.addressForm.postcode

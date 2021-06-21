@@ -2,6 +2,8 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/user/join">Join</router-link>
+    |
+    <router-link to="/user/login">Login</router-link>
   </div>
   <router-view />
 </template>
