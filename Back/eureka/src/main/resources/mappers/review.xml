@@ -15,7 +15,7 @@
 		FROM review
 		WHERE product_id=#{product_id}
 		<if test="orderbycol != null">
-			ORDER BY #{orderbycol} #{isAsc}	
+			ORDER BY cast(${orderbycol} as unsigned)  ${isAsc}	
 		</if>
 	</select>
 	
