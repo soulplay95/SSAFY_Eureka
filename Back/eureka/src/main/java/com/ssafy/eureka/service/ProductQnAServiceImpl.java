@@ -7,37 +7,39 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ssafy.eureka.dao.ProductQnADao;
 import com.ssafy.eureka.dao.QnADao;
+import com.ssafy.eureka.dto.Productqna;
 import com.ssafy.eureka.dto.QnA;
 
 @Service
-public class QnAServiceImpl implements QnAService {
+public class ProductQnAServiceImpl implements ProductQnAService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(QnAServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductQnAServiceImpl.class);
 	
 	@Autowired
-	QnADao dao;
+	ProductQnADao dao;
 
 	@Override
-	public List<QnA> retrieveQnA() {
+	public List<Productqna> retrieveQnA() {
 		logger.debug("retrieveQnA service - 호출 ");
 		return dao.retrieveQnA();
 	}
 
 	@Override
-	public QnA QnADetail(int no) {
+	public Productqna QnADetail(int no) {
 		logger.debug("QnADetail service - 호출 ");
 		return dao.QnADetail(no);
 	}
 
 	@Override
-	public int writeQnA(QnA qna) {
+	public int writeQnA(Productqna qna) {
 		logger.debug("writeQnA service - 호출 ");
 		return dao.writeQnA(qna);
 	}
 
 	@Override
-	public int modifyQnA(QnA qna) {
+	public int modifyQnA(Productqna qna) {
 		logger.debug("modifyQnA service - 호출 ");
 		return dao.modifyQnA(qna);
 	}
@@ -49,12 +51,12 @@ public class QnAServiceImpl implements QnAService {
 	}
 
 	@Override
-	public int writeComment(QnA qna) {
+	public int writeComment(Productqna qna) {
 		return dao.writeComment(qna);
 	}
 
 	@Override
-	public int modifyComment(QnA qna) {
+	public int modifyComment(Productqna qna) {
 		return dao.modifyComment(qna);
 	}
 

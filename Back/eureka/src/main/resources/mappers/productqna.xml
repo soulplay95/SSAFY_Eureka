@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.eureka.dao.ProductQnADao">
+
+	<select id="QnADetail" resultType="productqna">
+		SELECT *
+		FROM productqna q
+		WHERE pqna_id=#{pqna_id};
+	</select>
+	
+	<select id="retrieveQnA" parameterType="map" resultType="productqna">
+		SELECT *
+		FROM productqna
+	</select>
+	
+	<insert id="writeQnA" parameterType="qna">
+		INSERT INTO `productqna` (pqna_qtitle, pqna_qcontent, pqna_qdate, member_userid, product_id ) 
+		VALUES (#{pqna_qtitle}, #{pqna_qcontent},now(),#{member_userid}, #{product_id});
+	</insert>
+
+	<update id="modifyQnA"  parameterType="qna">
+		UPDATE productqna 
+		SET pqna_qtitle = #{pqna_qtitle},
+		 pqna_qcontent =  #{pqna_qcontent}
+		 WHERE pqna_id = #{pqna_id}
+	</update>
+
+	<delete id="deleteQnA">
+		DELETE FROM productqna
+		WHERE pqna_id = #{pqna_id}
+	</delete>
+	
+	<update id="writeComment" parameterType="productqna">
+		UPDATE productqna 
+		SET pqna_acontent = #{pqna_acontent}, pqna_adate = now()
+		WHERE pqna_id = #{pqna_id}
+	</update>
+
+	<update id="modifyComment"  parameterType="productqna">
+		UPDATE productqna 
+		SET pqna_acontent = #{pqna_acontent}
+		WHERE pqna_id = #{pqna_id}
+	</update>
+
+	<delete id="deleteComment">
+		UPDATE productqna 
+		SET  pqna_adate =  null,
+		 pqna_acontent =  null
+		 WHERE pqna_id = #{pqna_id}
+	</delete>
+
+</mapper>
+
+
+
+
+
+
+

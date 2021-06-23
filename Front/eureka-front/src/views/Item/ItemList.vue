@@ -13,25 +13,56 @@
       <div class="col-sm-6 col-md-8">
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <ItemListCard v-for="card in 15" :key="card"/>
+          <!-- <ItemListCard v-for="(item, idx) in len(searchItems)"
+          :key=idx
+          :itemId="item.item_id"
+          /> -->
         </div>
       </div>
     </div>
+    <Pagination 
+    v-model="page" 
+    :records="500" 
+    :per-page="25" 
+    @paginate="myCallback"
+    />
   </div>
 </template>
 
 <script>
+// import axios from 'axios'
 import NavBar from '@/components/Bar/NavBar'
 import ItemListCard from '@/components/Item/ItemListCard'
+import Pagination from 'v-pagination-3';
 
 export default {
   components: {
     NavBar,
     ItemListCard,
+    Pagination,
   },
   data: function() {
     return {
+      searchItems: this.$store.state.itemStore.searchItems,
       searchText: this.$store.state.itemStore.searchText,
+      page: 1
     }
+  },
+  methods: {
+  },
+
+  created() {
+    // axios({
+    //     method: 'get',
+    //     url: `http://127.0.0.1:8000/movies/${this.movie.movie_id}/likes/`,
+    //     headers: this.token,
+    //   })
+    //   .then(res => {
+    //     this.liked = res.data.liked
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
   }
 }
 </script>

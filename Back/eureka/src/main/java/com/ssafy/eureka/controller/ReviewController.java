@@ -59,7 +59,7 @@ public class ReviewController {
 	}
 	
 	@PostMapping("/list")
-	@ApiOperation(value = "리뷰 리스트", notes = "product_id, orderbycol, isAsc를  Map 형태로 전달받아 해당 product_id의 review객체들을 리스트 형식으로 반환한다.")
+	@ApiOperation(value = "리뷰 리스트", notes = "product_id, 정렬기준 컬럼인 orderbycol, asc/desc 중 하나의 값을 갖는 isAsc를  Map 형태로 전달받아 해당 product_id의 review객체들을 리스트 형식으로 반환한다.")
 	private ResponseEntity<List<Review>> getReviewList(@RequestBody Map<String, String> map){
 		logger.debug("getReviewList 호출 : ");
 		List<Review> list = service.getReviewList(map);
