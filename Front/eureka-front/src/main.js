@@ -42,6 +42,5 @@ app.use(store).use(router).mount('#app');
 app.use(VueAxios, axios)
 app.use(store)
   .use(router)
-  .use(VueSidebarMenu)
   .use(VueAxios, axios)
   .mount('#app');
