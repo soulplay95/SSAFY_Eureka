@@ -1,15 +1,22 @@
 // import Vue from 'vue'
-import { createApp } from 'vue';
+
+import 'bootstrap';
 import App from './App.vue';
-import router from './router';
 import store from './store';
+import router from './router';
+import { createApp } from 'vue';
+
+//sidebar
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+
 // import bootstrap5
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
-// import axios
+// import moment => 날짜 형식 출력을 위한
+import moment from 'moment';
+// import axios , 추후 사용 방법 논의 필요
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-
 
 
 const app = createApp(App);
@@ -29,6 +36,16 @@ app.config.globalProperties.$filters = {
     if (!value || !(value.length === 10 || value.length === 11)) return value;
     return value.replace(/^(\d{3})(\d{3,4})(\d{4})/g, '$1-$2-$3');
   },
+
+  // 날짜 필터 ex) YYYY.MM.DD
+  date(value) {
+    return moment(new Date(value)).format('YYYY.MM.DD');
+  },
 };
 
-app.use(store).use(router).use(VueAxios, axios).mount('#app');
+app.use(store)
+  .use(router)
+  .use(VueSidebarMenu)
+  .use(VueAxios, axios)
+  .mount('#app');
+   

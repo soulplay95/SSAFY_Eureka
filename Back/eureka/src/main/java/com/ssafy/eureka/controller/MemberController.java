@@ -71,25 +71,35 @@ public class MemberController {
 		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
 	
-	@ApiOperation(value = "회원 조회", notes = "해당 회원의 정보를 반환합니다.")
-	@PostMapping("/info")
-	public ResponseEntity<Map<String,Object>> memberInfo(HttpServletRequest req, @RequestBody Member member){
-		Map<String,Object> resultMap = new HashMap<>();
-		HttpStatus status = null;
-		try {
-			String info = service.getServerInfo();
-			resultMap.putAll(jwtService.get(req.getHeader("jwt-auth-token")));
-			
-			resultMap.put("status", true);
-			resultMap.put("info", info);
-			resultMap.put("request_body", member);
-			status = HttpStatus.ACCEPTED;
-		}catch(RuntimeException e) {
-			resultMap.put("message", e.getMessage());
-			status = HttpStatus.INTERNAL_SERVER_ERROR;
+	@ApiOperation(value = "로그아웃", notes = "해당 아이디의 정보로 로그아웃 합니다.")
+	@GetMapping("/{userid}")
+	private ResponseEntity<String> logout(@PathVariable("userid") String userid) {
+		if(service.logout(userid) == 1) {
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<Map<String,Object>>(resultMap, status);
 	}
+	
+//	@ApiOperation(value = "회원 조회", notes = "해당 회원의 정보를 반환합니다.")
+//	@PostMapping("/info")
+//	public ResponseEntity<Map<String,Object>> memberInfo(HttpServletRequest req, @RequestBody Member member){
+//		Map<String,Object> resultMap = new HashMap<>();
+//		HttpStatus status = null;
+//		try {
+//			String info = service.getServerInfo();
+//			resultMap.putAll(jwtService.get(req.getHeader("jwt-auth-token")));
+//			
+//			resultMap.put("status", true);
+//			resultMap.put("info", info);
+//			resultMap.put("request_body", member);
+//			status = HttpStatus.ACCEPTED;
+//		}catch(RuntimeException e) {
+//			resultMap.put("message", e.getMessage());
+//			status = HttpStatus.INTERNAL_SERVER_ERROR;
+//		}
+//		return new ResponseEntity<Map<String,Object>>(resultMap, status);
+//	}
 
 
 //	@ApiOperation(value = "회원 조회", notes = "해당 회원의 정보를 반환합니다.")

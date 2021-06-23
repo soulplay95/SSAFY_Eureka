@@ -3,54 +3,54 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.eureka.dao.QnADao">
 
-	<select id="selectDeals" resultType="houseDeal"><!-- 파라미터 : gugun -->
-		select * 
-		from ( 	select * 
-				from housedeal h
-				where h.gugunCode = (	SELECT DISTINCT SUBSTR(dongcode, 1, 5) 
-										FROM dongcode	 
-										WHERE gugun=#{gugun}	)
-				order by h.aptName,
-				CAST(h.dealYear AS UNSIGNED) desc,
-				CAST(h.dealMonth AS UNSIGNED) desc,
-				CAST(h.dealDay AS UNSIGNED) desc
-				LIMIT 18446744073709551615 ) AS resort
-		group by resort.aptName
-		order by (CASE
-		WHEN ASCII(SUBSTRING(resort.aptName,1)) BETWEEN 48 AND 57 THEN 3 
-		WHEN ASCII(SUBSTRING(resort.aptName,1)) &lt; 128 THEN 2 ELSE 1 END), resort.aptName
+	<select id="QnADetail" resultType="qna">
+		SELECT *
+		FROM qna q
+		WHERE qna_id=#{qna_id};
 	</select>
-		
-	<select id="selectApts" parameterType="map" resultType="houseDeal"><!-- 파라미터 : gugun, dong, aptName -->
-		select *
-		from housedeal
-		where gugunCode = (	SELECT DISTINCT SUBSTR(dongcode, 1, 5) 
-							FROM dongcode	 
-							WHERE gugun=#{gugun}	) AND dong = #{dong} AND aptName = #{aptName}
-		order by
-		CAST(dealYear AS UNSIGNED) desc,
-		CAST(dealMonth AS UNSIGNED) desc,
-		CAST(dealDay AS UNSIGNED) desc
-	</select>	
-
-	<insert id="insertQuestion">
-		INSERT INTO qnaboard
-		(qnaboardid, userid, qnatitle, qnacontent, qna_timestamp)
-		VALUES (null, #{userid}, #{qnatitle}, #{qnacontent}, now());
+	
+	<select id="retrieveQnA" parameterType="map" resultType="qna">
+		SELECT *
+		FROM qna
+	</select>
+	
+	<insert id="writeQnA" parameterType="qna">
+		INSERT INTO `qna` (qna_qtitle, qna_qcontent, qna_category, qna_qdate, member_userid ) 
+		VALUES (#{qna_qtitle}, #{qna_qcontent},#{qna_category},now(),#{member_userid});
 	</insert>
 
-	<update id="updateQuestion">
-		UPDATE qnaboard
-		SET qnatitle = #{qnatitle}, qnacontent = #{qnacontent}
-		WHERE qnaboardid = #{qnaboardid};
+	<update id="modifyQnA"  parameterType="qna">
+		UPDATE qna 
+		SET qna_qtitle = #{qna_qtitle},
+		 qna_qcontent =  #{qna_qcontent}, 
+		 qna_category = #{qna_category}
+		 WHERE qna_id = #{qna_id}
 	</update>
-	
-	<delete id="deleteQuestion">
-		DELETE FROM qnaboard
-		WHERE qnaboardid = #{qnaboardid}
+
+	<delete id="deleteQnA">
+		DELETE FROM qna
+		WHERE qna_id = #{qna_id}
 	</delete>
 	
-	
+	<update id="writeComment" parameterType="qna">
+		UPDATE qna 
+		SET qna_acontent =  #{qna_acontent},
+		qna_adate = now()
+		 WHERE qna_id = #{qna_id}
+	</update>
+
+	<update id="modifyComment"  parameterType="qna">
+		UPDATE qna 
+		SET qna_acontent =  #{qna_acontent}
+		WHERE qna_id = #{qna_id}
+	</update>
+
+	<delete id="deleteComment">
+		UPDATE qna 
+		SET qna_adate =  null,
+		 qna_acontent =  null
+		 WHERE qna_id = #{qna_id}
+	</delete>
 
 </mapper>
 
