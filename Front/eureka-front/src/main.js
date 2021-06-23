@@ -1,4 +1,5 @@
 // import Vue from 'vue'
+
 import 'bootstrap';
 import App from './App.vue';
 import store from './store';
@@ -30,6 +31,7 @@ app.config.globalProperties.$filters = {
     if (!value || !(value.length === 10 || value.length === 11)) return value;
     return value.replace(/^(\d{3})(\d{3,4})(\d{4})/g, '$1-$2-$3');
   },
+
   // 날짜 필터 ex) YYYY.MM.DD
   date(value) {
     return moment(new Date(value)).format('YYYY.MM.DD');
@@ -38,3 +40,8 @@ app.config.globalProperties.$filters = {
 
 app.use(store).use(router).mount('#app');
 app.use(VueAxios, axios)
+app.use(store)
+  .use(router)
+  .use(VueSidebarMenu)
+  .use(VueAxios, axios)
+  .mount('#app');

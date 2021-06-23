@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.eureka.dto.Comment;
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.dto.Productqna;
 import com.ssafy.eureka.dto.QnA;
+import com.ssafy.eureka.service.ProductQnAService;
 import com.ssafy.eureka.service.QnAService;
 
 import io.swagger.annotations.Api;
@@ -30,33 +32,33 @@ import io.swagger.annotations.ApiResponse;
 
 @RestController
 @CrossOrigin(origins = { "*" }, maxAge = 6000)
-@RequestMapping("/qna")
+@RequestMapping("/pqna")
 @Api(value = "eureka")
-public class QnAController {
+public class ProductQnAController {
 
-	private static final Logger logger = LoggerFactory.getLogger(QnAController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductQnAController.class);
 	//logger.debug("join - 호출");
 	
 	@Autowired
-	private QnAService service;
+	private ProductQnAService service;
 	
-    @ApiOperation(value ="모든 QnA 리스트", notes = "모든 QnA의 정보를 반환한다.", response = List.class)
+    @ApiOperation(value ="모든 ProductQnA 리스트", notes = "모든 ProductQnA의 정보를 반환한다.", response = List.class)
 	@GetMapping
-	public ResponseEntity<List<QnA>> retrieveQnA() throws Exception {
+	public ResponseEntity<List<Productqna>> retrieveQnA() throws Exception {
     	logger.debug("retrieveQnA - 호출");
-		return new ResponseEntity<List<QnA>>(service.retrieveQnA(), HttpStatus.OK);
+		return new ResponseEntity<List<Productqna>>(service.retrieveQnA(), HttpStatus.OK);
 	}
 
-    @ApiOperation(value ="QnA 정보", notes =  "글번호에 해당하는 QnA의 정보를 반환한다.", response = QnA.class)
+    @ApiOperation(value ="Productqna 정보", notes =  "글번호에 해당하는 Product QnA의 정보를 반환한다.", response = QnA.class)
 	@GetMapping("{no}")
-	public ResponseEntity<QnA> QnADetail(@PathVariable int no) {
+	public ResponseEntity<Productqna> QnADetail(@PathVariable int no) {
     	logger.debug("QnADetail - 호출");
-    	return new ResponseEntity<QnA>(service.QnADetail(no), HttpStatus.OK);
+    	return new ResponseEntity<Productqna>(service.QnADetail(no), HttpStatus.OK);
 	}
 
-    @ApiOperation(value = "QnA 등록", notes = "새로운 QnA 정보를 입력한다.", response = String.class)
+    @ApiOperation(value = "ProductQnA 등록", notes = "새로운Product QnA 정보를 입력한다.", response = String.class)
 	@PostMapping
-	public ResponseEntity<String> writeQnA(@RequestBody QnA QnA) {
+	public ResponseEntity<String> writeQnA(@RequestBody Productqna QnA) {
     	logger.debug("writeQnA - 호출");
     	if(service.writeQnA(QnA) == 1) {
     		return new ResponseEntity<String>(HttpStatus.OK);
@@ -64,9 +66,9 @@ public class QnAController {
     	return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 
-    @ApiOperation(value = "QnA 수정", notes = "글번호에 해당하는 QnA의 정보를 수정한다.", response = String.class)
+    @ApiOperation(value = "ProductQnA 수정", notes = "글번호에 해당하는 ProductQnA의 정보를 수정한다.", response = String.class)
 	@PutMapping("{no}")
-	public ResponseEntity<String> updateQnA(@RequestBody QnA QnA) {
+	public ResponseEntity<String> updateQnA(@RequestBody Productqna QnA) {
     	logger.debug("updateQnA - 호출");
     	if(service.modifyQnA(QnA) == 1) {
     		return new ResponseEntity<String>(HttpStatus.OK);
@@ -74,7 +76,7 @@ public class QnAController {
     	return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
     }
 
-    @ApiOperation(value = "QnA 삭제", notes = "글번호에 해당하는 QnA의 정보를 삭제한다.", response = String.class)
+    @ApiOperation(value = "ProductQnA 삭제", notes = "글번호에 해당하는 ProductQnA의 정보를 삭제한다.", response = String.class)
 	@DeleteMapping("{no}")
 	public ResponseEntity<String> deleteQnA(@PathVariable int no) {
     	logger.debug("writeQnA - 호출");
@@ -86,7 +88,7 @@ public class QnAController {
 
 	@ApiOperation(value = "답글 등록", notes = "새로운 답글 정보를 입력한다.", response = String.class)
 	@PostMapping("/comment")
-	public ResponseEntity<String> writeComment( @RequestBody QnA QnA) {
+	public ResponseEntity<String> writeComment( @RequestBody Productqna QnA) {
 		logger.debug("writeComment - 호출");
     	if(service.writeComment(QnA) == 1) {
     		return new ResponseEntity<String>(HttpStatus.OK);
@@ -96,7 +98,7 @@ public class QnAController {
 
 	@ApiOperation(value = "답글 수정", notes = "글번호에 해당하는 답글의 정보를 수정한다.", response = String.class)
 	@PutMapping("/comment/{no}")
-	public ResponseEntity<String> updateComment(@RequestBody QnA QnA) {
+	public ResponseEntity<String> updateComment(@RequestBody Productqna QnA) {
 		logger.debug("updateComment - 호출");
     	if(service.modifyComment(QnA) == 1) {
     		return new ResponseEntity<String>(HttpStatus.OK);

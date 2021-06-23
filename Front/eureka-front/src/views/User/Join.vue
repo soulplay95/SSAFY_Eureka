@@ -1,112 +1,160 @@
 <template>
   <div>
     <h1>회원가입 페이지!</h1>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit()">
       <fieldset>
+        <!-- id camelCase? kebab-case? -->
         <!-- 아이디 -->
-        <label for="userId">아이디(이메일)</label>
         <input
-          v-model="userid"
+          v-model="credentials.userid"
           type="email"
-          id="userId"
-          placeholder="ex) abcdefg@naver.com"
+          placeholder="아이디(이메일)"
+          autocomplete="email"
+          pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
+          
         />
         <!-- 비밀번호 -->
-        <label for="userPassword">비밀번호(최소 8자 이상)</label>
         <input
-          v-model="userpwd"
+          v-model="credentials.userpwd"
           type="password"
-          id="userPassword"
           minlength="8"
+          placeholder="비밀번호"
+          autocomplete="new-password"
+          
         />
-        <!-- 비밀번호 -->
-        <label for="userPasswordConfirmation">비밀번호 확인</label>
+        <!-- 비밀번호 확인 -->
         <input
           v-model="userpwdconfirmation"
           type="password"
-          id="userPasswordConfirmation"
           minlength="8"
+          placeholder="비밀번호 확인"
+          autocomplete="new-password"
+          
         />
         <!-- 이름 -->
-        <label for="username">이름</label>
-        <input v-model="username" type="text" id="username" />
+        <input 
+          v-model="credentials.name" 
+          type="text" 
+          placeholder="이름"
+          
+        />
         <!-- 연락처 -->
-        <label for="userPhoneNumber">연락처</label>
         <input
-          v-model="phone"
+          v-model="credentials.phone"
           type="tel"
-          id="userPhoneNumber"
           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-          placeholder="ex) 010-0000-0000"
-          required
+          placeholder="연락처"
+          
         />
         <!-- 주소 -->
-        <label for="userId">주소</label>
-        <input
-          v-model="address"
-          type="email"
-          id="userId"
-          placeholder="ex) abcdefg@naver.com"
+        <addressForm class="addressForm"
+        ref="addressForm"
         />
-        <input type="submit" value="회원가입" />
+        <input
+          type="submit" 
+          value="회원가입"
+        />
       </fieldset>
     </form>
   </div>
 </template>
 
 <script>
+// useStore 훅을 사용하여 store에 접근합니다.
+import addressForm from '@/components/User/Join/addressForm'
+import { useStore } from "vuex";
 // import { mapActions } from 'vuex'
 
 export default {
-  name: 'Join',
+  // vuex 불러오기
+  setup () {
+      const store = useStore();
+      return { store }
+  },
+  name: "Join",
+  components: {
+    addressForm
+  },
   data() {
     return {
-      // 명칭 재정의 필요
-      userid: '',
-      userpwd: '',
-      userpwdconfirmation: '',
-      username: '',
-      phone: '',
-      address: '',
-    };
+      credentials: {
+        // 명칭 재정의 필요
+        userid: "",
+        userpwd: "",
+        name: "",
+        phone: "",
+        address: "",
+        type: "일반"
+      },
+      userpwdconfirmation: "",
+    }
   },
   // 비밀번호와 비밀번호 확인은 local에서 처리
   // 이후, 가입은 vuex에서 처리
   methods: {
-    onSubmit: function () {
-      if (!this.checkPassword()) {
+    onSubmit() {
+      if (this.issamepassword) {
+        this.updateAddress()
         // 회원가입 진행
-        console.log('a');
+        this.store.dispatch("userStore/register", this.credentials)
+      } else {
+        this.resetPassword()
+        alert("입력하신 비밀번호가 다릅니다!")
       }
     },
-  },
-  checkPassword: function () {
-    if (this.userpwd !== this.userpwdconfirmation) {
-      this.resetPassword();
-      alert('입력하신 비밀번호가 다릅니다!');
+    // 패스워드 입력창 초기화
+    resetPassword() {
+        this.credentials.userpwd = ""
+        this.userpwdconfirmation = ""
+    },
+    // 주소 업데이트
+    updateAddress() {
+      let address = ""
+      // 기본 주소
+      address += this.$refs.addressForm.address
+      // 상세주소
+      if (this.$refs.addressForm.detailAddress) {
+        address += ' ' + this.$refs.addressForm.detailAddress
+      // 참고주소
+      address += ' ' + this.$refs.addressForm.extraAddr
+      // 우편번호
+      address += ' ' + this.$refs.addressForm.postcode
+      this.credentials.address = address
+      }
     }
   },
-  resetPassword: function () {
-    this.userpwd = '';
-    this.userpwdconfirmation = '';
-  },
-};
+  computed: {
+    issamepassword() {
+      return Boolean(this.credentials.userpwd === this.userpwdconfirmation)
+    }
+  }
+}
 </script>
-<style>
-fieldset {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  border-radius: 1rem;
-}
+<style scoped>
+  fieldset {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 1rem;
+  }
 
-fieldset * {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-}
+  fieldset * {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+  }
 
-fieldset input {
-  border: 1px solid black;
-  border-radius: 1rem;
-}
+  fieldset input {
+    border: 1px solid black;
+    border-radius: 1rem;
+    margin: 1rem 2rem;
+  }
+
+  fieldset input:focus {
+    outline:none;
+  }
+
+  .addressForm {
+    display: flex;
+  }
+
 </style>
