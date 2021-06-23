@@ -3,6 +3,18 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.eureka.dao.OrderDao">
 
+	<select id="showOrderList" resultType="order">
+		SELECT *
+		FROM temp.order o
+		join temp.orderdetail od
+		WHERE member_userid=#{member_userid};
+	</select>
+	
+	<select id="showOrderDetailList" resultType="orderdetail">
+		SELECT *
+		FROM temp.orderdetail od
+		WHERE order_id=#{order_id};
+	</select>
 
 </mapper>
 

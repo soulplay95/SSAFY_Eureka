@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.eureka.dto.Order;
+import com.ssafy.eureka.dto.OrderDetail;
 
 
 public interface OrderService {
@@ -23,5 +24,7 @@ public interface OrderService {
 	int addWish(Map<String, String> map);
 
 	int deleteWish(String product_id, String member_userid);
+
+	List<OrderDetail> showOrderDetailList(String order_id);
 
 }
