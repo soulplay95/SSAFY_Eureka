@@ -5,14 +5,12 @@ import store from './store';
 import router from './router';
 import { createApp } from 'vue';
 
-//sidebar
-import VueSidebarMenu from 'vue-sidebar-menu'
-import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
-
 // import bootstrap5
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 
 const app = createApp(App);
@@ -39,4 +37,4 @@ app.config.globalProperties.$filters = {
 };
 
 app.use(store).use(router).mount('#app');
-app.use(VueSidebarMenu)
+app.use(VueAxios, axios)

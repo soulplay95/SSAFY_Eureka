@@ -1,6 +1,5 @@
 <template>
   <div>
-    <SideBar/>
     <NavBar/>
     <img :src='pic'>
     <br><br><br><br><br>
@@ -34,7 +33,6 @@
 import pic from '@/assets/food.png'
 import 'vue3-carousel/dist/carousel.css';
 import NavBar from '@/components/Bar/NavBar'
-import SideBar from '@/components/Bar/SideBar'
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
 // import Slide from '@/components/Carousel/Slide'
 
@@ -51,7 +49,6 @@ export default {
     NavBar,
     Carousel,
     Navigation,
-    SideBar,
     // vuePositionSticky,
   },
   
