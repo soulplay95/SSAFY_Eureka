@@ -75,8 +75,21 @@
             </li>
             <li class="nav-item">
               <a class="dropdown-item" href="#"
-                ><router-link to="/cart">장바구니</router-link></a
-              >
+                >
+                <router-link to="/cart">장바구니</router-link>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" href="#"
+                >
+                <router-link to="/user/login">로그인</router-link>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="dropdown-item" href="#"
+                >
+                <router-link to="/user/join">회원가입</router-link>
+              </a>
             </li>
           </ul>
         </div>

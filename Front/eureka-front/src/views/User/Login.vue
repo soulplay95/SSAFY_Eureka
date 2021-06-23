@@ -17,6 +17,8 @@
           autocomplete="password"  
         >
         <input type="submit" value="로그인">
+        <router-link to="/user/search-id">아이디 찾기</router-link>
+        <router-link to="/user/search-password">비밀번호 찾기</router-link>
       </fieldset>
     </form>
   </div>

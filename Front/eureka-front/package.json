@@ -16,6 +16,7 @@
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
     "vue": "^3.1.1",
+    "vue-axios": "^3.2.4",
     "vue-position-sticky": "^0.2.1",
     "vue-router": "^4.0.8",
     "vue-sidebar-menu": "^4.7.4",
