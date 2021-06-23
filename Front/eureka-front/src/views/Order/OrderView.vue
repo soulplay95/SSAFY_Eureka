@@ -3,7 +3,7 @@
     <!-- Header - title -->
     <section
       class="bg-title-page flex-col-c-m"
-      style="background-image: url(https://picsum.photos/1920/239/?image=333)"
+      style="background-image: url(https://picsum.photos/1920/239/?image=1031)"
     >
       <h2 class="l-text2 t-center">주문/결제</h2>
     </section>
