@@ -43,7 +43,6 @@ export default {
   },
   methods:{
     onSubmit() {
-      console.log('t')
       this.store.dispatch('userStore/login', this.credentials)
     }
   },

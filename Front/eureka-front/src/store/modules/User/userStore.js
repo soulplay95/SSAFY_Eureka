@@ -27,18 +27,24 @@ export const userStore = {
     }
   },
   actions: {
-    register (commit, credentials) {
+    register ({commit}, credentials) {
       console.log(credentials)
       axios({
         // 백엔드에 전달할 변수명 확인 필요
-        method: 'post',
-        url: 'site url',
+        method: 'POST',
+        url: 'http://localhost/member',
         data: {
-          credentials
+          member_userid: credentials.userid,
+          member_userpwd: credentials.userpwd,
+          member_name: credentials.name,
+          member_phone: credentials.phone,
+          member_address: credentials.address,
+          member_type: credentials.type,
         }
       })
       .then((res) => {
         commit("SET_AUTH", res.data)
+        console.log(res)
       })
       .catch((err) => {
         alert(err)

@@ -83,34 +83,23 @@ export default {
         userpwd: "",
         name: "",
         phone: "",
-        address: {
-          baseAddr: "",
-          extraAddr: "",
-          postcode: "",
-        },
+        address: "",
+        type: "일반"
       },
       userpwdconfirmation: "",
-      issamepassword: false,
     }
   },
   // 비밀번호와 비밀번호 확인은 local에서 처리
   // 이후, 가입은 vuex에서 처리
   methods: {
     onSubmit() {
-      this.checkPassword()
       if (this.issamepassword) {
         this.updateAddress()
         // 회원가입 진행
         this.store.dispatch("userStore/register", this.credentials)
-      }
-    },
-    // password 일치하는 지 체크
-    checkPassword() {
-      if (this.credentials.userpwd !== this.userpwdconfirmation) {
+      } else {
         this.resetPassword()
         alert("입력하신 비밀번호가 다릅니다!")
-      } else {
-        this.issamepassword = true
       }
     },
     // 패스워드 입력창 초기화
@@ -120,14 +109,25 @@ export default {
     },
     // 주소 업데이트
     updateAddress() {
-      this.credentials.address.baseAddr = this.$refs.addressForm.address
-      this.credentials.address.extraAddr = this.$refs.addressForm.extraAddr
-      this.credentials.address.postcode = this.$refs.addressForm.postcode
+      let address = ""
+      // 기본 주소
+      address += this.$refs.addressForm.address
+      // 상세주소
       if (this.$refs.addressForm.detailAddress) {
-        this.credentials.address.baseAddr += ' ' + this.$refs.addressForm.detailAddress
+        address += ' ' + this.$refs.addressForm.detailAddress
+      // 참고주소
+      address += ' ' + this.$refs.addressForm.extraAddr
+      // 우편번호
+      address += ' ' + this.$refs.addressForm.postcode
+      this.credentials.address = address
       }
     }
   },
+  computed: {
+    issamepassword() {
+      return Boolean(this.credentials.userpwd === this.userpwdconfirmation)
+    }
+  }
 }
 </script>
 <style scoped>
