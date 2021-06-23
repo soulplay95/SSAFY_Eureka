@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.eureka.dao.OrderDao;
 import com.ssafy.eureka.dto.Order;
+import com.ssafy.eureka.dto.OrderDetail;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -55,6 +56,11 @@ public class OrderServiceImpl implements OrderService {
 	public int deleteWish(String product_id, String member_userid) {
 		
 		return dao.deleteWish(product_id, member_userid);
+	}
+
+	@Override
+	public List<OrderDetail> showOrderDetailList(String order_id) {
+		return dao.showOrderDetailList(order_id);
 	}
 
 }
