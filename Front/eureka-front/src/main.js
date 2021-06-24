@@ -1,6 +1,3 @@
-// import Vue from 'vue'
-
-import 'bootstrap';
 import App from './App.vue';
 import store from './store';
 import router from './router';
@@ -11,6 +8,7 @@ import VueSidebarMenu from 'vue-sidebar-menu'
 import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 
 // import bootstrap5
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
