@@ -11,7 +11,7 @@ public class Product {
 	String product_deliveryprice;
 	String product_detailimg;
 	String product_count;
-	String member_userid;
+	String seller_name;
 	public int getProduct_id() {
 		return product_id;
 	}
@@ -72,11 +72,11 @@ public class Product {
 	public void setProduct_count(String product_count) {
 		this.product_count = product_count;
 	}
-	public String getMember_userid() {
-		return member_userid;
+	public String getSeller_name() {
+		return seller_name;
 	}
-	public void setMember_userid(String member_userid) {
-		this.member_userid = member_userid;
+	public void setSeller_name(String seller_name) {
+		this.seller_name = seller_name;
 	}
 	@Override
 	public String toString() {
@@ -84,8 +84,9 @@ public class Product {
 				+ product_category + ", product_price=" + product_price + ", product_img=" + product_img
 				+ ", product_rating=" + product_rating + ", product_brand=" + product_brand + ", product_deliveryprice="
 				+ product_deliveryprice + ", product_detailimg=" + product_detailimg + ", product_count="
-				+ product_count + ", member_userid=" + member_userid + "]";
+				+ product_count + ", seller_name=" + seller_name + "]";
 	}
+	
 	
 	
 }

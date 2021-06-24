@@ -25,9 +25,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> showItemList(String category) {
+	public List<Product> showItemListByCategory(String category) {
 		
-		return dao.showItemList(category);
+		return dao.showItemListByCategory(category);
 	}
 
 	@Override

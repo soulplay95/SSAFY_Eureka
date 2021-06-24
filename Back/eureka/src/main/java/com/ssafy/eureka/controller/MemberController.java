@@ -72,7 +72,7 @@ public class MemberController {
 	}
 	
 	@ApiOperation(value = "로그아웃", notes = "해당 아이디의 정보로 로그아웃 합니다.")
-	@GetMapping("/{userid}")
+	@GetMapping("/logout/{userid}")
 	private ResponseEntity<String> logout(@PathVariable("userid") String userid) {
 		if(service.logout(userid) == 1) {
 			return new ResponseEntity<String>(HttpStatus.OK);
@@ -128,7 +128,7 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원 등록", notes = "입력한 회원 정보를 등록합니다.")
-	@PostMapping
+	@PostMapping("/regist")
 	private ResponseEntity<String> memberJoin(@RequestBody Member member) {
 		if(service.joinMember(member) == 1) {
 			return new ResponseEntity<String>(HttpStatus.OK);
@@ -138,7 +138,7 @@ public class MemberController {
 	}
 
 	@ApiOperation(value = "회원 삭제", notes = "해당 회원의 정보를 삭제합니다.")
-	@DeleteMapping("/{userid}")
+	@DeleteMapping("/delete/{userid}")
 	private ResponseEntity<String> memberDelete(@PathVariable("userid") String userid) {
 		if(service.deleteMember(userid) == 1) {
 			return new ResponseEntity<String>(HttpStatus.OK);
@@ -150,7 +150,7 @@ public class MemberController {
 	@ApiOperation(value = "회원 수정", notes = "입력된 회원 정보로 수정합니다.", response = Member.class)
 	@ApiResponses({ @ApiResponse(code = 200, message = "회원 수정 OK"), @ApiResponse(code = 500, message = "서버 에러"),
 			@ApiResponse(code = 404, message = "페이지 없어") })
-	@PutMapping
+	@PutMapping("/modify")
 	private ResponseEntity<Member> memberModify(@RequestBody Member member) {
 		
 		if(service.modifyMember(member) == 1) {

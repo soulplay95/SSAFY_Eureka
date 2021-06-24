@@ -31,8 +31,8 @@
 	</select>
 	
 	<insert id="registProduct">
-		INSERT INTO `product` (product_name, product_category, product_price, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, member_userid) 
-		VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_img}, #{product_rating}, #{product_brand}, #{product_deliveryprice}, #{product_detailimg}, #{product_count}, #{member_userid});
+		INSERT INTO `product` (product_name, product_category, product_price, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, seller_name) 
+		VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_img}, #{product_rating}, #{product_brand}, #{product_deliveryprice}, #{product_detailimg}, #{product_count}, #{seller_name});
 	</insert>
 	
 
@@ -63,6 +63,12 @@
 		WHERE product_name  LIKE concat('%', #{keyword}, '%')
 		OR product_brand LIKE concat('%', #{keyword}, '%')
 		OR product_category LIKE concat('%', #{keyword}, '%');
+	</select>
+	
+	<select id="showItemListByCategory" resultType="product">
+		SELECT * 
+		FROM product
+		WHERE product_category = #{category}
 	</select>
 </mapper>
 

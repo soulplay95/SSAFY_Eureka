@@ -43,12 +43,12 @@ public class ProductController {
 	}
 
 	@GetMapping("/listview/{category}")
-	@ApiOperation(value = "카테고리별 상품정보", notes = "미정", response = List.class)
+	@ApiOperation(value = "카테고리별 상품리스트", notes = "미정", response = List.class)
 	private ResponseEntity<List<Product>> showItemList(@PathVariable String category) {
 
-		List<Product> list = service.showItemList(category);
+		List<Product> list = service.showItemListByCategory(category);
 
-		return null;
+		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 	}
 
 	@GetMapping("/categorytops/{category}")
@@ -59,16 +59,15 @@ public class ProductController {
 		List<Product> list = service.categoryTopList(category);
 
 		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
-
 	}
 
 	@GetMapping("/detailview/{product_id}")
-	@ApiOperation(value = "상품상세정보", notes = "상품클릭시 product_id를 전달받아 해당product_id의 ProductDto, Review, Qna반환", response = Map.class)
+	@ApiOperation(value = "상품상세정보", notes = "상품클릭시 product_id를 전달받아 해당product_id의 ProductDto, Review, Qna를 담아 Map형태로 반환", response = Map.class)
 	private ResponseEntity<Map<String, Object>> showDetail(@PathVariable String product_id) {
 
 		Map<String, Object> map = service.showDetail(product_id);
 
-		return null;
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 
 //	판매자 메뉴
@@ -78,10 +77,12 @@ public class ProductController {
 
 		System.out.println(product.toString());
 		if (service.registProduct(product) == 1) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		;
 
-		return null;
+		
 	}
 
 	@PutMapping("/modify")
@@ -89,10 +90,10 @@ public class ProductController {
 	private ResponseEntity<String> modifyProduct(@RequestBody Product product) {
 
 		if (service.modifyProduct(product) == 1) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		;
-
-		return null;
 	}
 
 	@DeleteMapping("/delete/{product_id}")
@@ -100,10 +101,10 @@ public class ProductController {
 	private ResponseEntity<String> deleteProduct(@PathVariable String product_id) {
 
 		if (service.deleteProduct(product_id) == 1) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		;
-
-		return null;
 	}
 
 }
