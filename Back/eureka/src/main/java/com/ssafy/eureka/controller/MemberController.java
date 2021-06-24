@@ -56,8 +56,8 @@ public class MemberController {
 			
 			Member loginUser = service.login(map);
 			Token token = jwtService.create(loginUser);
-			res.setHeader("jwt-auth-access-token", token.getAccessJws());
-			res.setHeader("jwt-auth-refresh-token", token.getRefreshJws());
+			res.setHeader("jwt-auth-access-token", token.getAccessJwt());
+			res.setHeader("jwt-auth-refresh-token", token.getRefreshJwt());
 			resultMap.put("auth_token", token);
 			System.out.println(token);
 			

@@ -1,19 +1,19 @@
 package com.ssafy.eureka.dto;
 
 public class Token {
-	private String accessJws;
-	private String refreshJws;
-	public String getAccessJws() {
-		return accessJws;
+	private String accessJwt;
+	private String refreshJwt;
+	public String getAccessJwt() {
+		return accessJwt;
 	}
-	public void setAccessJws(String accessJws) {
-		this.accessJws = accessJws;
+	public void setAccessJwt(String accessJwt) {
+		this.accessJwt = accessJwt;
 	}
-	public String getRefreshJws() {
-		return refreshJws;
+	public String getRefreshJwt() {
+		return refreshJwt;
 	}
-	public void setRefreshJws(String refreshJws) {
-		this.refreshJws = refreshJws;
+	public void setRefreshJwt(String refreshJwt) {
+		this.refreshJwt = refreshJwt;
 	}
 	
 	
