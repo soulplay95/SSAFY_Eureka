@@ -8,32 +8,32 @@
 
 import axios from 'axios'
 import router from '@/router'
+// JWT 토큰 가져오는 용도
+import JWTcommon from "@/utils/JWT-common";
 
 // index.js에서 import 필요
 export const userStore = {
   namespaced: true,
   state: {
     // 서버와의 통신이 끝난 후 JWT 관련 내용
-    // user 내용
+    // persistedState 의문?
     user: {},
     isAuthenticated : false,
   },
   mutations: {
     SET_AUTH (state, data) {
-      console.log('토큰설정', data)
       // userid, name, phone, address 정보 받아옴
-      state.user = data
+      state.user = data.data
       state.isAuthenticated = true
-      window.localStorage.setItem('refreshJws', data.auth_token.refreshJws)
-      window.localStorage.setItem('accessJws', data.auth_token.accessJws)
+      JWTcommon.saveTokens(data.auth_token)
+      console.log('토큰설정', state.user, state.isAuthenticated)
     },
     DESTROY_AUTH (state) {
       state.user = {}
       state.isAuthenticated = false
-      window.localStorage.removeItem('refreshJws')
-      window.localStorage.removeItem('accessJws')
-    }
-    
+      JWTcommon.destroyTokens()
+      console.log('토큰삭제', state.user, state.isAuthenticated)
+    },
   },
   actions: {
     register ({dispatch}, credentials) {
@@ -77,16 +77,16 @@ export const userStore = {
         console.log(err)
       })
     },
-    logout({commit}) {
-      console.log(this)
+    logout({commit, state}) {
+      console.log(state)
       axios({
-        url: "http://localhost/member/${this.user.userid}"
+        url: `http://localhost/member/logout/${state.user.member_userid}`
       })
       .then((res) => {
         commit("DESTROY_AUTH")
         console.log(res)
       })
-    }
+    },
   },
   getters: {
     isAuthenticated(state) {
