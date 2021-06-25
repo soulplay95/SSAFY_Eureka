@@ -37,6 +37,14 @@
           placeholder="이름"
           
         />
+        <!-- 연락처 -->
+        <input
+          v-model="credentials.phone"
+          type="tel"
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+          placeholder="연락처"
+          
+        />
         <!-- 주소 -->
         <addressForm class="addressForm"
         ref="addressForm"
