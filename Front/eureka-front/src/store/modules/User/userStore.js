@@ -70,6 +70,7 @@ export const userStore = {
         }
       })
       .then((res) => {
+        console.log('백에서 통신옴')
         commit("SET_AUTH", res.data)
         router.push({ name: "Home" })
       })

@@ -27,7 +27,7 @@ import CSQuestionForm from '@/views/CS/CSQuestionForm.vue';
 import ItemList from '@/views/Item/ItemList.vue';
 
 // JWT-common import
-import JWTcommon from '@/utils/JWT-common'
+// import JWTcommon from '@/utils/JWT-common'
 
 const routes = [
   // Home
@@ -139,26 +139,26 @@ const router = createRouter({
 
 
 // 로그인이 필요한 페이지에 Navigation Guard
-const authRequiredPages = [
-  'MyPage',
-  'UserModify',
-  'OrderView',
-  'AdminProfile',
-  'AdminUserList',
-  'AdminItemList',
-  'CSQnaHistory',
-  'CSQnaForm'
-]
+// const authRequiredPages = [
+//   'MyPage',
+//   'UserModify',
+//   'OrderView',
+//   'AdminProfile',
+//   'AdminUserList',
+//   'AdminItemList',
+//   'CSQnaHistory',
+//   'CSQnaForm'
+// ]
 
-// navigation guard
-router.beforeEach((to, from, next) => {
-  // Access Token이 필요한 곳에 들어가면
-  // Access Token과 Refresh Token이 둘 다 없으면 로그인 하라고 시킴 
-  if (!JWTcommon.getAccessToken && !JWTcommon.getRefreshToken) {
+// // navigation guard
+// router.beforeEach((to, from, next) => {
+//   // Access Token이 필요한 곳에 들어가면
+//   // Access Token과 Refresh Token이 둘 다 없으면 로그인 하라고 시킴 
+//   if (!JWTcommon.getAccessToken && !JWTcommon.getRefreshToken) {
     
-  }
-// JWTcommon.getRefreshToken
-})
+//   }
+// // JWTcommon.getRefreshToken
+// })
 
 
 
