@@ -1,19 +1,19 @@
 export const getAccessToken = () => {
-  return window.localStorage.getItem('accessJws');
+  return window.localStorage.getItem('accessJwt');
 }
 
 export const getRefreshToken = () => {
-  return window.localStorage.getItem('refreshJws');
+  return window.localStorage.getItem('refreshJwt');
 }
 
 export const saveTokens = tokens => {
-  window.localStorage.setItem("accessJws", tokens.accessJws)
-  window.localStorage.setItem("refreshJws", tokens.refreshJws)
+  window.localStorage.setItem("accessJwt", tokens.accessJws)
+  window.localStorage.setItem("refreshJwt", tokens.refreshJws)
 }
 
 export const destroyTokens = () => {
-  window.localStorage.removeItem("accessJws")
-  window.localStorage.removeItem("refreshJws")
+  window.localStorage.removeItem("accessJwt")
+  window.localStorage.removeItem("refreshJwt")
 }
 
 export default { getAccessToken, getRefreshToken, saveTokens, destroyTokens };
