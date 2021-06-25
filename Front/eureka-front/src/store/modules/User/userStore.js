@@ -24,7 +24,7 @@ export const userStore = {
       axios({
         // 백엔드에 전달할 변수명 확인 필요
         method: 'POST',
-        url: 'http://localhost/member',
+        url: 'http://localhost/member/regist',
         data: {
           member_userid: credentials.userid,
           member_userpwd: credentials.userpwd,
