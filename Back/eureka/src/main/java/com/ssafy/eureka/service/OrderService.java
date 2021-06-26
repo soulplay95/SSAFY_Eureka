@@ -15,7 +15,7 @@ public interface OrderService {
 
 	int addOrder(Map<String, Object> map);
 
-	int showOrderList(String member_userid, String product_id);
+	int deleteOrder(String product_id);
 
 	int addCart(Map<String, String> map);
 
@@ -26,5 +26,7 @@ public interface OrderService {
 	int deleteWish(String product_id, String member_userid);
 
 	List<OrderDetail> showOrderDetailList(String order_id);
+
+	List<Map<String, Object>> showAllOrderList(String member_userid);
 
 }
