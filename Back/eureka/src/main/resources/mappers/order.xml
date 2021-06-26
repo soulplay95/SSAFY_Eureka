@@ -57,6 +57,32 @@
 		WHERE member_userid = #{member_userid}
 		AND product_id = #{product_id}
 	</delete>
+	
+	<select id="getWish" resultType="Product">
+		SELECT * FROM temp.product p
+		JOIN (
+				SELECT * FROM temp.wish w
+				where w.member_userid = #{member_userid}
+			) j
+		where j.product_id = p.product_id
+	</select>
+	
+	<select id="checkWishDup" resultType="Integer">
+		SELECT count(*) FROM temp.wish 
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</select>
+	
+	<insert  id="addWish">
+		INSERT INTO temp.wish (product_id, member_userid)
+		VALUES (#{product_id},#{member_userid})
+	</insert>
+	
+	<delete id="deleteWish">
+		DELETE FROM temp.wish
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</delete>
 
 </mapper>
 
