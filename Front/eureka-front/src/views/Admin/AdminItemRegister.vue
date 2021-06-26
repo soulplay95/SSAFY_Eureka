@@ -1,7 +1,7 @@
 <template>
   <div>
     <adminSideBar/>
-    <h1>여기는 회원관리 - 회원리스트입니다!</h1>
+    <h1>여기는 상품 등록 페이지입니다(관리자 페이지)</h1>
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import adminSideBar from '@/components/Admin/adminSideBar'
 
 export default {
-  name: "AdminUserList",
+  name: "AdminItemRegister",
   components: {
     adminSideBar
   }

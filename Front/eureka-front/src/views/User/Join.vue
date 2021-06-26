@@ -61,15 +61,10 @@
 <script>
 // useStore 훅을 사용하여 store에 접근합니다.
 import addressForm from '@/components/User/Join/addressForm'
-import { useStore } from "vuex";
 // import { mapActions } from 'vuex'
 
 export default {
   // vuex 불러오기
-  setup () {
-      const store = useStore();
-      return { store }
-  },
   name: "Join",
   components: {
     addressForm
@@ -95,7 +90,7 @@ export default {
       if (this.issamepassword) {
         this.updateAddress()
         // 회원가입 진행
-        this.store.dispatch("userStore/register", this.credentials)
+        this.$store.dispatch("userStore/register", this.credentials)
       } else {
         this.resetPassword()
         alert("입력하신 비밀번호가 다릅니다!")

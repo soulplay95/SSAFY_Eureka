@@ -14,15 +14,7 @@
           v-model="credentials.userpwd"
           type="password"
           minlength="8"
-          placeholder="현재 비밀번호"
-          autocomplete="new-password"
-        />
-        <!-- 비밀번호 -->
-        <input
-          v-model="credentials.userpwd"
-          type="password"
-          minlength="8"
-          placeholder="비밀번호"
+          placeholder="신규 비밀번호"
           autocomplete="new-password"
         />
         <!-- 비밀번호 확인 -->
@@ -41,6 +33,8 @@
           placeholder="연락처"
           
         />
+        <!-- 현재 주소 -->
+        <div> 기존 주소: {{ credentials.address }} </div> 
         <!-- 주소 -->
         <addressForm class="addressForm"
         ref="addressForm"
@@ -58,7 +52,6 @@
 // useStore 훅을 사용하여 store에 접근합니다.
 import addressForm from '@/components/User/Join/addressForm'
 import { useStore } from "vuex";
-// import { mapActions } from 'vuex'
 
 export default {
   // vuex 불러오기
@@ -66,7 +59,7 @@ export default {
       const store = useStore();
       return { store }
   },
-  name: "Join",
+  name: "UserModify",
   components: {
     addressForm
   },
@@ -74,8 +67,6 @@ export default {
     return {
       credentials: {
         // 명칭 재정의 필요
-        userid: "",
-        userpwd: "",
         name: "",
         phone: "",
         address: "",
@@ -121,7 +112,7 @@ export default {
   computed: {
     issamepassword() {
       return Boolean(this.credentials.userpwd === this.userpwdconfirmation)
-    }
+    },
   },
   created() {
     

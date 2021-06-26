@@ -92,6 +92,9 @@ export const userStore = {
   getters: {
     isAuthenticated(state) {
       return state.isAuthenticated
+    },
+    isAdmin(state) {
+      return state.user.member_type === '관리자' 
     }
   },
   modules: {},
