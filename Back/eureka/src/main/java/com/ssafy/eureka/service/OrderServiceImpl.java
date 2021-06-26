@@ -98,6 +98,17 @@ public class OrderServiceImpl implements OrderService {
 		
 		return dao.deleteCart(member_userid, product_id);
 	}
+	
+	@Override
+	public List<Product> getWish(String member_userid) {
+		return dao.getWish(member_userid);
+	}
+
+	@Override
+	public int checkWishDup(Map<String, String> map) {
+		
+		return dao.checkWishDup(map);
+	}
 
 	@Override
 	public int addWish(Map<String, String> map) {

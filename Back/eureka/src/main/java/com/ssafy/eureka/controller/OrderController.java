@@ -85,7 +85,7 @@ public class OrderController {
 	}
 	
 	@GetMapping("/cart/{member_userid}")
-	@ApiOperation(value = "장바구니 리스트", notes = "ㅡember_userid를 전달받아 장바구니리스트 반환")
+	@ApiOperation(value = "장바구니 리스트", notes = "member_userid를 전달받아 장바구니리스트를 product리스트로 반환")
 	private ResponseEntity<List<Product>> getCart(@PathVariable String member_userid) {
 		
 		logger.debug("getCart - 호출");				
@@ -97,7 +97,7 @@ public class OrderController {
 	}
 
 	@PostMapping("/cart/add")
-	@ApiOperation(value = "장바구니 추가", notes = "product_id, Member_userid를 전달받아 장바구니테이블에 저장")
+	@ApiOperation(value = "장바구니 추가", notes = "product_id, Member_userid를 전달받아 장바구니테이블에 저장한다. 중복 상품이 존재할 경우는 409 conflict에러")
 	private ResponseEntity<String> addCart(@RequestBody Map<String, String> map) {
 		
 		logger.debug("addCart - 호출");	
@@ -123,10 +123,27 @@ public class OrderController {
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/wish/{member_userid}")
+	@ApiOperation(value = "찜 리스트", notes = "member_userid를 전달받아 찜리스트를 product리스트로 반환")
+	private ResponseEntity<List<Product>> getWish(@PathVariable String member_userid) {
+		
+		logger.debug("getWish - 호출");				
+		List<Product> list = service.getWish(member_userid);
+		if(list.size() > 0) {
+			return new ResponseEntity<List<Product>>(list,HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);	
+	}
+	
 	@PostMapping("/wish/add")
 	@ApiOperation(value = "찜목록 추가", notes = "product_id, Member_userid를 전달받아 Wish테이블에 저장")
 	private ResponseEntity<String> addWish(@RequestBody Map<String, String> map) {
 		logger.debug("addWish - 호출");
+		
+		if(service.checkWishDup(map) == 1) {
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+		}
+		
 		if(service.addWish(map) == 1) {
 			return new ResponseEntity<String>(HttpStatus.OK);
 		}

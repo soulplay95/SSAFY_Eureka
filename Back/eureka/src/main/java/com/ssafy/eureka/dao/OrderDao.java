@@ -28,6 +28,10 @@ public interface OrderDao {
 
 	int deleteCart(String member_userid, String product_id);
 
+	List<Product> getWish(String member_userid);
+
+	int checkWishDup(Map<String, String> map);
+	
 	int addWish(Map<String, String> map);
 
 	int deleteWish(String product_id, String member_userid);
