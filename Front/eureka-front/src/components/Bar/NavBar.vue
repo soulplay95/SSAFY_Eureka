@@ -78,12 +78,12 @@
                 <router-link to="/cart">장바구니</router-link>
               </a>
             </li>
-            <li class="nav-item">
+            <li v-if="!isAuthenticated" class="nav-item">
               <a class="dropdown-item" href="#">
                 <router-link to="/user/login">로그인</router-link>
               </a>
             </li>
-            <li class="nav-item">
+            <li v-if="isAuthenticated" class="nav-item">
               <a class="dropdown-item" href="#">
                 <button @click="logout">로그아웃</button>
               </a>
@@ -101,6 +101,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   methods: {
     searchItem: function () {
@@ -110,6 +112,9 @@ export default {
     logout() {
       this.$store.dispatch('userStore/logout')
     }
+  },
+  computed: {
+    ...mapGetters ("userStore", ["isAuthenticated"])
   },
   created() {
     // 카테고리 url이 정해지면 axios에 넣을 것.

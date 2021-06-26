@@ -54,12 +54,18 @@ const routes = [
     path: "/user/mypage",
     name: "MyPage",
     component: MyPage,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 회원 정보 수정
   {
     path: "/user/modify",
     name: "UserModify",
     component: UserModify,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 아이디 찾기
   {
@@ -84,6 +90,9 @@ const routes = [
     path: '/order',
     name: 'OrderView',
     component: OrderView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   /* ------------------------ 관리자 ------------------------ */
   // 관리자 화면 Home - 관리자 정보
@@ -91,18 +100,27 @@ const routes = [
     path: "/admin/profile",
     name: "AdminProfile",
     component: AdminProfile,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 회원 관리
   {
     path: "/admin/user-list",
     name: "AdminUserList",
     component: AdminUserList,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 상품 관리
   {
     path: "/admin/item-list",
     name: "AdminItemList",
     component: AdminItemList,
+    meta: {
+      requiresAuth: true,
+    },
   },
   /* ------------------------ 고객센터 ------------------------ */
   // Home - 나의 문의 내역
@@ -110,6 +128,9 @@ const routes = [
     path: "/cs/qna-history",
     name: "CSQnaHistory",
     component: CSQnaHistory,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 자주묻는 질문
   {
@@ -122,6 +143,9 @@ const routes = [
     path: "/cs/questionForm",
     name: "CSQnaForm",
     component: CSQuestionForm,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 상품 검색
   {
@@ -138,26 +162,18 @@ const router = createRouter({
 
 
 
-// 로그인이 필요한 페이지에 Navigation Guard
-// const authRequiredPages = [
-//   'MyPage',
-//   'UserModify',
-//   'OrderView',
-//   'AdminProfile',
-//   'AdminUserList',
-//   'AdminItemList',
-//   'CSQnaHistory',
-//   'CSQnaForm'
-// ]
-
-// // navigation guard
+// navigation guard
 // router.beforeEach((to, from, next) => {
 //   // Access Token이 필요한 곳에 들어가면
-//   // Access Token과 Refresh Token이 둘 다 없으면 로그인 하라고 시킴 
-//   if (!JWTcommon.getAccessToken && !JWTcommon.getRefreshToken) {
-    
+//   // Access Token과 Refresh Token이 둘 다 없으면 로그인 하라고 시킴
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (!JWTcommon.getAccessToken()) {
+//       next()
+//     }
+//     else {
+//       next()
+//     }
 //   }
-// // JWTcommon.getRefreshToken
 // })
 
 
