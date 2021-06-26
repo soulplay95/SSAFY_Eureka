@@ -13,9 +13,11 @@ public interface OrderDao {
 
 	List<Order> showOrderList(String member_userid);
 
-	int addOrder(Map<String, Object> map);
+	int addOrder(Order order);
 
-	int showOrderList(String member_userid, String product_id);
+	int addOrderdetail(OrderDetail orderdetail);
+
+	int deleteOrder(String order_id);
 
 	int addCart(Map<String, String> map);
 
@@ -26,4 +28,6 @@ public interface OrderDao {
 	int deleteWish(String product_id, String member_userid);
 
 	List<OrderDetail> showOrderDetailList(String order_id);
+
+	Integer getLastOrderid();
 }

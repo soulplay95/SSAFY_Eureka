@@ -6,7 +6,6 @@
 	<select id="showOrderList" resultType="order">
 		SELECT *
 		FROM temp.order o
-		join temp.orderdetail od
 		WHERE member_userid=#{member_userid};
 	</select>
 	
@@ -15,6 +14,23 @@
 		FROM temp.orderdetail od
 		WHERE order_id=#{order_id};
 	</select>
+	
+	<insert id="addOrder" parameterType="order">
+		INSERT INTO temp.order (order_date, order_totalprice, member_userid)
+		VALUES (now(),#{order_totalprice},#{member_userid})
+	</insert>
+	<select id="getLastOrderid" resultType="Integer">
+        SELECT LAST_INSERT_ID()
+    </select>
+
+	<insert id="addOrderdetail" parameterType="orderdetail">
+		INSERT INTO temp.orderdetail (orderdetail_count, orderdetail_state, orderdetail_price, product_id, order_id)
+		VALUES (#{orderdetail_count},#{orderdetail_state},#{orderdetail_price},#{product_id},#{order_id})
+	</insert>
+	
+	<delete id="deleteOrder" parameterType="String">
+		DELETE FROM temp.order where order_id = #{order_id}
+	</delete>
 
 </mapper>
 

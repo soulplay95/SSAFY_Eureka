@@ -35,40 +35,46 @@ public class OrderController {
 	@Autowired
 	OrderService service;
 	
-	@GetMapping("/order/list/{member_userid}")
+//	@GetMapping("/order/list/{member_userid}")
+//	@ApiOperation(value = "주문목록 조회", notes = "Member_userid를 전달받아 전체 주문 목록을 반환", response = List.class)
+//	private ResponseEntity<List<Order>> showOrderList(@PathVariable String member_userid) {
+//		logger.debug("showOrderList - 호출");
+//		List<Order> list = service.showOrderList(member_userid);
+//		return new ResponseEntity<List<Order>>(list, HttpStatus.OK);
+//	}
+	@GetMapping("/order/{member_userid}")
 	@ApiOperation(value = "주문목록 조회", notes = "Member_userid를 전달받아 전체 주문 목록을 반환", response = List.class)
-	private ResponseEntity<List<Order>> showOrderList(@PathVariable String member_userid) {
+	private ResponseEntity<List<Map<String,Object>>> showOrderList(@PathVariable String member_userid) {
 		logger.debug("showOrderList - 호출");
-		List<Order> list = service.showOrderList(member_userid);
-		List<Map<String,Object>> finallist = null;
-		return new ResponseEntity<List<Order>>(list, HttpStatus.OK);
+		List<Map<String,Object>> list = service.showAllOrderList(member_userid);
+		return new ResponseEntity<List<Map<String,Object>>>(list, HttpStatus.OK);
 	}
 	
-	@GetMapping("/order/detaillist/{order_id}")
-	@ApiOperation(value = "주문목록 조회", notes = "order_id를 전달받아 해당 상세주문 목록을 반환", response = List.class)
-	private ResponseEntity<List<OrderDetail>> showOrderDetailList(@PathVariable String order_id) {
-		logger.debug("showOrderList - 호출");
-		List<OrderDetail> list = service.showOrderDetailList(order_id);
-		
-		return new ResponseEntity<List<OrderDetail>>(list, HttpStatus.OK);
-	}
+//	@GetMapping("/order/detaillist/{order_id}")
+//	@ApiOperation(value = "주문목록 조회", notes = "order_id를 전달받아 해당 상세주문 목록을 반환", response = List.class)
+//	private ResponseEntity<List<OrderDetail>> showOrderDetailList(@PathVariable String order_id) {
+//		logger.debug("showOrderList - 호출");
+//		List<OrderDetail> list = service.showOrderDetailList(order_id);
+//		
+//		return new ResponseEntity<List<OrderDetail>>(list, HttpStatus.OK);
+//	}
 	
 	@PostMapping("/order")
-	@ApiOperation(value = "주문 추가", notes = "Member_userid, List<ProductDto>를 전달받아 주문 추가. 리턴값 없음")
+	@ApiOperation(value = "주문 추가", notes = "Member_userid, List<Orderdetail>를 전달받아 주문 추가. 리턴값 없음")
 	private ResponseEntity<String> addOrder(@RequestBody Map<String, Object> map) {
 		logger.debug("addOrder - 호출");		
-		if(service.addOrder(map) == 1) {
+		if(service.addOrder(map) > 0) {
 			return new ResponseEntity<String>(HttpStatus.OK);			
 		}
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);			
 	}
 	
-	@DeleteMapping("/order/cancle")
-	@ApiOperation(value = "주문목록 삭제", notes = "Member_userid, product_id를 전달받아 주문 정보를 DB에서 삭제")
-	private ResponseEntity<String> showOrderList(@RequestParam String member_userid, @RequestParam String product_id) {
+	@DeleteMapping("/order")
+	@ApiOperation(value = "주문목록 삭제", notes = "order_id를 전달받아 주문 정보를 DB에서 삭제")
+	private ResponseEntity<String> deleteOrder(@RequestParam String order_id) {
 		
 		logger.debug("showOrderList - 호출");		
-		if(service.showOrderList(member_userid, product_id) == 1) {
+		if(service.deleteOrder(order_id) == 1) {
 			return new ResponseEntity<String>(HttpStatus.OK);			
 		}
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);	

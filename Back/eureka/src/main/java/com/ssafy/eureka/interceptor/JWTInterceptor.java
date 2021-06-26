@@ -46,6 +46,7 @@ public class JWTInterceptor implements HandlerInterceptor {
 				
 				if(jwtService.checkValid(token)) {
 					log.trace("토큰 사용 가능:{}", token);
+//					response.setHeader("jwt-auth-access-token", token);
 					if(!jwtService.checkValid(refreshtoken)) {
 						String newtoken = jwtService.createJws(salt, (long)10080, null);
 						response.setHeader("jwt-auth-refresh-token", newtoken);
@@ -55,6 +56,7 @@ public class JWTInterceptor implements HandlerInterceptor {
 				}else {
 					if(jwtService.checkValid(refreshtoken)) {
 						log.trace("토큰 사용 가능:{}", refreshtoken);
+//						response.setHeader("jwt-auth-refresh-token", refreshtoken);						
 						Member member = jwtService.getMemberByToken(refreshtoken);
 						String newtoken = jwtService.createJws(salt, expireMin, member);
 						response.setHeader("jwt-auth-access-token", newtoken);
