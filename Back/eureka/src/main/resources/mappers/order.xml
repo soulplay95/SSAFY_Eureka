@@ -31,6 +31,32 @@
 	<delete id="deleteOrder" parameterType="String">
 		DELETE FROM temp.order where order_id = #{order_id}
 	</delete>
+	
+	<select id="getCart" resultType="Product">
+		SELECT * FROM temp.product p
+		JOIN (
+				SELECT * FROM temp.cart c
+				where c.member_userid = #{member_userid}
+			) j
+		where j.product_id = p.product_id
+	</select>
+	
+	<select id="checkDup" resultType="Integer">
+		SELECT count(*) FROM temp.cart 
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</select>
+	
+	<insert  id="addCart">
+		INSERT INTO temp.cart (product_id, member_userid)
+		VALUES (#{product_id},#{member_userid})
+	</insert>
+	
+	<delete id="deleteCart">
+		DELETE FROM temp.cart
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</delete>
 
 </mapper>
 

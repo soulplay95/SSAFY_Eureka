@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.eureka.dto.Order;
 import com.ssafy.eureka.dto.OrderDetail;
+import com.ssafy.eureka.dto.Product;
 import com.ssafy.eureka.dto.Productqna;
 import com.ssafy.eureka.service.OrderService;
 
@@ -47,7 +48,10 @@ public class OrderController {
 	private ResponseEntity<List<Map<String,Object>>> showOrderList(@PathVariable String member_userid) {
 		logger.debug("showOrderList - 호출");
 		List<Map<String,Object>> list = service.showAllOrderList(member_userid);
-		return new ResponseEntity<List<Map<String,Object>>>(list, HttpStatus.OK);
+		if(list.size() > 0) {
+			return new ResponseEntity<List<Map<String,Object>>>(HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Map<String,Object>>>(HttpStatus.NO_CONTENT);	
 	}
 	
 //	@GetMapping("/order/detaillist/{order_id}")
@@ -80,11 +84,26 @@ public class OrderController {
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);	
 	}
 	
+	@GetMapping("/cart/{member_userid}")
+	@ApiOperation(value = "장바구니 리스트", notes = "ㅡember_userid를 전달받아 장바구니리스트 반환")
+	private ResponseEntity<List<Product>> getCart(@PathVariable String member_userid) {
+		
+		logger.debug("getCart - 호출");				
+		List<Product> list = service.getCart(member_userid);
+		if(list.size() > 0) {
+			return new ResponseEntity<List<Product>>(list,HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);	
+	}
+
 	@PostMapping("/cart/add")
 	@ApiOperation(value = "장바구니 추가", notes = "product_id, Member_userid를 전달받아 장바구니테이블에 저장")
 	private ResponseEntity<String> addCart(@RequestBody Map<String, String> map) {
 		
-		logger.debug("addCart - 호출");				
+		logger.debug("addCart - 호출");	
+		if(service.checkDup(map) == 1) {
+			return new ResponseEntity<String>(HttpStatus.CONFLICT);
+		}
 		
 		if(service.addCart(map) == 1) {
 			return new ResponseEntity<String>(HttpStatus.OK);
