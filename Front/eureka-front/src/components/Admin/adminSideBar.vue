@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+  <div class="flex-shrink-0 p-3 bg-white position-relative" style="width: 280px;">
     <router-link to="/admin/profile" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
       <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
       <span class="fs-5 fw-semibold">관리자 페이지</span>
@@ -38,8 +38,5 @@ export default {
 </script>
 
 <style scoped>
-template {
-  position: absolute;
-}
 
 </style>

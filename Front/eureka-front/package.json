@@ -1,3 +1,6 @@
+// 20210627101836
+// https://raw.githubusercontent.com/SSAFYEureka/SSAFY_Eureka/master/Front/eureka-front/package.json
+
 {
   "name": "eureka-front",
   "version": "0.1.0",
@@ -9,20 +12,22 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
-    "@vue/composition-api": "^1.0.0-rc.12",
+    "@vue/composition-api": "^1.0.0-rc.11",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "moment": "^2.29.1",
+    "v-pagination-3": "^0.1.6",
     "vue": "^3.1.1",
     "vue-axios": "^3.2.4",
     "vue-position-sticky": "^0.2.1",
     "vue-router": "^4.0.8",
-    "vue-sidebar-menu": "^4.8.1",
+    "vue-sidebar-menu": "^4.7.4",
     "vue3-carousel": "^0.1.21",
+    "vue3-pagination": "^1.0.16",
     "vuesax": "^4.0.1-alpha.25",
-    "vuex": "^4.0.0-0",
-    "vuex-persistedstate": "^4.0.0-beta.3"
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
