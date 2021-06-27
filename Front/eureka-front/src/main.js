@@ -1,13 +1,13 @@
-// import Vue from 'vue'
-
-import 'bootstrap';
 import App from './App.vue';
 import store from './store';
 import router from './router';
 import { createApp } from 'vue';
 
 // import bootstrap5
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
 import axios from 'axios'
@@ -38,8 +38,6 @@ app.config.globalProperties.$filters = {
   },
 };
 
-app.use(store).use(router).mount('#app');
-app.use(VueAxios, axios)
 app.use(store)
   .use(router)
   .use(VueAxios, axios)

@@ -18,7 +18,7 @@
   </Carousel>
     <br><br><br>
     <Carousel :items-to-show="2.5" :wrap-around="true">
-    <Slide v-for="slide in 10" :key="slide">
+    <Slide v-for="slide in 10" :key="slide" @click="onClick">
       <div class="carousel__item">{{ slide }}</div>
     </Slide>
 
@@ -40,7 +40,6 @@ export default {
   data: function() {
     return {
       pic: pic,
-      searchText: '',
       dogImg: this.$store.state.itemStore.dogImage,
     }
   },
@@ -51,7 +50,18 @@ export default {
     Navigation,
     // vuePositionSticky,
   },
-  
+  methods: {
+    onClick: function () {
+      this.$router.push({ name: 'ItemDetail' });
+    }
+  },
+  computed: {
+    // 계산된 getter
+    reversedMessage: function () {
+      // `this` 는 vm 인스턴스를 가리킵니다.
+      return this.message.split('').reverse().join('')
+    }
+  },  
 }
 
 </script>
