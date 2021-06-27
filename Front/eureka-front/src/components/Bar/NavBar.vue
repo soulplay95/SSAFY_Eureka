@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-red">
       <div class="container">
         <!--fluid에서 그냥 container로 바꿈 -->
         <router-link to="/" class="navbar-brand">Navbar</router-link>
@@ -132,4 +132,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+nav{
+  height: 75px;
+  padding: 1rem;
+  color: white;
+  background: #b0eacd;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
