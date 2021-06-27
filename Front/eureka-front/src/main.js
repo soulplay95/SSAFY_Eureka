@@ -4,6 +4,7 @@ import router from './router';
 import { createApp } from 'vue';
 
 // import bootstrap5
+import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
