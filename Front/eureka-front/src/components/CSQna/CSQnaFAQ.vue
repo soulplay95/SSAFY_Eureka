@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>hello</h1>
+    <h1>자주하는 질문</h1>
   </div>
 </template>
 

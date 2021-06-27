@@ -23,11 +23,10 @@ import AdminItemList from "@/views/Admin/AdminItemList.vue";
 import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
 
 // 고객센터
-import CSQnaHistory from '@/views/CS/CSQnaHistory.vue';
-import CSFAQ from '@/views/CS/CSFAQ.vue';
-import CSQuestionForm from '@/views/CS/CSQuestionForm.vue';
+import CSQna from '@/views/CS/CSQna.vue';
 // 상품
 import ItemList from '@/views/Item/ItemList.vue';
+import ItemDetail from '@/views/Item/ItemDetail.vue';
 
 // JWT-common import
 // import JWTcommon from '@/utils/JWT-common'
@@ -154,33 +153,21 @@ const routes = [
   /* ------------------------ 고객센터 ------------------------ */
   // Home - 나의 문의 내역
   {
-    path: "/cs/qna-history",
-    name: "CSQnaHistory",
-    component: CSQnaHistory,
-    meta: {
-      requiresAuth: true,
-    },
+    path: "/cs/cs-qna",
+    name: "CSQna",
+    component: CSQna,
   },
-  // 자주묻는 질문
-  {
-    path: "/cs/faq",
-    name: "CSFAQ",
-    component: CSFAQ,
-  },
-  // 질문하기 - form
-  {
-    path: "/cs/questionForm",
-    name: "CSQnaForm",
-    component: CSQuestionForm,
-    meta: {
-      requiresAuth: true,
-    },
-  },
+  /* ------------------------ 아이템 ------------------------ */
   // 상품 검색
   {
     path: '/item/item-list',
     name: 'ItemList',
     component: ItemList,
+  },
+  {
+    path: '/item/item-detail',
+    name: 'ItemDetail',
+    component: ItemDetail,
   },
 ];
 
