@@ -10,47 +10,54 @@
           placeholder="아이디(이메일)"
           autocomplete="email"
           pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
+          required
         >
         <input
           v-model="credentials.password"
           type="password" placeholder="비밀번호"
           autocomplete="password"  
+          required
         >
         <input type="submit" value="로그인">
+
       </fieldset>
+    <router-link to="/user/join">회원가입</router-link>
+    <router-link to="/user/search-id">아이디 찾기</router-link>
+    <router-link to="/user/search-password">비밀번호 찾기</router-link>
     </form>
+    <!-- <googleAuth/> -->
   </div>
+
+
 </template>
 
 <script>
-import { useStore } from "vuex"
+// import googleAuth from '@/components/User/Join/googleAuth'
 
 export default {
   // vuex 불러오기
-  setup () {
-      const store = useStore();
-      return { store }
-  },
   name: "Login",
-  components: {},
+  components: {
+    // googleAuth
+  },
   data() {
     return {
       credentials: {
         userid: '',
-        password: ''
+        userpwd: ''
       }
     }
   },
-  methods:{
+  methods: {
     onSubmit() {
-      this.store.dispatch('userStore/login', this.credentials)
+      this.$store.dispatch('userStore/login', this.credentials)
     }
   },
 };
 </script>
 
 <style scoped>
-div fieldset {
+div, fieldset {
   display: flex;
   flex-direction: column;
   align-items: center;

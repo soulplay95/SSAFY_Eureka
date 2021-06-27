@@ -45,7 +45,7 @@ public class ReviewController {
 			return new ResponseEntity<String>(HttpStatus.OK);
 		};
 		
-		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping("{review_id}")
@@ -76,7 +76,7 @@ public class ReviewController {
 			return new ResponseEntity<String>(HttpStatus.OK);
 		};
 		
-		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 
 	
@@ -88,7 +88,7 @@ public class ReviewController {
 		if(service.deleteReview(review_id) == 1) {
 			return new ResponseEntity<String>(HttpStatus.OK);
 		};
-		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		
 	}
 	
@@ -101,6 +101,6 @@ public class ReviewController {
 			return new ResponseEntity<String>(HttpStatus.OK);
 		};
 		
-		return new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 }

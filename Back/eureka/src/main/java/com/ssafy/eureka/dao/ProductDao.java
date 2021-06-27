@@ -13,7 +13,7 @@ public interface ProductDao {
 
 	List<Product> showSearchResult(String keyword);
 
-	List<Product> showItemList(String category);
+	List<Product> showItemListByCategory(String category);
 
 	List<Product> getCategoryTopList(String product_category);
 

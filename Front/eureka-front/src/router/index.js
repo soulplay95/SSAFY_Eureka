@@ -17,13 +17,22 @@ import OrderView from '@/views/Order/OrderView.vue';
 
 // 관리자
 import AdminProfile from "@/views/Admin/AdminProfile.vue";
+import AdminUserRegisterDetail from '@/views/Admin/AdminUserRegisterDetail.vue'
 import AdminUserList from "@/views/Admin/AdminUserList.vue";
 import AdminItemList from "@/views/Admin/AdminItemList.vue";
+import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
+
 // 고객센터
 import CSQna from '@/views/CS/CSQna.vue';
 // 상품
 import ItemList from '@/views/Item/ItemList.vue';
 import ItemDetail from '@/views/Item/ItemDetail.vue';
+
+// JWT-common import
+// import JWTcommon from '@/utils/JWT-common'
+
+// import mapGetters (admin) 
+// import store from '@/store'
 
 const routes = [
   // Home
@@ -50,12 +59,18 @@ const routes = [
     path: "/user/mypage",
     name: "MyPage",
     component: MyPage,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 회원 정보 수정
   {
     path: "/user/modify",
     name: "UserModify",
     component: UserModify,
+    meta: {
+      requiresAuth: true,
+    },
   },
   // 아이디 찾기
   {
@@ -80,6 +95,9 @@ const routes = [
     path: '/order',
     name: 'OrderView',
     component: OrderView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   /* ------------------------ 관리자 ------------------------ */
   // 관리자 화면 Home - 관리자 정보
@@ -87,18 +105,50 @@ const routes = [
     path: "/admin/profile",
     name: "AdminProfile",
     component: AdminProfile,
+    meta: {
+      requiresAuth: true,
+      requiersAdmin: true,
+    },
   },
-  // 회원 관리
+  // 회원 가입 현황
+  {
+    path: "/admin/user-register-detail",
+    name: "AdminUserRegisterDetail",
+    component: AdminUserRegisterDetail,
+    meta: {
+      requiresAuth: true,
+      requiersAdmin: true,
+    },
+  },
+  // 회원 리스트
   {
     path: "/admin/user-list",
     name: "AdminUserList",
     component: AdminUserList,
+    meta: {
+      requiresAuth: true,
+      requiersAdmin: true,
+    },
   },
-  // 상품 관리
+  // 상품 리스트
   {
     path: "/admin/item-list",
     name: "AdminItemList",
     component: AdminItemList,
+    meta: {
+      requiresAuth: true,
+      requiersAdmin: true,
+    },
+  },
+  // 상품 등록
+  {
+    path: "/admin/item-register",
+    name: "AdminItemRegister",
+    component: AdminItemRegister,
+    meta: {
+      requiresAuth: true,
+      requiersAdmin: true,
+    },
   },
   /* ------------------------ 고객센터 ------------------------ */
   // Home - 나의 문의 내역
@@ -125,5 +175,26 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+
+
+
+// navigation guard
+// 1. 로그인 해야 갈 수 있는 페이지 설정
+// 2. admin이여만 갈 수 있는 페이지에 일반 유저가 가는 것 방지
+
+// router.beforeEach((to, from, next) => {
+//   // Access Token이 필요한 곳에 들어가면
+//   // Access Token과 Refresh Token이 둘 다 없으면 로그인 하라고 시킴
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (!JWTcommon.getAccessToken()) {
+//       next()
+//     }
+//     else {
+//       next()
+//     }
+//   }
+// })
+
+
 
 export default router;

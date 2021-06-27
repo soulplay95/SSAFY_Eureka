@@ -74,24 +74,16 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="dropdown-item" href="#">
-                <router-link to="/cart">장바구니</router-link>
-              </a>
+              <router-link to="/cart" class="nav-link">장바구니</router-link>
             </li>
             <li v-if="!isAuthenticated" class="nav-item">
-              <a class="dropdown-item" href="#">
-                <router-link to="/user/login">로그인</router-link>
-              </a>
+                <router-link to="/user/login" class="nav-link">로그인</router-link>
             </li>
             <li v-if="isAuthenticated" class="nav-item">
-              <a class="dropdown-item" href="#">
-                <button @click="logout">로그아웃</button>
-              </a>
+                <button @click="logout" class="nav-link">로그아웃</button>
             </li>
             <li class="nav-item">
-              <a class="dropdown-item" href="#">
-                <router-link to="/user/join">회원가입</router-link>
-              </a>
+                <router-link to="/user/join" class="nav-link">회원가입</router-link>
             </li>
           </ul>
         </div>
