@@ -3,6 +3,93 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.eureka.dao.OrderDao">
 
+	<select id="showOrderList" resultType="order">
+		SELECT *
+		FROM temp.order o
+		WHERE member_userid=#{member_userid};
+	</select>
+	
+	<select id="showOrderDetailList" resultType="orderdetail">
+		SELECT *
+		FROM temp.orderdetail od
+		WHERE order_id=#{order_id};
+	</select>
+	
+	<insert id="addOrder" parameterType="order">
+		INSERT INTO temp.order (order_date, order_totalprice, member_userid)
+		VALUES (now(),#{order_totalprice},#{member_userid})
+	</insert>
+	<select id="getLastOrderid" resultType="Integer">
+        SELECT LAST_INSERT_ID()
+    </select>
+
+	<insert id="addOrderdetail" parameterType="orderdetail">
+		INSERT INTO temp.orderdetail (orderdetail_count, orderdetail_state, orderdetail_price, product_id, order_id)
+		VALUES (#{orderdetail_count},#{orderdetail_state},#{orderdetail_price},#{product_id},#{order_id})
+	</insert>
+	
+	<delete id="deleteOrder" parameterType="String">
+		DELETE FROM temp.order where order_id = #{order_id}
+	</delete>
+	
+	<select id="getCart" resultType="map">
+		SELECT * FROM temp.product p
+		JOIN (
+				SELECT * FROM temp.cart c
+				where c.member_userid = #{member_userid}
+			) j
+		where j.product_id = p.product_id
+	</select>
+	
+	<select id="checkDup" resultType="Integer">
+		SELECT count(*) FROM temp.cart 
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</select>
+	
+	<insert  id="addCart">
+		INSERT INTO temp.cart (product_id, member_userid, quantity)
+		VALUES (#{product_id},#{member_userid}, #{quantity})
+	</insert>
+	
+	<update id="modifyCart">
+		UPDATE temp.cart
+		SET quantity = #{quantity}
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</update>
+	
+	<delete id="deleteCart">
+		DELETE FROM temp.cart
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</delete>
+	
+	<select id="getWish" resultType="Product">
+		SELECT * FROM temp.product p
+		JOIN (
+				SELECT * FROM temp.wish w
+				where w.member_userid = #{member_userid}
+			) j
+		where j.product_id = p.product_id
+	</select>
+	
+	<select id="checkWishDup" resultType="Integer">
+		SELECT count(*) FROM temp.wish 
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</select>
+	
+	<insert  id="addWish">
+		INSERT INTO temp.wish (product_id, member_userid)
+		VALUES (#{product_id},#{member_userid})
+	</insert>
+	
+	<delete id="deleteWish">
+		DELETE FROM temp.wish
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</delete>
 
 </mapper>
 

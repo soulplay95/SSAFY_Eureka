@@ -1,5 +1,5 @@
 <template>
-  <div id="nav">
+  <div>
     <!-- @상민 로그인, 회원가입 실험용 nav -->
     <!-- <router-link to="/">Home</router-link> |
     <router-link to="/user/join">Join</router-link>

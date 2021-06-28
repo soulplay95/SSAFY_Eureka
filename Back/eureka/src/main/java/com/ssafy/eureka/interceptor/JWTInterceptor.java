@@ -42,30 +42,33 @@ public class JWTInterceptor implements HandlerInterceptor {
 			String token = request.getHeader("jwt-auth-access-token");
 			System.out.println(token);
 			String refreshtoken = request.getHeader("jwt-auth-refresh-token");
-			if (token != null && token.length() > 0) {
+			if ((token != null && token.length() > 0)||(refreshtoken != null && refreshtoken.length() > 0)) {
 				
 				if(jwtService.checkValid(token)) {
 					log.trace("토큰 사용 가능:{}", token);
+//					response.setHeader("jwt-auth-access-token", token);
 					if(!jwtService.checkValid(refreshtoken)) {
 						String newtoken = jwtService.createJws(salt, (long)10080, null);
-						response.setHeader("jwt-auth-access-token", newtoken);
+						response.setHeader("jwt-auth-refresh-token", newtoken);
 						
 					}
 					return true;
 				}else {
 					if(jwtService.checkValid(refreshtoken)) {
+						log.trace("토큰 사용 가능:{}", refreshtoken);
+//						response.setHeader("jwt-auth-refresh-token", refreshtoken);						
 						Member member = jwtService.getMemberByToken(refreshtoken);
 						String newtoken = jwtService.createJws(salt, expireMin, member);
-						response.setHeader("jwt-auth-refresh-token", newtoken);
+						response.setHeader("jwt-auth-access-token", newtoken);
 						return true;
+					}else {
+						throw new RuntimeException("인증토큰이 만료되었습니다.");									
 					}
 				}
 			} else {
 				throw new RuntimeException("인증토큰이 없습니다.");
 			}
 		}
-		System.out.println("토큰 둘다 만료!");
-		return false;
 	}
 	
 	
