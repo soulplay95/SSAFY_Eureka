@@ -18,4 +18,5 @@ public interface MemberDao {
 	public int setRefreshToken(Map<String,String> map);
 	public Member getMemberByToken(String member_refreshtoken);
 	public int logout(String member_userid);
+	public Member checkDuplicate(String member_userid);
 }

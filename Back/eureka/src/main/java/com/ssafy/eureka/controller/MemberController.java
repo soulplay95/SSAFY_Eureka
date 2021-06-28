@@ -161,5 +161,13 @@ public class MemberController {
 		
 	}
 	
-
+	@ApiOperation(value = "아이디 중복 검사", notes = "입력된 이메일로 아이디 중복검사를 합니다. 중복된 ID가 없으면 status : 200, 있으면 status : 204 반환")
+	@GetMapping("/isDuplicated/{member_userid}")
+	private ResponseEntity<String> checkDuplicate(@PathVariable("member_userid") String member_userid) {
+		if(service.checkDuplicate(member_userid) == null) {
+			return new ResponseEntity<String>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+		}
+	}
 }
