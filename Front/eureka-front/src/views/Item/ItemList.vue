@@ -1,14 +1,23 @@
 <template>
   <div>
-    <NavBar/>
-    <p><span class="search">‘{{ searchText }}’</span>에 대한 결과</p>
+    <NavBar />
+    <p>
+      <span class="search">‘{{ searchText }}’</span>에 대한 결과
+    </p>
     <div class="row g-0">
-      <div class="col-6 col-md-2" style="border:2px solid grey; padding:10px; height:1000px; margin: 10px 10px 10px 10px;">
-        <span class="filter">필터
-        </span>
-        <hr>
+      <div
+        class="col-6 col-md-2"
+        style="
+          border: 2px solid grey;
+          padding: 10px;
+          height: 1000px;
+          margin: 10px 10px 10px 10px;
+        "
+      >
+        <span class="filter">필터 </span>
+        <hr />
         <span class="category">카테고리</span>
-        <hr style="0.5px;">
+        <hr style="0.5px;" />
       </div>
       <div class="col-sm-6 col-md-8">
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -42,7 +51,7 @@ export default {
     ItemListCard,
     // Pagination,
   },
-  data: function() {
+  data: function () {
     return {
       searchItems: this.$store.state.itemStore.searchItems,
       searchText: this.$store.state.itemStore.searchText,
@@ -54,6 +63,7 @@ export default {
       this.$router.push({ name: 'ItemDetail' });
     }
   },
+  methods: {},
 
   created() {
     // axios({
@@ -67,8 +77,8 @@ export default {
     //   .catch(err => {
     //     console.log(err)
     //   })
-  }
-}
+  },
+};
 </script>
 
 <style>

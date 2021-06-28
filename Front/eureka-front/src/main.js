@@ -10,12 +10,10 @@ import 'bootstrap';
 
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 const app = createApp(App);
-
 
 // 전역 filter 설정
 // 사용법 : {{ $filters.필터이름(데이터) }}
@@ -37,6 +35,7 @@ app.config.globalProperties.$filters = {
     return moment(new Date(value)).format('YYYY.MM.DD');
   },
 };
+
 
 app.use(store)
   .use(router)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>여기는 로그인 페이지!</h1>
-    <img src="https://picsum.photos/id/239/500/150" alt="Logo image">
+    <img src="https://picsum.photos/id/239/500/150" alt="Logo image" />
     <form @submit.prevent="onSubmit()">
       <fieldset>
         <input
@@ -66,6 +66,4 @@ div, fieldset {
 fieldset > * {
   margin-top: 1rem;
 }
-
-
 </style>
