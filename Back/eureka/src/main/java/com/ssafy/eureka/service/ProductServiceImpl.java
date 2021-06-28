@@ -64,6 +64,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> categoryTopList(String category) {
+		
 		return dao.getCategoryTopList(category);
 	}
 

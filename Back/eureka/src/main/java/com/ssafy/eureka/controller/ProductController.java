@@ -52,7 +52,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/categorytops/{category}")
-	@ApiOperation(value = "카테고리별 상품추천", notes = "미정", response = List.class)
+	@ApiOperation(value = "카테고리별 상품추천", notes = "카테고리로 보여지는 상품목록 맨위에 5개의 해당 카테고리 추천상품 출력(현재는 랜덤 5개, 데이터 추가 후 상품별 최고 판매가20개중 랜덤 5개)", response = List.class)
 	private ResponseEntity<List<Product>> categoryTopList(@PathVariable String category) {
 		logger.debug("categoryTopList - 호출  : " + category);
 

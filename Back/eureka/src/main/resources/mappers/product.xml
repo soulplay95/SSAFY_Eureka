@@ -13,9 +13,9 @@
 	<select id="getCategoryTopList" resultType="product">
 		SELECT *
 		FROM product p
-		WHERE product_category=#{product_category}
-		ORDER BY product_count
-		limit 0,5;
+		WHERE product_category=4101
+		ORDER BY Rand()
+		LIMIT 5;
 	</select>
 	
 	<select id="getProductqna" resultType="productqna">
