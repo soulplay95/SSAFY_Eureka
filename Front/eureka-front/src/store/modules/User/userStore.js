@@ -80,6 +80,26 @@ export const userStore = {
         console.log(res)
       })
     },
+    modfiyuser ({commit}, credentials) {
+      axios({
+        methods: 'POST',
+        url: 'http://localhost/member/login/modify',
+        data: {
+          member_userid: credentials.userid,
+          member_userpwd: credentials.password,
+          member_name: credentials.name,
+          member_phone: credentials.phone
+        }
+      })
+      .then((res) => {
+        console.log(res)
+        commit("SET_AUTH", res.data)
+        router.push({ name: "Home" })
+      })
+      .then((err) => {
+        console.log(err)
+      })
+    }
   },
   getters: {
     isAuthenticated(state) {

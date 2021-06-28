@@ -9,6 +9,14 @@
           type="text" 
           placeholder="이름"
         />
+        <!-- 현재 비밀번호 -->
+        <input
+          v-model="credentials.originalpwd"
+          type="password"
+          minlength="8"
+          placeholder="현재 비밀번호"
+          autocomplete="new-password"
+        />
         <!-- 비밀번호 -->
         <input
           v-model="credentials.userpwd"
@@ -34,43 +42,29 @@
           
         />
         <!-- 현재 주소 -->
-        <div> 기존 주소: {{ credentials.address }} </div> 
-        <!-- 주소 -->
-        <addressForm class="addressForm"
-        ref="addressForm"
-        />
-        <input
-          type="submit" 
-          value="회원 정보 수정"
-        />
+        <div> 
+          기존 주소: {{ credentials.address }}
+          주소록 관리는 주문페이지에서 진행하시면 됩니다🍕
+        </div> 
       </fieldset>
     </form>
   </div>
 </template>
 
 <script>
-// useStore 훅을 사용하여 store에 접근합니다.
-import addressForm from '@/components/User/Join/addressForm'
-import { useStore } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
   // vuex 불러오기
-  setup () {
-      const store = useStore();
-      return { store }
-  },
   name: "UserModify",
-  components: {
-    addressForm
-  },
   data() {
     return {
       credentials: {
-        // 명칭 재정의 필요
+        userid: "",
+        userpwd: "",
+        originalpwd: "",
         name: "",
         phone: "",
-        address: "",
-        type: "일반"
       },
       userpwdconfirmation: "",
     }
@@ -93,29 +87,14 @@ export default {
         this.credentials.userpwd = ""
         this.userpwdconfirmation = ""
     },
-    // 주소 업데이트
-    updateAddress() {
-      let address = ""
-      // 기본 주소
-      address += this.$refs.addressForm.address
-      // 상세주소
-      if (this.$refs.addressForm.detailAddress) {
-        address += ' ' + this.$refs.addressForm.detailAddress
-      // 참고주소
-      address += ' ' + this.$refs.addressForm.extraAddr
-      // 우편번호
-      address += ' ' + this.$refs.addressForm.postcode
-      this.credentials.address = address
-      }
-    }
   },
   computed: {
     issamepassword() {
       return Boolean(this.credentials.userpwd === this.userpwdconfirmation)
-    },
+    }
   },
   created() {
-    
+    this.credentials.userid = user.userid
   }
 }
 </script>
