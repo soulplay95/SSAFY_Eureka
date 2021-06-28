@@ -73,29 +73,44 @@ export const itemStore = {
   }),
   getters: {},
   mutations: {
-    SEARCH_ITEM(state, { searchItems, searchText } ) {
+    // SEARCH_ITEM(state, { searchItems, searchText } ) {
+    //   state.searchText = searchText
+    //   state.searchItems = searchItems
+    // },
+    SEARCH_ITEM(state, searchText ) {
+      state.searchItems = []
       state.searchText = searchText
-      state.searchItems = searchItems
+      const temp = state.allData.filter(item => {
+        if (item.name === searchText) {
+          state.searchItems.push(item)
+        }
+      })
+      console.log(state.searchItems)
+      return temp
     }
   },
   actions: {
   // 카테고리 목차를 만든다. 그런데 카테고리는 이중이다
   // 예를 들어, '잡화 - 신발'이 그 예이다.
   // 그런데 카테고리는 하나만 주어진다.
-    searchItem({ commit }, searchText){
-      axios({
-        method: 'get',
-        url: `http://localhost/product/search?keyword=${searchText}`,
-      })
-      .then(res => {
-        console.log(res.data)
-        commit('SEARCH_ITEM', ( res.data, searchText))
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    searchItem({ commit }, searchText ){
       commit('SEARCH_ITEM', searchText)
+      console.log(searchText)
     },
+    // searchItem({ commit }, searchText){
+    //   axios({
+    //     method: 'get',
+    //     url: `http://localhost/product/search?keyword=${searchText}`,
+    //   })
+    //   .then(res => {
+    //     console.log(res.data)
+    //     commit('SEARCH_ITEM', ( res.data, searchText))
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+    //   commit('SEARCH_ITEM', searchText)
+    // },
     selectItem({ commit }, searchText){
       axios({
         method: 'get',

@@ -4,6 +4,7 @@ public class OrderDetail {
 
 	int orderdetail_id;
 	String orderdetail_count;
+	String orderdetail_state;
 	String orderdetail_price;
 	int product_id;
 	int order_id;
@@ -37,6 +38,12 @@ public class OrderDetail {
 	}
 	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
+	}
+	public String getOrderdetail_state() {
+		return orderdetail_state;
+	}
+	public void setOrderdetail_state(String orderdetail_state) {
+		this.orderdetail_state = orderdetail_state;
 	}
 	
 	

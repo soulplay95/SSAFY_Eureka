@@ -41,17 +41,17 @@ public class JWTService {
 public Token create(Member userInfo) {
 		
 		// Create Access Token
-		String accessJws = createJws(salt, expireMin, userInfo);
+		String accessJwt = createJws(salt, expireMin, userInfo);
 		
 		// Create Refresh Token
-		String refreshJws = createJws("MYSALT", (long)10080, null);
+		String refreshJwt = createJws("MYSALT", (long)10080, null);
 		
 		Token tokens = new Token();
-		tokens.setAccessJws(accessJws);
-		tokens.setRefreshJws(refreshJws);
+		tokens.setAccessJwt(accessJwt);
+		tokens.setRefreshJwt(refreshJwt);
 		
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("member_refreshtoken", refreshJws);
+		map.put("member_refreshtoken", refreshJwt);
 		map.put("member_userid", userInfo.getMember_userid());
 		dao.setRefreshToken(map);
 		
