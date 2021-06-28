@@ -1,10 +1,10 @@
-import { createStore } from 'vuex';
+import { createStore } from "vuex";
 
 // import modules
-import { cart } from '@/store/modules/Cart/cart';
-import { itemStore } from '@/store/modules/Item/itemStore';
-import { userStore } from '@/store/modules/User/userStore';
-import { order } from '@/store/modules/Order/order';
+import { cart } from "@/store/modules/Cart/cart";
+import { itemStore } from "@/store/modules/Item/itemStore";
+import { userStore } from "@/store/modules/User/userStore";
+import { order } from "@/store/modules/Order/order";
 
 export default createStore({
   namespaced: true,

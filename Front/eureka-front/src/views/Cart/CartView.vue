@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// 하위 components import
 import CartList from '@/components/Cart/CartList.vue';
 import TotalOrder from '@/components/Cart/TotalOrder.vue';
 
@@ -33,8 +32,12 @@ export default {
     TotalOrder,
   },
   created() {
-    // 초기 data setting
-    // TODO: user id로 장바구니 리스트 불러오기
+    // 장바구니 데이터를 가져온다.
+    this.$store.dispatch(
+      'cart/getItems',
+      // this.$store.state.userStore.user.member_userid
+      'jejin009@gmail.com'
+    );
   },
 };
 </script>

@@ -26,7 +26,9 @@
     </div>
     <div class="flex-w flex-sb bo10 p-t-15 p-b-20">
       <span class="s-text18 w-size19 w-full-sm"> 총 할인금액: </span>
-      <span class="m-text21 w-size20 w-full-sm"> 00원 </span>
+      <span class="m-text21 w-size20 w-full-sm">
+        {{ $filters.price(totalDiscountPrice) }}원
+      </span>
     </div>
     <div class="flex-w flex-sb bo10 p-t-15 p-b-20">
       <span class="s-text18 w-size19 w-full-sm"> 총 배송비: </span>
@@ -84,6 +86,9 @@ export default {
     },
     totalPrice() {
       return this.$store.getters['cart/totalPrice'];
+    },
+    totalDiscountPrice() {
+      return this.$store.getters['cart/totalDiscountPrice'];
     },
   },
   methods: {
