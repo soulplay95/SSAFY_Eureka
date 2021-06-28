@@ -125,4 +125,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.logout(member_userid);
 	}
 
+	@Override
+	public Member checkDuplicate(String member_userid) {
+		return dao.checkDuplicate(member_userid);
+	}
+
 }

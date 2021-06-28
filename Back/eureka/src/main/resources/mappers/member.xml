@@ -54,6 +54,11 @@
 		UPDATE member SET member_refreshtoken = null where member_userid = #{member_userid}
 	</update>
 
+	<select id="checkDuplicate" resultType="member">
+		SELECT *
+		FROM member
+		WHERE member_userid = #{member_userid}
+	</select>
 </mapper>
 
 
