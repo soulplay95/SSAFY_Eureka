@@ -12,20 +12,21 @@
       </div>
       <div class="col-sm-6 col-md-8">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <ItemListCard v-for="card in 15" :key="card"/>
-          <!-- <ItemListCard v-for="(item, idx) in len(searchItems)"
+          <!-- <ItemListCard v-for="card in 15" :key="card"/> -->
+          <ItemListCard v-for="(item, idx) in searchItems"
           :key=idx
-          :itemId="item.item_id"
-          /> -->
+          :itemId="id"
+          @click="onClick"
+          />
         </div>
       </div>
     </div>
-    <Pagination 
+    <!-- <Pagination 
     v-model="page" 
     :records="500" 
     :per-page="25" 
     @paginate="myCallback"
-    />
+    /> -->
   </div>
 </template>
 
@@ -33,13 +34,13 @@
 // import axios from 'axios'
 import NavBar from '@/components/Bar/NavBar'
 import ItemListCard from '@/components/Item/ItemListCard'
-import Pagination from 'v-pagination-3';
+// import Pagination from 'v-pagination-3';
 
 export default {
   components: {
     NavBar,
     ItemListCard,
-    Pagination,
+    // Pagination,
   },
   data: function() {
     return {
@@ -49,6 +50,9 @@ export default {
     }
   },
   methods: {
+    onClick: function () {
+      this.$router.push({ name: 'ItemDetail' });
+    }
   },
 
   created() {
