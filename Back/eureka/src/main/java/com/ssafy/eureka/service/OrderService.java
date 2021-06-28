@@ -18,11 +18,13 @@ public interface OrderService {
 
 	int deleteOrder(String product_id);
 
-	List<Product> getCart(String member_userid);
+	List<Map<String, Object>> getCart(String member_userid);
 	
 	int checkDup(Map<String, String> map);
 
 	int addCart(Map<String, String> map);
+
+	int modifyCart(Map<String, String> map);
 
 	int deleteCart(String member_userid, String product_id);
 
@@ -37,6 +39,7 @@ public interface OrderService {
 	List<OrderDetail> showOrderDetailList(String order_id);
 
 	List<Map<String, Object>> showAllOrderList(String member_userid);
+
 
 
 
