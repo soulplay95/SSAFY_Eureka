@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafy.eureka.dao.HomeDao">
+	
 	<select id="getRandomTopProductsByCategory" resultType="product">
 		SELECT od.orderdetail_count, od.product_id, p.product_brand, p.product_category, p.product_deliveryprice, p.product_img, p.product_discount, p.product_price, p.product_name, p.product_rating
 		FROM orderdetail od
@@ -9,9 +10,24 @@
 		ON od.product_id = p.product_id
 		WHERE truncate(p.product_category/100, 0) = #{randValue}
 		ORDER BY orderdetail_count DESC
-		LIMIT #{n};
+		LIMIT #{n}
 	</select>
 
+	<select id="get1depthCategory" resultType="map">
+		SELECT distinct truncate(category_code/1000, 0) as 'category_code', category_1depth 
+		FROM category
+	</select>
+	
+	<select id="get2depthCategory" resultType="map">
+		SELECT distinct truncate(category_code/100, 0) as 'category_code', category_2depth 
+		FROM category
+	</select>
+	
+	<select id="get3depthCategory" resultType="map">
+		SELECT category_code, category_3depth
+		FROM category
+	</select>
+	
 </mapper>
 
 

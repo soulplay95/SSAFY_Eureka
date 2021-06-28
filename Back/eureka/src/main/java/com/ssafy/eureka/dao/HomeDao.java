@@ -12,4 +12,8 @@ public interface HomeDao {
 
 	public List<Product> getRandomTopProductsByCategory(Map map);
 
+	public List<Map<String, Object>> get1depthCategory();
+	public List<Map<String, Object>> get2depthCategory();
+	public List<Map<String, Object>> get3depthCategory();
+
 }

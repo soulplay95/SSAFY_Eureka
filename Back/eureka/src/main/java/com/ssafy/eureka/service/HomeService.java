@@ -8,5 +8,7 @@ import com.ssafy.eureka.dto.Product;
 public interface HomeService {
 
 	List<Product> getRandomTopProductsByCategory(Map map);
+
+	Map<String, Object> getCategories();
 	
 }
