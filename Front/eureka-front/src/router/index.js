@@ -16,11 +16,11 @@ import CartView from '@/views/Cart/CartView.vue';
 import OrderView from '@/views/Order/OrderView.vue';
 
 // 관리자
-import AdminProfile from "@/views/Admin/AdminProfile.vue";
-import AdminUserRegisterDetail from '@/views/Admin/AdminUserRegisterDetail.vue'
-import AdminUserList from "@/views/Admin/AdminUserList.vue";
-import AdminItemList from "@/views/Admin/AdminItemList.vue";
-import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
+import AdminProfile from '@/views/Admin/AdminProfile.vue';
+import AdminUserRegisterDetail from '@/views/Admin/AdminUserRegisterDetail.vue';
+import AdminUserList from '@/views/Admin/AdminUserList.vue';
+import AdminItemList from '@/views/Admin/AdminItemList.vue';
+import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue';
 
 // 고객센터
 import CSQna from '@/views/CS/CSQna.vue';
@@ -31,7 +31,7 @@ import ItemDetail from '@/views/Item/ItemDetail.vue';
 // JWT-common import
 // import JWTcommon from '@/utils/JWT-common'
 
-// import mapGetters (admin) 
+// import mapGetters (admin)
 // import store from '@/store'
 
 const routes = [
@@ -112,8 +112,8 @@ const routes = [
   },
   // 회원 가입 현황
   {
-    path: "/admin/user-register-detail",
-    name: "AdminUserRegisterDetail",
+    path: '/admin/user-register-detail',
+    name: 'AdminUserRegisterDetail',
     component: AdminUserRegisterDetail,
     meta: {
       requiresAuth: true,
@@ -142,8 +142,8 @@ const routes = [
   },
   // 상품 등록
   {
-    path: "/admin/item-register",
-    name: "AdminItemRegister",
+    path: '/admin/item-register',
+    name: 'AdminItemRegister',
     component: AdminItemRegister,
     meta: {
       requiresAuth: true,
@@ -153,8 +153,8 @@ const routes = [
   /* ------------------------ 고객센터 ------------------------ */
   // Home - 나의 문의 내역
   {
-    path: "/cs/cs-qna",
-    name: "CSQna",
+    path: '/cs/cs-qna',
+    name: 'CSQna',
     component: CSQna,
   },
   /* ------------------------ 아이템 ------------------------ */
@@ -178,8 +178,6 @@ const router = createRouter({
   routes,
 });
 
-
-
 // navigation guard
 // 1. 로그인 해야 갈 수 있는 페이지 설정
 // 2. admin이여만 갈 수 있는 페이지에 일반 유저가 가는 것 방지
@@ -196,7 +194,5 @@ const router = createRouter({
 //     }
 //   }
 // })
-
-
 
 export default router;

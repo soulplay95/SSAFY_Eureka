@@ -22,10 +22,11 @@
       <div class="col-sm-6 col-md-8">
         <div class="row row-cols-1 row-cols-md-3 g-4">
           <!-- <ItemListCard v-for="card in 15" :key="card"/> -->
-          <ItemListCard v-for="(item, idx) in searchItems"
-          :key=idx
-          :itemId="id"
-          @click="onClick"
+          <ItemListCard
+            v-for="(item, idx) in searchItems"
+            :key="idx"
+            :itemId="id"
+            @click="onClick"
           />
         </div>
       </div>
@@ -41,8 +42,8 @@
 
 <script>
 // import axios from 'axios'
-import NavBar from '@/components/Bar/NavBar'
-import ItemListCard from '@/components/Item/ItemListCard'
+import NavBar from '@/components/Bar/NavBar';
+import ItemListCard from '@/components/Item/ItemListCard';
 // import Pagination from 'v-pagination-3';
 
 export default {
@@ -55,15 +56,14 @@ export default {
     return {
       searchItems: this.$store.state.itemStore.searchItems,
       searchText: this.$store.state.itemStore.searchText,
-      page: 1
-    }
+      page: 1,
+    };
   },
   methods: {
     onClick: function () {
       this.$router.push({ name: 'ItemDetail' });
-    }
+    },
   },
-  methods: {},
 
   created() {
     // axios({
