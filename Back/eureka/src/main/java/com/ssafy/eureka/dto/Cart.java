@@ -5,12 +5,14 @@ public class Cart {
 	int cart_id;
 	int product_id;
 	String member_userid;
+	int quantity;
 	
-	public Cart(int cart_id, int product_id, String member_userid) {
+	public Cart(int cart_id, int product_id, String member_userid,int quantity) {
 		super();
 		this.cart_id = cart_id;
 		this.product_id = product_id;
 		this.member_userid = member_userid;
+		this.quantity = quantity;
 	}
 	
 	public Cart() {
@@ -35,7 +37,13 @@ public class Cart {
 	public void setMember_userid(String member_userid) {
 		this.member_userid = member_userid;
 	}
-	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	@Override
 	public String toString() {
 		return "Cart [cart_id=" + cart_id + ", product_id=" + product_id + ", member_userid=" + member_userid + "]";

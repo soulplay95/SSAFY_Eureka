@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -86,18 +87,18 @@ public class OrderController {
 	
 	@GetMapping("/cart/{member_userid}")
 	@ApiOperation(value = "장바구니 리스트", notes = "member_userid를 전달받아 장바구니리스트를 product리스트로 반환")
-	private ResponseEntity<List<Product>> getCart(@PathVariable String member_userid) {
+	private ResponseEntity<List<Map<String,Object>>> getCart(@PathVariable String member_userid) {
 		
 		logger.debug("getCart - 호출");				
-		List<Product> list = service.getCart(member_userid);
+		List<Map<String,Object>> list = service.getCart(member_userid);
 		if(list.size() > 0) {
-			return new ResponseEntity<List<Product>>(list,HttpStatus.OK);
+			return new ResponseEntity<List<Map<String,Object>>>(list,HttpStatus.OK);
 		}
-		return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);	
+		return new ResponseEntity<List<Map<String,Object>>>(HttpStatus.NO_CONTENT);	
 	}
 
-	@PostMapping("/cart/add")
-	@ApiOperation(value = "장바구니 추가", notes = "product_id, Member_userid를 전달받아 장바구니테이블에 저장한다. 중복 상품이 존재할 경우는 409 conflict에러")
+	@PostMapping("/cart")
+	@ApiOperation(value = "장바구니 추가", notes = "product_id, Member_userid, quantity를 전달받아 장바구니테이블에 저장한다. 중복 상품이 존재할 경우는 409 conflict에러")
 	private ResponseEntity<String> addCart(@RequestBody Map<String, String> map) {
 		
 		logger.debug("addCart - 호출");	
@@ -110,8 +111,19 @@ public class OrderController {
 		}
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);	
 	}
+
+	@PutMapping("/cart")
+	@ApiOperation(value = "장바구니 수량 변경", notes = "product_id, Member_userid, quantity를 전달받아 장바구니테이블에 저장한다. 중복 상품이 존재할 경우는 409 conflict에러")
+	private ResponseEntity<String> modifyCart(@RequestBody Map<String, String> map) {
+		
+		logger.debug("modifyCart - 호출");	
+		if(service.modifyCart(map) == 1) {
+			return new ResponseEntity<String>(HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);	
+	}
 	
-	@DeleteMapping("/cart/delete")
+	@DeleteMapping("/cart")
 	@ApiOperation(value = "장바구니 삭제", notes = "Member_userid, product_id를 전달받아 장바구니 정보를 DB에서 삭제. 리턴값 없음")
 	private ResponseEntity<String> deleteCart(@RequestParam String member_userid, @RequestParam String product_id) {
 		
@@ -135,7 +147,7 @@ public class OrderController {
 		return new ResponseEntity<List<Product>>(HttpStatus.NO_CONTENT);	
 	}
 	
-	@PostMapping("/wish/add")
+	@PostMapping("/wish")
 	@ApiOperation(value = "찜목록 추가", notes = "product_id, Member_userid를 전달받아 Wish테이블에 저장")
 	private ResponseEntity<String> addWish(@RequestBody Map<String, String> map) {
 		logger.debug("addWish - 호출");
@@ -150,7 +162,7 @@ public class OrderController {
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 	
-	@DeleteMapping("/wish/delete")
+	@DeleteMapping("/wish")
 	@ApiOperation(value = "찜목록 삭제", notes = "product_id, Member_userid를 전달받아 Wish 정보를 DB에서 삭제. 리턴값 없음")
 	private ResponseEntity<String> deleteWish(@RequestParam String product_id, String member_userid) {
 		logger.debug("deleteWish - 호출");

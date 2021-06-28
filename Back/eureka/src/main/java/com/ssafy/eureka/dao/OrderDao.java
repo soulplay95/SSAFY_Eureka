@@ -20,11 +20,13 @@ public interface OrderDao {
 
 	int deleteOrder(String order_id);
 
-	List<Product> getCart(String member_userid);
+	List<Map<String,Object>> getCart(String member_userid);
 
 	int checkDup(Map<String, String> map);
 
 	int addCart(Map<String, String> map);
+
+	int modifyCart(Map<String, String> map);
 
 	int deleteCart(String member_userid, String product_id);
 

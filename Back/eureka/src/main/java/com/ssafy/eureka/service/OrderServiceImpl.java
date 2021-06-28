@@ -77,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public List<Product> getCart(String member_userid) {
+	public List<Map<String,Object>> getCart(String member_userid) {
 		return dao.getCart(member_userid);
 	}
 
@@ -91,6 +91,12 @@ public class OrderServiceImpl implements OrderService {
 	public int addCart(Map<String, String> map) {
 		
 		return dao.addCart(map);
+	}
+
+	@Override
+	public int modifyCart(Map<String, String> map) {
+		
+		return dao.modifyCart(map);
 	}
 
 	@Override
