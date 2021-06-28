@@ -29,13 +29,11 @@ export default {
   },
   methods: {
     selectItem: function () {
-      this.$store.dispatch('itemStore/selectItem', this.searchText);
-      this.$router.push({ name: 'ItemDetail' });
+      this.$store.dispatch("itemStore/selectItem", this.searchText);
+      this.$router.push({ name: "ItemDetail" });
     },
-  }
-}
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

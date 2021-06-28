@@ -1,74 +1,72 @@
-import axios from 'axios'
+import axios from "axios";
 
 export const itemStore = {
   namespaced: true,
   state: () => ({
-    searchText: '',
+    searchText: "",
     allData: [
       {
         id: 1,
-        name: '파인애플',
-        category: '과일',
+        name: "파인애플",
+        category: "과일",
         price: 30000,
-        img: 'https://picsum.photos/720/960/?image=476',
+        img: "https://picsum.photos/720/960/?image=476",
         rating: 4.5,
-        brand: '삼성',
+        brand: "삼성",
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
       },
       {
         id: 2,
-        name: '파인애플',
-        category: '과일',
+        name: "파인애플",
+        category: "과일",
         price: 30000,
-        img: 'https://picsum.photos/720/960/?image=476',
+        img: "https://picsum.photos/720/960/?image=476",
         rating: 4.5,
-        brand: '삼성',
+        brand: "삼성",
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
       },
       {
         id: 3,
-        name: '사과',
-        category: '과일',
+        name: "사과",
+        category: "과일",
         price: 30000,
-        img: 'https://picsum.photos/720/960/?image=476',
+        img: "https://picsum.photos/720/960/?image=476",
         rating: 4.5,
-        brand: '삼성',
+        brand: "삼성",
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
       },
       {
         id: 4,
-        name: '사과',
-        category: '과일',
+        name: "사과",
+        category: "과일",
         price: 30000,
-        img: 'https://picsum.photos/720/960/?image=476',
+        img: "https://picsum.photos/720/960/?image=476",
         rating: 4.5,
-        brand: '삼성',
+        brand: "삼성",
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
       },
     ],
-    searchItems: [
-      
-    ],
+    searchItems: [],
     selectItems: [],
     dogImage: [
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
-      'https://placedog.net/200/200?random',
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
+      "https://placedog.net/200/200?random",
     ],
   }),
   getters: {},
@@ -113,17 +111,17 @@ export const itemStore = {
     // },
     selectItem({ commit }, searchText){
       axios({
-        method: 'get',
+        method: "get",
         url: `http://localhost/product/search?keyword=${searchText}`,
       })
-      .then(res => {
-        console.log(res.data)
-        commit('SEARCH_ITEM', res.data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      commit('SEARCH_ITEM', searchText)
-    }
-  }
+        .then((res) => {
+          console.log(res.data);
+          commit("SEARCH_ITEM", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      commit("SEARCH_ITEM", searchText);
+    },
+  },
 };
