@@ -30,7 +30,7 @@ import CSQuestionForm from '@/views/CS/CSQuestionForm.vue';
 import ItemList from '@/views/Item/ItemList.vue';
 
 // JWT-common import
-// import JWTcommon from '@/utils/JWT-common'
+import JWTcommon from '@/utils/JWT-common'
 
 // import mapGetters (admin) 
 // import store from '@/store'
@@ -91,6 +91,9 @@ const routes = [
     path: '/cart',
     name: 'CartView',
     component: CartView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/order',
@@ -195,18 +198,18 @@ const router = createRouter({
 // 1. 로그인 해야 갈 수 있는 페이지 설정
 // 2. admin이여만 갈 수 있는 페이지에 일반 유저가 가는 것 방지
 
-// router.beforeEach((to, from, next) => {
-//   // Access Token이 필요한 곳에 들어가면
-//   // Access Token과 Refresh Token이 둘 다 없으면 로그인 하라고 시킴
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (!JWTcommon.getAccessToken()) {
-//       next()
-//     }
-//     else {
-//       next()
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // Access Token이 있는 지 검사하고 없으면 로그인
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!JWTcommon.getAccessToken()) {
+      next({name: 'Login'})
+    }
+    else {
+      next()
+    }
+  }
+  next()
+})
 
 
 
