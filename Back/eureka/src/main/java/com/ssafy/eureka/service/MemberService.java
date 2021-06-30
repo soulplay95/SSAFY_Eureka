@@ -18,5 +18,6 @@ public interface MemberService {
 	//비밀번호찾기
 	public int findPwd(Member member);
 	public boolean checkInfo(Member member);
+	public int modifyPwd(Map<String, String> map);
 	public Member checkDuplicate(String member_userid);
 }

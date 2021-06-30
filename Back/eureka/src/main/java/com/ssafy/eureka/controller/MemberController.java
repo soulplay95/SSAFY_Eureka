@@ -160,6 +160,19 @@ public class MemberController {
 		}
 		
 	}
+	@ApiOperation(value = "회원 수정", notes = "입력된 회원 정보로 수정합니다.", response = Member.class)
+	@ApiResponses({ @ApiResponse(code = 200, message = "회원 수정 OK"), @ApiResponse(code = 500, message = "서버 에러"),
+		@ApiResponse(code = 404, message = "페이지 없어") })
+	@PutMapping("/updatepwd")
+	private ResponseEntity<Member> pwdModify(@RequestBody Map<String,String> map) {
+		
+		if(service.modifyPwd(map) == 1) {
+			return new ResponseEntity<Member>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<Member>(HttpStatus.NO_CONTENT);
+		}
+		
+	}
 	
 	@ApiOperation(value = "아이디 중복 검사", notes = "입력된 이메일로 아이디 중복검사를 합니다. 중복된 ID가 없으면 status : 200, 있으면 status : 204 반환")
 	@GetMapping("/isDuplicated/{member_userid}")
