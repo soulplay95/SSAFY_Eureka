@@ -125,4 +125,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.logout(member_userid);
 	}
 
+	@Override
+	public int modifyPwd(Map<String, String> map) {
+		return dao.modifyPwd(map);
+	}
+
 }
