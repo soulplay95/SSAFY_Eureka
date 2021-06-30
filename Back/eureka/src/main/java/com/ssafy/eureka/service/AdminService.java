@@ -13,5 +13,9 @@ public interface AdminService {
 	List<Member> getMemberList();
 
 	int addProduct(Product product);
+	
+	int modifyProduct(Product product);
+
+	int deleteProduct(String product_id);
 
 }

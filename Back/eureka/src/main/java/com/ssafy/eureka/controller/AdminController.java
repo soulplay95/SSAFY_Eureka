@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,6 +55,28 @@ public class AdminController {
 			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		}
 
+	}
+	
+	@PutMapping("/modify")
+	@ApiOperation(value = "상품수정", notes = "상품수정시 Product객체(product_id제외)를 전달받아 해당 product_id의 상품정보를 DB에서 수정. 리턴값 없음")
+	private ResponseEntity<String> modifyProduct(@RequestBody Product product) {
+
+		if (service.modifyProduct(product) == 1) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+
+	@DeleteMapping("/delete/{product_id}")
+	@ApiOperation(value = "상품삭제", notes = "상품삭제시 product_id를 전달받아 해당 product_id의 상품정보를 DB에서 삭제. 리턴값 없음")
+	private ResponseEntity<String> deleteProduct(@PathVariable String product_id) {
+
+		if (service.deleteProduct(product_id) == 1) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 	}
 
 	@GetMapping("/member")
