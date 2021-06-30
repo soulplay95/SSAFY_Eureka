@@ -1,6 +1,8 @@
 package com.ssafy.eureka.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,15 @@ public class AdminServiceImpl implements AdminService {
 	AdminDao dao;
 	
 	@Override
-	public List<Product> getProductList() {
-		return dao.getProductList();
+	public Map<String, Object> getProductList(int page) {
+		int start = (page-1) * 100;
+		int cnt = 100;
+		int all = dao.getProductCount();
+		List<Product> products = dao.getProductList(start, cnt);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count", all);
+		map.put("products", products);
+		return map;
 	}
 
 	@Override

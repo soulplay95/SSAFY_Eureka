@@ -1,6 +1,7 @@
 package com.ssafy.eureka.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,14 +34,13 @@ public class AdminController {
 	@Autowired
 	AdminService service;
 
-	@GetMapping("/product")
-	@ApiOperation(value = "상품 현황", notes = "db에 저장된 전체 상품 리스트를 반환한다", response = List.class)
-	private ResponseEntity<List<Product>> getProductList() {
+	@GetMapping("/product/{page}")
+	@ApiOperation(value = "상품 현황", notes = "page를 받아 총 상품의 개수와 page에 해당하는 상품 100개의 리스트를 반환한다")
+	private ResponseEntity<Map<String, Object>> getProductList(@PathVariable int page) {
 
-		List<Product> list = service.getProductList();
-		list = null;
+		Map<String, Object> map = service.getProductList(page);
 		
-		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 
 	@PostMapping("/product")
