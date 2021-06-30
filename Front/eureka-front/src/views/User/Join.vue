@@ -2,9 +2,9 @@
   <div>
     <h1>회원가입 페이지!</h1>
     <form @submit.prevent="onSubmit()">
+      <!-- 아이디 -->
       <fieldset>
         <!-- id camelCase? kebab-case? -->
-        <!-- 아이디 -->
         <input
           v-model="credentials.userid"
           type="email"
@@ -13,7 +13,9 @@
           pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
           
         />
-        <!-- 비밀번호 -->
+      </fieldset>
+      <!-- 비밀번호 -->
+      <fieldset>
         <input
           v-model="credentials.userpwd"
           type="password"
@@ -21,6 +23,8 @@
           placeholder="비밀번호"
           autocomplete="new-password"
         />
+      </fieldset>
+      <fieldset>
         <!-- 비밀번호 확인 -->
         <input
           v-model="userpwdconfirmation"
@@ -30,14 +34,18 @@
           autocomplete="new-password"
           
         />
-        <!-- 이름 -->
+      </fieldset>
+      <!-- 이름 -->
+      <fieldset>
         <input 
           v-model="credentials.name" 
           type="text" 
           placeholder="이름"
           
         />
-        <!-- 연락처 -->
+      </fieldset>
+      <!-- 연락처 -->
+      <fieldset>
         <input
           v-model="credentials.phone"
           type="tel"
@@ -45,15 +53,15 @@
           placeholder="연락처"
           
         />
-        <!-- 주소 -->
-        <addressForm class="addressForm"
-        ref="addressForm"
-        />
-        <input
-          type="submit" 
-          value="회원가입"
-        />
       </fieldset>
+      <!-- 주소 -->
+      <addressForm class="addressForm"
+      ref="addressForm"
+      />
+      <input
+        type="submit" 
+        value="회원가입"
+      />
     </form>
   </div>
 </template>

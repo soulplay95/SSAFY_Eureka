@@ -46,6 +46,7 @@ export default {
       new window.daum.Postcode({
         oncomplete: (userData) => {
           this.extraAddr = ''
+          this.detailAddress = ''
           if (userData.userSelectedType === 'R') {
             this.address = userData.roadAddress
           } else {

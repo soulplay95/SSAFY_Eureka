@@ -44,25 +44,24 @@ export const userStore = {
         }
       })
       .then((res) => {
-        dispatch("login", credentials)
         console.log('회원가입통과', res)
+        dispatch("login", credentials)
       })
       .catch((err) => {
         alert(err)
       })
     },
     login ({commit}, credentials) {
-      console.log('로그인', credentials)
       axios({
         method: 'POST',
         url: 'http://localhost/member/login',
         data: {
           member_userid: credentials.userid,
-          member_userpwd: credentials.password
+          member_userpwd: credentials.userpwd
         }
       })
       .then((res) => {
-        console.log('백에서 통신옴')
+        console.log('로그인 성공')
         commit("SET_AUTH", res.data)
         router.push({ name: "Home" })
       })
@@ -71,30 +70,44 @@ export const userStore = {
       })
     },
     logout({commit, state}) {
-      console.log(state)
       axios({
         url: `http://localhost/member/logout/${state.user.member_userid}`
       })
       .then((res) => {
         commit("DESTROY_AUTH")
-        console.log(res)
+        router.push({ name: "Home" })
+        console.log('로그아웃 성공', res)
       })
     },
-    modfiyuser ({commit}, credentials) {
+    modifyuserinfo({commit}, currentUser) {
       axios({
         methods: 'POST',
-        url: 'http://localhost/member/login/modify',
+        url: 'http://localhost/member/login/modifyuser',
         data: {
-          member_userid: credentials.userid,
-          member_userpwd: credentials.password,
-          member_name: credentials.name,
-          member_phone: credentials.phone
+          member_name: currentUser.member_name,
+          member_phone: currentUser.member_phone,
         }
       })
       .then((res) => {
         console.log(res)
-        commit("SET_AUTH", res.data)
-        router.push({ name: "Home" })
+        commit.dispatch('logout')
+      })
+      .then((err) => {
+        console.log(err)
+      })
+    },
+    modifyuserpwd({commit}, credentials) {
+      axios ({
+        methods: 'POST',
+        url: 'https://localhost:8080/member/modifypwd',
+        data: {
+          member_userpwd: credentials.userpwd,
+          member_newpwd: credentials.newpwd
+        }
+      })
+      .then((res) => {
+        commit.dispatch('logout')
+        console.log(res)
       })
       .then((err) => {
         console.log(err)
@@ -102,6 +115,9 @@ export const userStore = {
     }
   },
   getters: {
+    currentUser(state) {
+      return state.user
+    },
     isAuthenticated(state) {
       return state.isAuthenticated
     },

@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div>
     <h1>비밀번호 찾기 페이지입니다!</h1>
     <form v-if="!isSubmitted" @submit.prevent="onSubmit()">
@@ -10,6 +10,7 @@
           v-model="name" 
           type="text" 
           placeholder="이름"
+          required
         />
         <!-- 아이디 -->
         <input
@@ -18,6 +19,15 @@
           placeholder="아이디(이메일)"
           autocomplete="email"
           pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
+          required
+        />
+        <!-- 연락처 -->
+        <input
+          v-model="credentials.phone"
+          type="tel"
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+          placeholder="연락처"
+          required
         />
         <input
           type="submit" 
@@ -45,13 +55,12 @@ export default {
     return {
       name: '',
       userid: '',
+      phone: '',
       isSubmitted: false,
     }
   },
   methods: {
     onSubmit() {
-      console.log('실행됨')
-
       axios({
         methods: 'POST',
         url: 'http://localhost/member/findpwd',
@@ -59,7 +68,7 @@ export default {
             member_userid: this.userid,
             member_name: this.name,
             // 임시
-            member_phone: "010-1234-5678"
+            member_phone: this.phone
         }
       })
       .then((res) => {
