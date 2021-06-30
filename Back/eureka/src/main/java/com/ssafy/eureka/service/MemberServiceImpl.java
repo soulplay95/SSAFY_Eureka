@@ -120,6 +120,7 @@ public class MemberServiceImpl implements MemberService {
 		return cnt;
 	}
 
+	
 	@Override
 	public int logout(String member_userid) {
 		return dao.logout(member_userid);
