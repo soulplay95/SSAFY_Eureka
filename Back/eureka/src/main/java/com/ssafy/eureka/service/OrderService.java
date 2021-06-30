@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.eureka.dto.Order;
 import com.ssafy.eureka.dto.OrderDetail;
 import com.ssafy.eureka.dto.Product;
+import com.ssafy.eureka.dto.ShipAddress;
 
 
 public interface OrderService {
@@ -39,6 +40,12 @@ public interface OrderService {
 	List<OrderDetail> showOrderDetailList(String order_id);
 
 	List<Map<String, Object>> showAllOrderList(String member_userid);
+
+	List<ShipAddress> getShippingAddress(String member_userid);
+
+	int addShippingAddress(ShipAddress shipAddress);
+
+	int defaultShippingAddress(int shipaddress_id);
 
 
 

@@ -17,8 +17,8 @@ public class HomeServiceImpl implements HomeService {
 	HomeDao dao;
 	
 	@Override
-	public List<Product> getRandomTopProductsByCategory(Map map) {
-		return dao.getRandomTopProductsByCategory(map);
+	public List<Product> getRandomTopProductsByCategory() {
+		return dao.getRandomTopProductsByCategory();
 	}
 
 	@Override

@@ -8,9 +8,8 @@
 		FROM orderdetail od
 		JOIN product p
 		ON od.product_id = p.product_id
-		WHERE truncate(p.product_category/100, 0) = #{randValue}
 		ORDER BY orderdetail_count DESC
-		LIMIT #{n}
+		LIMIT 10
 	</select>
 
 	<select id="get1depthCategory" resultType="map">
