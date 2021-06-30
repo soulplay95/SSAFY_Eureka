@@ -11,7 +11,7 @@ public interface ProductService {
 
 	List<Product> showSearchResult(String keyword);
 
-	List<Product> showItemList(String category);
+	List<Product> showItemListByCategory(String category);
 
 	Map<String, Object> showDetail(String product_id);
 

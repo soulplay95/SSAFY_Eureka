@@ -19,4 +19,5 @@ public interface MemberService {
 	public int findPwd(Member member);
 	public boolean checkInfo(Member member);
 	public int modifyPwd(Map<String, String> map);
+	public Member checkDuplicate(String member_userid);
 }

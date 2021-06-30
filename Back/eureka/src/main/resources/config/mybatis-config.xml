@@ -10,5 +10,6 @@
 		 <mapper resource="mappers/productqna.xml"/>
 		 <mapper resource="mappers/review.xml"/>
 		 <mapper resource="mappers/admin.xml"/>
+		 <mapper resource="mappers/home.xml"/>
 	</mappers>
 </configuration>

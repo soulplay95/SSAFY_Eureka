@@ -19,4 +19,5 @@ public interface MemberDao {
 	public Member getMemberByToken(String member_refreshtoken);
 	public int logout(String member_userid);
 	public int modifyPwd(Map<String, String> map);
+	public Member checkDuplicate(String member_userid);
 }
