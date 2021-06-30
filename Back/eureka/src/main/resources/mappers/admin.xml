@@ -14,12 +14,33 @@
 	</select>
 
 	<insert id="addProduct" parameterType="product">
-			INSERT INTO `product` (product_name, product_category, product_price, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, seller_name) 
-			VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_img}, #{product_rating}, #{product_brand}, #{product_deliveryprice}, #{product_detailimg}, #{product_count}, #{seller_name});
+			INSERT INTO `product` (product_name, product_category, product_price,product_discount, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, seller_name) 
+			VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_discount}, #{product_img}, 0, #{product_brand}, #{product_deliveryprice}, null, #{product_count}, #{seller_name});
 	</insert>
 	
 	<select id="getMemberList" resultType="member">
 		SELECT *
 		FROM member m
 	</select>
+	
+	<delete id="deleteProduct" parameterType="String">
+		DELETE FROM product
+		WHERE product_id = #{product_id}
+	</delete>
+	
+	<update id="modifyProduct" parameterType="Product">
+		UPDATE product
+		SET product_name = #{product_name},  
+			product_category = #{product_category}, 
+			product_price = #{product_price},	
+			product_discount = #{product_discount},  
+			product_img =#{product_img}, 
+			product_rating = #{product_rating},  
+			product_brand = #{product_brand},  
+			product_deliveryprice =#{product_deliveryprice},  
+			product_detailimg = #{product_detailimg},  
+			product_count = #{product_count},  
+			seller_name = #{seller_name}
+		WHERE product_id = #{product_id}
+	</update>
 </mapper>

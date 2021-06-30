@@ -17,4 +17,8 @@ public interface AdminDao {
 	int addProduct(Product product);
 
 	int getProductCount();
+
+	int modifyProduct(Product product);
+
+	int deleteProduct(String product_id);
 }

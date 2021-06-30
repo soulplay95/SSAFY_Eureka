@@ -38,5 +38,17 @@ public class AdminServiceImpl implements AdminService {
 	public int addProduct(Product product) {
 		return dao.addProduct(product);
 	}
+	
+	@Override
+	public int modifyProduct(Product product) {
+
+		return dao.modifyProduct(product);
+	}
+
+	@Override
+	public int deleteProduct(String product_id) {
+
+		return dao.deleteProduct(product_id);
+	}
 
 }
