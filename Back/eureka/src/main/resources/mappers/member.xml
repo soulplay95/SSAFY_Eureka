@@ -16,7 +16,6 @@
 	<update id="modifyMember">
 		UPDATE member
 		SET member_name = #{member_name},
-			member_address = #{member_address},
 			member_phone = #{member_phone}
 		WHERE member_userid = #{member_userid}
 	</update>

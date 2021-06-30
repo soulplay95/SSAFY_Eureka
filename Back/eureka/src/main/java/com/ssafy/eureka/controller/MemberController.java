@@ -160,7 +160,7 @@ public class MemberController {
 		}
 		
 	}
-	@ApiOperation(value = "회원 수정", notes = "입력된 회원 정보로 수정합니다.", response = Member.class)
+	@ApiOperation(value = "비밀번호 수정", notes = "전달 받은 member_userid와 member_userpwd를 체크 후  member_newpwd로 수정합니다.", response = Member.class)
 	@ApiResponses({ @ApiResponse(code = 200, message = "회원 수정 OK"), @ApiResponse(code = 500, message = "서버 에러"),
 		@ApiResponse(code = 404, message = "페이지 없어") })
 	@PutMapping("/updatepwd")

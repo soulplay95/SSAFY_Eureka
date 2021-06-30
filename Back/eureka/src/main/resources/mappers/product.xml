@@ -57,8 +57,17 @@
 	</update>
 	
 	
-	<select id="showSearchResult" parameterType="String" resultType="product">
+	<select id="showSearchResult" resultType="product">
 		SELECT *
+		FROM product p
+		WHERE product_name  LIKE concat('%', #{keyword}, '%')
+		OR product_brand LIKE concat('%', #{keyword}, '%')
+		OR product_category LIKE concat('%', #{keyword}, '%')
+		limit #{start}, 100;
+	</select>
+	
+	<select id="getProductSearchCount" resultType="int">
+		SELECT count(*)
 		FROM product p
 		WHERE product_name  LIKE concat('%', #{keyword}, '%')
 		OR product_brand LIKE concat('%', #{keyword}, '%')

@@ -6,6 +6,11 @@
 	<select id="getProductList" resultType="product">
 		SELECT *
 		FROM product p
+		limit #{start}, #{cnt}
+	</select>
+	<select id="getProductCount" resultType="int">
+		SELECT count(*)
+		FROM product p
 	</select>
 
 	<insert id="addProduct" parameterType="product">
