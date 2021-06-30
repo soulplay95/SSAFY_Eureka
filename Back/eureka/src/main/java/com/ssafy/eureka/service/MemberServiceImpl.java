@@ -128,7 +128,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int modifyPwd(Map<String, String> map) {
 		return dao.modifyPwd(map);
-    
+	}
+	
 	@Override
 	public Member checkDuplicate(String member_userid) {
 		return dao.checkDuplicate(member_userid);
