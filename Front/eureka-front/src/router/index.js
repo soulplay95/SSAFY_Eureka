@@ -110,8 +110,8 @@ const routes = [
     name: "AdminProfile",
     component: AdminProfile,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 회원 가입 현황
@@ -120,8 +120,8 @@ const routes = [
     name: "AdminUserRegisterDetail",
     component: AdminUserRegisterDetail,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 회원 리스트
@@ -130,8 +130,8 @@ const routes = [
     name: "AdminUserList",
     component: AdminUserList,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 상품 리스트
@@ -140,8 +140,8 @@ const routes = [
     name: "AdminItemList",
     component: AdminItemList,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 상품 등록
@@ -150,8 +150,8 @@ const routes = [
     name: "AdminItemRegister",
     component: AdminItemRegister,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   /* ------------------------ 고객센터 ------------------------ */
@@ -208,6 +208,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   }
+  // admin 사이트 접근 시 분기 처리 필요
   next()
 })
 

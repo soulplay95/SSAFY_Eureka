@@ -7,12 +7,14 @@
         <!-- id camelCase? kebab-case? -->
         <input
           v-model="credentials.userid"
+          :disabled="isIdChecked"
           type="email"
           placeholder="아이디(이메일)"
           autocomplete="email"
           pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
-          
+          required
         />
+        <button @click.prevent="onSubmitId()">{{ idCheckMessage }}</button>
       </fieldset>
       <!-- 비밀번호 -->
       <fieldset>
@@ -22,6 +24,7 @@
           minlength="8"
           placeholder="비밀번호"
           autocomplete="new-password"
+          required
         />
       </fieldset>
       <fieldset>
@@ -32,7 +35,7 @@
           minlength="8"
           placeholder="비밀번호 확인"
           autocomplete="new-password"
-          
+          required
         />
       </fieldset>
       <!-- 이름 -->
@@ -41,7 +44,7 @@
           v-model="credentials.name" 
           type="text" 
           placeholder="이름"
-          
+          required
         />
       </fieldset>
       <!-- 연락처 -->
@@ -51,7 +54,7 @@
           type="tel"
           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
           placeholder="연락처"
-          
+          required
         />
       </fieldset>
       <!-- 주소 -->
@@ -69,10 +72,9 @@
 <script>
 // useStore 훅을 사용하여 store에 접근합니다.
 import addressForm from '@/components/User/Join/addressForm'
-// import { mapActions } from 'vuex'
+import http from '@/utils/http-common'
 
 export default {
-  // vuex 불러오기
   name: "Join",
   components: {
     addressForm
@@ -80,7 +82,6 @@ export default {
   data() {
     return {
       credentials: {
-        // 명칭 재정의 필요
         userid: "",
         userpwd: "",
         name: "",
@@ -89,25 +90,53 @@ export default {
         type: "일반"
       },
       userpwdconfirmation: "",
+      isIdChecked: false
     }
   },
-  // 비밀번호와 비밀번호 확인은 local에서 처리
-  // 이후, 가입은 vuex에서 처리
   methods: {
+    // 회원가입 정보 Submit
     onSubmit() {
+      if (!this.isIdChecked) {
+        return alert('아이디 중복 검사를 진행해주세요!')
+      }
       if (this.issamepassword) {
         this.updateAddress()
-        // 회원가입 진행
         this.$store.dispatch("userStore/register", this.credentials)
       } else {
         this.resetPassword()
         alert("입력하신 비밀번호가 다릅니다!")
       }
     },
+    onSubmitId() {
+      // 중복검사 받은 아이디 수정
+      if (this.isIdChecked) {
+        this.isIdChecked = false
+      } else {
+        // 아이디 중복검사
+        http
+          .get('member/isDuplicated/' + this.credentials.userid)
+          .then((res) => {
+            if (res.status == 200) {
+              alert('사용가능합니다')
+              this.isIdChecked = true
+            } else if (res.status == 204) {
+              alert('아이디가 사용중입니다')
+              this.resetUserId()
+            }
+          })
+          .catch((err) => {
+            console.log(err)          
+            alert('아이디를 다시 입력해주세요!')
+          })
+      }
+    },
     // 패스워드 입력창 초기화
     resetPassword() {
         this.credentials.userpwd = ""
         this.userpwdconfirmation = ""
+    },
+    resetUserId() {
+      this.userid = ""
     },
     // 주소 업데이트
     updateAddress() {
@@ -128,6 +157,9 @@ export default {
   computed: {
     issamepassword() {
       return Boolean(this.credentials.userpwd === this.userpwdconfirmation)
+    },
+    idCheckMessage() {
+      return this.isIdChecked ? '아이디 새로 입력' : '아이디 중복 검사'
     }
   }
 }
@@ -157,6 +189,10 @@ export default {
 
   .addressForm {
     display: flex;
+  }
+
+  .beDisabled {
+    position: dis;
   }
 
 </style>

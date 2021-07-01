@@ -3,6 +3,14 @@
     <h1>회원가입 페이지!</h1>
     <!-- 기본정보 수정 -->
     <form @submit.prevent="onSubmitInfo()">
+      <!-- 아이디(이메일) -->
+      <fieldset>
+        <input 
+          :value="credentials.userid"
+          type="text"
+          disabled
+        />
+      </fieldset>
       <!-- 이름 -->
       <fieldset>
         <input 
@@ -88,6 +96,7 @@ export default {
   data() {
     return {
       credentials: {
+        userid: "",
         userpwd: "",
         newpwd: "",
       },
@@ -112,17 +121,18 @@ export default {
     },
     // 패스워드 입력창 초기화
     resetPassword() {
-        this.credentials.userpwd = ""
+        this.credentials.newpwd = ""
         this.newpwdconfirmation = ""
     },
   },
   computed: {
     ...mapGetters('userStore', ['currentUser']),
     issamepassword() {
-      return Boolean(this.credentials.userpwd === this.newpwdconfirmation)
+      return Boolean(this.credentials.newpwd === this.newpwdconfirmation)
     }
   },
   created() {
+    this.credentials.userid = this.currentUser.member_userid
   }
 }
 </script>
