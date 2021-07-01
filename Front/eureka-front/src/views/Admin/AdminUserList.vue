@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <adminSideBar/>
-    <h1>여기는 회원관리 - 회원리스트입니다!(관리자)</h1>
-    <adminTable/>
-  </div>
+  <adminSideBar/>
+  <adminUserTable/>
 </template>
+
 
 <script>
 import adminSideBar from '@/components/Admin/adminSideBar'
-import adminTable from '@/components/Admin/adminTable'
+import adminUserTable from '@/components/Admin/adminUserTable'
 
 export default {
   name: "AdminUserList",
   components: {
     adminSideBar,
-    adminTable
+    adminUserTable
   }
 }
 </script>
