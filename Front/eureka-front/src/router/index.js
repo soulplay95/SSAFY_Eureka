@@ -21,6 +21,7 @@ import AdminUserRegisterDetail from '@/views/Admin/AdminUserRegisterDetail.vue'
 import AdminUserList from "@/views/Admin/AdminUserList.vue";
 import AdminItemList from "@/views/Admin/AdminItemList.vue";
 import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
+import AdminItemModify from '@/views/Admin/AdminItemModify.vue'
 
 // 고객센터
 import CSQnaHistory from '@/views/CS/CSQnaHistory.vue';
@@ -149,6 +150,16 @@ const routes = [
     path: "/admin/item-register",
     name: "AdminItemRegister",
     component: AdminItemRegister,
+    meta: {
+      // requiresAuth: true,
+      // requiersAdmin: true,
+    },
+  },
+  // 상품 수정
+  {
+    path: "/admin/item-modify",
+    name: "AdminItemModify",
+    component: AdminItemModify,
     meta: {
       // requiresAuth: true,
       // requiersAdmin: true,

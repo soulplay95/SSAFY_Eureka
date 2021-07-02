@@ -1,6 +1,6 @@
 <template>
   <el-table
-    :data="itemInfo.filter(data => !search || data.product_name.toLowerCase().includes(search.toLowerCase()))"
+    :data="itemsInfo.filter(data => !search || data.product_name.toLowerCase().includes(search.toLowerCase()))"
     style="width: 100%">
     <el-table-column
       label="상품id"
@@ -85,14 +85,18 @@ export default {
   },
   methods: {
     updatePage(event) {
-      this.$store.dispatch('adminStore/setItemInfo', event)
+      this.$store.dispatch('adminStore/setItemsInfo', event)
+    },
+    handleEdit(index, row) {
+      console.log(row)
+      this.$store.dispatch('adminStore/getItemInfo', index)
     }
   },
   computed: {
-    ...mapGetters('adminStore', ['itemInfo', 'possiblePage'])
+    ...mapGetters('adminStore', ['itemsInfo', 'possiblePage'])
   },
   created() {
-    this.$store.dispatch('adminStore/setItemInfo', 1)
+    this.$store.dispatch('adminStore/setItemsInfo', 1)
   },
 }
 </script>

@@ -33,21 +33,9 @@ export default {
     adminSideBar,
     adminItemForm,
   },
-  data() {
-    return {
-      productInfo: {
-        brand: "",
-        category: "",
-        deliveryPrice: 0,
-        img: "",
-        name: "",
-        price: 0,
-        sellerName: "",
-        count: 0,
-        discount: 0,
-      }
-    }
-  }, 
+  created() {
+    this.$store.dispatch('adminStore/changeMode', 'register')
+  }
 }
 </script>
 

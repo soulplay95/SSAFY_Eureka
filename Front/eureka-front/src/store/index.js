@@ -20,7 +20,7 @@ export default createStore({
   plugins: [
     // userStore에 있는 정보만 관리
     createPersistedState({
-      paths: ['userStore']
+      paths: ['userStore', 'adminStore']
     })
   ]
 });
