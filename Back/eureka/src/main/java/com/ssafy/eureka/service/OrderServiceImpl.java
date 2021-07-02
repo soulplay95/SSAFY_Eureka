@@ -2,6 +2,7 @@ package com.ssafy.eureka.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService {
 		 List<OrderDetail> list =  mapper.convertValue(od_list, new TypeReference<List<OrderDetail>>() {});
 		int cnt = 0;
 		int size = list.size();
-		Order order = (Order) map.get("order");
+		Map<String, Object> order = (Map<String, Object>) map.get("order");
 		dao.addOrder(order);
 		int order_id = dao.getLastOrderid();
 		for(int i = 0; i < size; i++) {

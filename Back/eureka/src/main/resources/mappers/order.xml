@@ -15,7 +15,7 @@
 		WHERE order_id=#{order_id};
 	</select>
 	
-	<insert id="addOrder" parameterType="order">
+	<insert id="addOrder">
 		INSERT INTO temp.order (order_date, order_totalprice, member_userid, shipaddress_id)
 		VALUES (now(),#{order_totalprice},#{member_userid},#{shipaddress_id})
 	</insert>

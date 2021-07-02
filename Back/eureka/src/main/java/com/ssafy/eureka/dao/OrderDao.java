@@ -15,7 +15,7 @@ public interface OrderDao {
 
 	List<Order> showOrderList(String member_userid);
 
-	int addOrder(Order order);
+	int addOrder(Map map);
 
 	int addOrderdetail(OrderDetail orderdetail);
 
