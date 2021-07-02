@@ -6,6 +6,7 @@ public class Order {
 	String order_date;
 	String order_totalprice;
 	String member_userid;
+	private String shipaddress_id;
 	
 	public Order(String order_totalprice, String member_userid) {
 		this.order_totalprice = order_totalprice;
@@ -35,6 +36,14 @@ public class Order {
 	}
 	public void setMember_userid(String member_userid) {
 		this.member_userid = member_userid;
+	}
+
+	public String getShipaddress_id() {
+		return shipaddress_id;
+	}
+
+	public void setShipaddress_id(String shipaddress_id) {
+		this.shipaddress_id = shipaddress_id;
 	}
 	
 	

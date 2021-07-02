@@ -34,6 +34,11 @@
 		AND member_userpwd = #{member_userpwd}
 	</update>
 	
+	<update id="updatePwd"  parameterType="Member">
+		UPDATE member SET member_userpwd = #{member_userpwd} 
+		WHERE member_userid = #{member_userid} 
+	</update>
+	
 	<select id="login" parameterType="map" resultType="Member">
 		select *
 		from member
