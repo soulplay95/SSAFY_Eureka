@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar/>
     <!-- @상민 로그인, 회원가입 실험용 nav -->
     <!-- <router-link to="/">Home</router-link> |
     <router-link to="/user/join">Join</router-link>
@@ -17,13 +18,22 @@
 </template>
 
 <script>
-import { defineComponent } from "@vue/composition-api";
+import NavBar from '@/components/Bar/NavBar'
+import { defineComponent } from '@vue/composition-api'
 export default defineComponent({
-  setup() {},
-});
+  components: {
+    NavBar,
+  }
+})
 </script>
 
 <style>
+@font-face {
+    font-family: 'SEBANG_Gothic_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
