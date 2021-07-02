@@ -76,16 +76,12 @@ export const itemStore = {
   },
   mutations: {
     SEARCH_ITEM(state, searchText ) {
-      const params = {
-        keyword: searchText,
-        page: 1
-      }
       axios({
         method: 'get',
-        url: `http://localhost/product/search`,
-        params,
+        url: `http://localhost:8080/product/search?keyword=${searchText}&page=1`,
       }).
         then(res =>{
+          console.log(11111111111)
           console.log(res)
           state.searchItems = res
           console.log(res)
@@ -93,7 +89,7 @@ export const itemStore = {
         .catch(err => {
           console.log(err)
         })
-      console.log(state.searchItems)
+      console.log(state.searchText)
     },
     // 아직 완성 못한 filterquery
     // FILTER_ITEM(state, filterQuery ) {
@@ -111,6 +107,26 @@ export const itemStore = {
   },
   actions: {
     searchItem({ commit }, searchText ){
+      console.log(1)
+      axios.get('http://localhost/product/search?keyword='+ searchText + '&page=1')
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      // axios({
+      //   method: 'get',
+      //   url: `http://localhost/product/search?keyword=${searchText}&page=1`,
+      // }).
+      //   then(res =>{
+      //     console.log(11111111111)
+      //     console.log(res)
+      //     console.log(res)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
       commit('SEARCH_ITEM', searchText)
     },
     selectItem({ commit }, searchText){

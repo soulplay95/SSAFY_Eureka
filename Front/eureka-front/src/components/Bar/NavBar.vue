@@ -97,7 +97,7 @@ export default {
   methods: {
     searchItem: function () {
       this.$store.dispatch('itemStore/searchItem', this.searchText);
-      // this.$router.push({ name: 'ItemList' });
+      this.$router.push({ name: 'ItemList' });
     },
     logout() {
       this.$store.dispatch('userStore/logout')
