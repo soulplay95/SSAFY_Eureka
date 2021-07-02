@@ -14,6 +14,7 @@ import com.ssafy.eureka.dao.OrderDao;
 import com.ssafy.eureka.dto.Order;
 import com.ssafy.eureka.dto.OrderDetail;
 import com.ssafy.eureka.dto.Product;
+import com.ssafy.eureka.dto.ShipAddress;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -77,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public List<Product> getCart(String member_userid) {
+	public List<Map<String,Object>> getCart(String member_userid) {
 		return dao.getCart(member_userid);
 	}
 
@@ -91,6 +92,12 @@ public class OrderServiceImpl implements OrderService {
 	public int addCart(Map<String, String> map) {
 		
 		return dao.addCart(map);
+	}
+
+	@Override
+	public int modifyCart(Map<String, String> map) {
+		
+		return dao.modifyCart(map);
 	}
 
 	@Override
@@ -122,6 +129,26 @@ public class OrderServiceImpl implements OrderService {
 		return dao.deleteWish(product_id, member_userid);
 	}
 
+	@Override
+	public List<ShipAddress> getShippingAddress(String member_userid) {
+		
+		return dao.getShippingAddress(member_userid);	
+	}
 
+	@Override
+	public int addShippingAddress(ShipAddress shipAddress) {
+		
+		if(shipAddress.getShipaddress_type() == 1) { // 기본 배송지로 추가 하는 경우, 모두 2로 바꾼 ㅎ
+			dao.changeAllTypeTo2ByMemberId(shipAddress.getMember_userid());
+		}
+		
+		return dao.addShippingAddress(shipAddress);
+	}
+
+	@Override
+	public int defaultShippingAddress(int shipaddress_id) {
+		dao.changeAllTypeTo2ByShipId(shipaddress_id);
+		return dao.defaultShippingAddress(shipaddress_id);
+	}
 
 }

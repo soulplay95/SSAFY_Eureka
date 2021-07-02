@@ -13,12 +13,13 @@
             />
           </th>
           <th class="column-2"></th>
-          <th class="column-3" @click="sortBy('title')">상품정보</th>
-          <th class="column-4" @click="sortBy('price')">개당가격</th>
+          <th class="column-3" @click="sortBy('product_name')">상품정보</th>
+          <th class="column-4" @click="sortBy('product_price')">개당가격</th>
           <th class="column-5 p-l-70" @click="sortBy('quantity')">수량</th>
           <th class="column-6" @click="sortBy('totalPrice')">총금액</th>
-          <th class="column-7" @click="sortBy('deliveryCharge')">배송비</th>
-          <th class="column-8" @click="sortBy('ead')">도착예정일</th>
+          <th class="column-7" @click="sortBy('product_deliveryprice')">
+            배송비
+          </th>
         </tr>
 
         <!-- 상품 하나 정보 -->
@@ -26,28 +27,37 @@
           <tr class="table-row">
             <!-- 체크 박스 -->
             <td class="column-1">
-              <input type="checkbox" :value="item.id" v-model="checked" />
+              <input
+                type="checkbox"
+                :value="item.product_id"
+                v-model="checked"
+              />
             </td>
             <!-- 이미지 - 클릭 시 삭제 -->
             <td class="column-2">
               <div
                 class="cart-img-product b-rad-4 o-f-hidden"
-                @click="deleteItem(item.id)"
+                @click="deleteItem(item.product_id)"
               >
-                <img :src="item.image" alt="IMG-PRODUCT" />
+                <img :src="item.product_img" alt="IMG-PRODUCT" />
               </div>
             </td>
             <!-- 상품명 -->
-            <td class="column-3">{{ item.title }}</td>
+            <td class="column-3">
+              <router-link
+                :to="{ name: 'ItemDetail', query: item.product_id }"
+                >{{ item.product_name }}</router-link
+              >
+            </td>
             <!-- 상품 개당 가격 -->
-            <td class="column-4">{{ $filters.price(item.price) }}원</td>
+            <td class="column-4">{{ $filters.price(item.product_price) }}원</td>
             <!-- 수량 -->
             <td class="column-5" style="padding-left: 70px">
               <div class="flex-w bo5 of-hidden w-size17">
                 <button
                   class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
                   value="-"
-                  @click="decreaseQuantity(item.id)"
+                  @click="decreaseQuantity(item.product_id, item.quantity - 1)"
                 >
                   <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
                 </button>
@@ -57,12 +67,12 @@
                   type="number"
                   name="num-product1"
                   :value="item.quantity"
-                  @blur="updateQuantity(item.id, $event)"
+                  @blur="updateQuantity(item.product_id, $event)"
                 />
 
                 <button
                   class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
-                  @click="increaseQuantity(item.id)"
+                  @click="increaseQuantity(item.product_id, item.quantity + 1)"
                 >
                   <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
                 </button>
@@ -70,15 +80,11 @@
               <!-- 총 금액 => 개당 금액 * 수량 -->
             </td>
             <td class="column-6">
-              {{ $filters.price(item.price * item.quantity) }}원
+              {{ $filters.price(item.product_price * item.quantity) }}원
             </td>
             <!-- 배송비 -->
             <td class="column-7">
-              {{ $filters.price(item.deliveryCharge) }}원
-            </td>
-            <!-- 도착예정일 -->
-            <td class="column-8">
-              {{ $filters.date(item.ead) }}
+              {{ $filters.price(item.product_deliveryprice) }}원
             </td>
           </tr>
         </template>
@@ -119,15 +125,34 @@ export default {
   methods: {
     // 리스트에서 해당 상품 삭제
     deleteItem(id) {
-      this.$store.dispatch('cart/deleteItem', id);
+      this.$store.dispatch('cart/deleteItem', {
+        id: id,
+        userid: this.$store.state.userStore.member_userid,
+      });
     },
     // 해당 상품 수량 증가
-    increaseQuantity(id) {
-      this.$store.dispatch('cart/increaseQuantity', id);
+    increaseQuantity(id, quantity) {
+      this.$store.dispatch('cart/updateQuantity', {
+        product_id: id,
+        member_userid: this.$store.state.userStore.member_userid,
+        quantity: quantity,
+      });
     },
     // 해당 상품 수량 감소
-    decreaseQuantity(id) {
-      this.$store.dispatch('cart/decreaseQuantity', id);
+    decreaseQuantity(id, quantity) {
+      if (quantity <= 1) {
+        // 상품 삭제
+        this.$store.dispatch('cart/deleteItem', {
+          id: id,
+          userid: this.$store.state.userStore.member_userid,
+        });
+      } else {
+        this.$store.dispatch('cart/updateQuantity', {
+          product_id: id,
+          member_userid: this.$store.state.userStore.member_userid,
+          quantity: quantity,
+        });
+      }
     },
     // 전체 선택
     allCheck() {
@@ -138,25 +163,40 @@ export default {
         this.$store.dispatch('cart/updateChecked', checkedIndex);
       } else {
         this.items.forEach((item) => {
-          checkedIndex.push(item.id);
+          checkedIndex.push(item.product_id);
         });
         this.$store.dispatch('cart/updateChecked', checkedIndex);
       }
     },
     // 정렬
     sortBy(key) {
-      this.items.sort(function (a, b) {
-        console.log(a[key]);
-        return a[key] - b[key];
-      });
-      console.log(this.items);
+      // 총금액에 대해 정렬하려면
+      if (key == 'totalPrice') {
+        this.items.sort((a, b) => {
+          return a.product_price * a.quantity - b.product_price * b.quantity;
+        });
+      } else {
+        this.items.sort(function (a, b) {
+          return a[key] - b[key];
+        });
+      }
     },
     // 수량 업데이트
     updateQuantity(id, e) {
-      this.$store.commit('cart/UPDATE_QUANTITY', {
-        id,
-        quantity: e.target.value,
-      });
+      let inputQuantity = e.target.value;
+      if (inputQuantity <= 0) {
+        // 상품 삭제
+        this.$store.dispatch('cart/deleteItem', {
+          id: id,
+          userid: this.$store.state.userStore.member_userid,
+        });
+      } else {
+        this.$store.dispatch('cart/updateQuantity', {
+          product_id: id,
+          member_userid: this.$store.state.userStore.member_userid,
+          quantity: inputQuantity,
+        });
+      }
     },
   },
 };

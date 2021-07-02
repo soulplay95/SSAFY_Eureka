@@ -12,12 +12,10 @@ import 'element-plus/lib/theme-chalk/index.css';
 
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 const app = createApp(App);
-
 
 // 전역 filter 설정
 // 사용법 : {{ $filters.필터이름(데이터) }}
@@ -40,8 +38,13 @@ app.config.globalProperties.$filters = {
   },
 };
 
+
 app.use(store)
   .use(router)
   .use(VueAxios, axios)
+<<<<<<< HEAD
   .use(ElementPlus)
   .mount('#app');
+=======
+  .mount('#app');
+>>>>>>> 3a577c899985dd8c9a4744cb996489e2d9ad94f1

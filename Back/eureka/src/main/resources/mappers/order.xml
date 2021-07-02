@@ -32,7 +32,7 @@
 		DELETE FROM temp.order where order_id = #{order_id}
 	</delete>
 	
-	<select id="getCart" resultType="Product">
+	<select id="getCart" resultType="map">
 		SELECT * FROM temp.product p
 		JOIN (
 				SELECT * FROM temp.cart c
@@ -48,9 +48,16 @@
 	</select>
 	
 	<insert  id="addCart">
-		INSERT INTO temp.cart (product_id, member_userid)
-		VALUES (#{product_id},#{member_userid})
+		INSERT INTO temp.cart (product_id, member_userid, quantity)
+		VALUES (#{product_id},#{member_userid}, #{quantity})
 	</insert>
+	
+	<update id="modifyCart">
+		UPDATE temp.cart
+		SET quantity = #{quantity}
+		WHERE member_userid = #{member_userid}
+		AND product_id = #{product_id}
+	</update>
 	
 	<delete id="deleteCart">
 		DELETE FROM temp.cart
@@ -84,6 +91,39 @@
 		AND product_id = #{product_id}
 	</delete>
 
+	<select id="getShippingAddress" resultType="shipAddress">
+		SELECT shipaddress_id, shipaddress_nickname, shipaddress_addr, shipaddress_phone, shipaddress_request, shipaddress_type, member_userid
+		FROM shipaddress
+		WHERE member_userid = #{member_userid}
+		ORDER BY shipaddress_type ASC;
+	</select>
+	
+	<insert id="addShippingAddress">
+		INSERT INTO shipaddress(shipaddress_nickname, shipaddress_addr, shipaddress_phone, shipaddress_request, shipaddress_type, member_userid)
+		VALUES (#{shipaddress_nickname}, #{shipaddress_addr}, #{shipaddress_phone}, #{shipaddress_request}, #{shipaddress_type}, #{member_userid})
+	</insert>
+	
+	<update id="changeAllTypeTo2ByMemberId">
+		UPDATE shipaddress
+		SET shipaddress_type = 2
+		WHERE member_userid = #{member_userid}
+	</update>
+	
+	<update id="changeAllTypeTo2ByShipId">
+		UPDATE shipaddress 
+		SET shipaddress_type = 2
+		WHERE member_userid = (SELECT member_userid 
+								FROM (SELECT member_userid, shipaddress_id
+										FROM shipaddress
+		                                WHERE shipaddress_id = #{shipaddress_id}) as tmp);
+	</update>
+	
+	<update id="defaultShippingAddress">
+		UPDATE shipaddress
+		SET shipaddress_type = 1
+		WHERE shipaddress_id = #{shipaddress_id}
+	</update>
+	
 </mapper>
 
 

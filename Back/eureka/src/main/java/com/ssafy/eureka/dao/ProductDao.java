@@ -11,7 +11,7 @@ import com.ssafy.eureka.dto.Review;
 @Mapper
 public interface ProductDao {
 
-	List<Product> showSearchResult(String keyword);
+	List<Product> showSearchResult(String keyword, int start);
 
 	List<Product> showItemListByCategory(String category);
 
@@ -26,6 +26,8 @@ public interface ProductDao {
 	int modifyProduct(Product product);
 
 	int deleteProduct(String product_id);
+
+	int getProductSearchCount(String keyword);
 
 
 	

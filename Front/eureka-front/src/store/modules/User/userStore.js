@@ -13,7 +13,7 @@ export const userStore = {
     isAuthenticated : false,
   },
   mutations: {
-    SET_AUTH (state, data) {
+    SET_AUTH(state, data) {
       // userid, name, phone, address 정보 받아옴
       state.user = data.data
       state.isAuthenticated = true
@@ -50,7 +50,15 @@ export const userStore = {
       .catch((err) => {
         alert(err)
       })
+        .then((res) => {
+          commit('SET_AUTH', res.data);
+          console.log(res);
+        })
+        .catch((err) => {
+          alert(err);
+        });
     },
+
     login ({commit}, credentials) {
       console.log('로그인', credentials)
       axios({

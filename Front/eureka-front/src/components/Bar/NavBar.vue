@@ -96,8 +96,8 @@ export default {
   },
   methods: {
     searchItem: function () {
-      this.$store.dispatch('itemStore/searchItem', this.searchText);
-      this.$router.push({ name: 'ItemList' });
+      this.$store.dispatch("itemStore/searchItem", this.searchText);
+      this.$router.push({ name: "ItemList" });
     },
     logout() {
       this.$store.dispatch('userStore/logout')
@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style>
-nav{
+nav {
   height: 75px;
   padding: 1rem;
   color: white;

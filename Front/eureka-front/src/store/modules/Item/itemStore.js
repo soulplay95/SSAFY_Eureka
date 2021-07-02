@@ -1,30 +1,30 @@
-import axios from 'axios'
+import axios from "axios";
 
 export const itemStore = {
   namespaced: true,
   state: () => ({
-    searchText: '',
+    searchText: "",
     allData: [
       {
         id: 1,
-        name: '파인애플',
-        category: '과일',
+        name: "파인애플",
+        category: "과일",
         price: 30000,
-        img: 'https://picsum.photos/720/960/?image=476',
+        img: "https://picsum.photos/720/960/?image=476",
         rating: 4.5,
-        brand: '삼성',
+        brand: "삼성",
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
       },
       {
         id: 2,
-        name: '파인애플',
-        category: '과일',
+        name: "파인애플",
+        category: "과일",
         price: 30000,
-        img: 'https://picsum.photos/720/960/?image=476',
+        img: "https://picsum.photos/720/960/?image=476",
         rating: 4.5,
-        brand: '삼성',
+        brand: "삼성",
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
@@ -43,12 +43,12 @@ export const itemStore = {
       },
       {
         id: 4,
-        name: '사과',
-        category: '과일',
+        name: "사과",
+        category: "과일",
         price: 30000,
-        img: 'https://picsum.photos/720/960/?image=476',
+        img: "https://picsum.photos/720/960/?image=476",
         rating: 4.5,
-        brand: '삼성',
+        brand: "삼성",
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
@@ -131,7 +131,7 @@ export const itemStore = {
     },
     selectItem({ commit }, searchText){
       axios({
-        method: 'get',
+        method: "get",
         url: `http://localhost/product/search?keyword=${searchText}`,
       })
       .then(res => {

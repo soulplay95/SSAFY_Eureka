@@ -27,7 +27,6 @@ export default defineComponent({
 })
 </script>
 
-
 <style>
 @font-face {
     font-family: 'SEBANG_Gothic_Bold';

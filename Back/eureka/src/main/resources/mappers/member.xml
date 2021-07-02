@@ -15,9 +15,7 @@
 	
 	<update id="modifyMember">
 		UPDATE member
-		SET member_userpwd = #{member_userpwd},
-			member_name = #{member_name},
-			member_address = #{member_address},
+		SET member_name = #{member_name},
 			member_phone = #{member_phone}
 		WHERE member_userid = #{member_userid}
 	</update>
@@ -30,8 +28,10 @@
 				member_phone = #{member_phone}
 	</select>
 
-	<update id="updatePwd"  parameterType="Member">
-		UPDATE member SET member_userpwd = #{member_userpwd} where member_userid = #{member_userid}
+	<update id="modifyPwd"  parameterType="Member">
+		UPDATE member SET member_userpwd = #{member_newpwd} 
+		WHERE member_userid = #{member_userid} 
+		AND member_userpwd = #{member_userpwd}
 	</update>
 	
 	<select id="login" parameterType="map" resultType="Member">
@@ -54,6 +54,11 @@
 		UPDATE member SET member_refreshtoken = null where member_userid = #{member_userid}
 	</update>
 
+	<select id="checkDuplicate" resultType="member">
+		SELECT *
+		FROM member
+		WHERE member_userid = #{member_userid}
+	</select>
 </mapper>
 
 

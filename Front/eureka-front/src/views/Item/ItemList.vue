@@ -37,7 +37,7 @@ export default {
     ItemListCard,
     ItemListFilter,
   },
-  data: function() {
+  data: function () {
     return {
       page: 5000,
     }
@@ -45,6 +45,11 @@ export default {
   computed: {
     ...mapGetters( 'itemStore', ['searchText', 'searchItems'])
   },
+<<<<<<< HEAD
+=======
+  methods: {},
+
+>>>>>>> 3a577c899985dd8c9a4744cb996489e2d9ad94f1
   created() {
     // axios({
     //     method: 'get',
@@ -57,13 +62,24 @@ export default {
     //   .catch(err => {
     //     console.log(err)
     //   })
-  }
-}
+  },
+};
 </script>
 
 <style>
 .search {
   font-weight: 900;
 }
+<<<<<<< HEAD
 
 </style>
+=======
+.filter {
+  font-weight: 900;
+  font-size: 24px;
+}
+.category {
+  font-size: 20px;
+}
+</style>
+>>>>>>> 3a577c899985dd8c9a4744cb996489e2d9ad94f1

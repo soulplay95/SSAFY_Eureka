@@ -28,7 +28,7 @@ import { Carousel, Navigation, Slide } from 'vue3-carousel';
 // import Slide from '@/components/Carousel/Slide'
 
 export default {
-  data: function() {
+  data: function () {
     return {
       pic: pic,
       hotItems: [],
@@ -47,6 +47,7 @@ export default {
       handleSelection,
     };
   },
+
   methods: {
     onClick: function () {
       this.$router.push({ name: 'ItemDetail' });
