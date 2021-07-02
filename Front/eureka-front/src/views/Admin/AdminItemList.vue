@@ -1,8 +1,8 @@
 <template>
   <div>
-    <adminSideBar/>
+    <admin-side-bar/>
     <h1>여기는 상품 관리 - 상품 리스트 페이지입니다!(관리자)</h1>
-    <adminItemTable/>
+    <admin-item-table/>
   </div>
 </template>
 

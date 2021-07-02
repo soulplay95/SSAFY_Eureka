@@ -46,7 +46,7 @@ export const adminStore = {
       itemInfo(state) {
         return state.itemInfo
       },
-      possbilePage(state) {
+      possiblePage(state) {
         return Math.ceil(state.itemListCount / 100)
       }
     }

@@ -65,6 +65,12 @@
       </template>
     </el-table-column>
   </el-table>
+  <el-pagination
+    background
+    layout="prev, pager, next"
+    @current-change="updatePage($event)"
+    :total="possiblePage">
+  </el-pagination>
 </template>
 
 <script>
@@ -77,8 +83,13 @@ export default {
       search: '',
     }
   },
+  methods: {
+    updatePage(event) {
+      this.$store.dispatch('adminStore/setItemInfo', event)
+    }
+  },
   computed: {
-    ...mapGetters('adminStore', ['itemInfo'])
+    ...mapGetters('adminStore', ['itemInfo', 'possiblePage'])
   },
   created() {
     this.$store.dispatch('adminStore/setItemInfo', 1)
