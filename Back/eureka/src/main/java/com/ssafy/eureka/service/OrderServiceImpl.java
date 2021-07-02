@@ -59,14 +59,18 @@ public class OrderServiceImpl implements OrderService {
 		 ObjectMapper mapper = new ObjectMapper();
 		 List<OrderDetail> list =  mapper.convertValue(od_list, new TypeReference<List<OrderDetail>>() {});
 		int cnt = 0;
+		int price = 0;
 		int size = list.size();
-		Order order = (Order) map.get("order");
+		for(int i = 0; i < size; i++) {
+			price += Integer.parseInt(list.get(i).getOrderdetail_price()) * Integer.parseInt(list.get(i).getOrderdetail_count());
+		}
+		Order order = new Order(price+"", (String)map.get("member_userid"));
 		dao.addOrder(order);
 		int order_id = dao.getLastOrderid();
 		for(int i = 0; i < size; i++) {
 			OrderDetail temp = list.get(i);
 			temp.setOrder_id(order_id);
-			cnt += dao.addOrderdetail(temp);
+			cnt += dao.addOrderdetail(temp);			
 		}
 		return cnt;
 	}
