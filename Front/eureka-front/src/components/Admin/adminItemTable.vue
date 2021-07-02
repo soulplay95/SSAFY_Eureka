@@ -57,11 +57,11 @@
       <template #default="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+          @click="editItem(scope.$index)">Edit</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+          @click="deleteItem(scope.row)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -87,15 +87,19 @@ export default {
     updatePage(event) {
       this.$store.dispatch('adminStore/setItemsInfo', event)
     },
-    handleEdit(index, row) {
-      console.log(row)
-      this.$store.dispatch('adminStore/getItemInfo', index)
+    editItem(idx) {
+      this.$store.dispatch('adminStore/getItemInfo', idx)
+    },
+    deleteItem(item) {
+      const itemId = item.product_id
+      this.$store.dispatch('adminStore/deleteItem', itemId)
     }
   },
   computed: {
     ...mapGetters('adminStore', ['itemsInfo', 'possiblePage'])
   },
   created() {
+    // 접속 시 1페이지 정보 출력
     this.$store.dispatch('adminStore/setItemsInfo', 1)
   },
 }
