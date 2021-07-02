@@ -5,11 +5,19 @@
               <img :src="`https://placedog.net/300/200?random`"
               class="card-img-top" alt="..."
               @click="selectItem">
-              <div class="card-body">
-                <p>{{ itemId }}</p>
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
+                <div class="card text-end">
+                  <div class="card-body" @click="selectItem">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <el-rate
+                      v-model="value"
+                      disabled
+                      show-score
+                      text-color="#ff9900"
+                      score-template="{value} points">
+                    </el-rate>
+                    <h3>{{ item.price }}</h3>
+                  </div>                
+                </div>
             </div>
           </div>
   </div>
@@ -18,21 +26,22 @@
 <script>
 export default {
   props: {
-    itemId: {
-      type: Number,
+    item: {
+      type: Object,
     },
   },
   data: function() {
     return {
       searchText: '',
+      value: this.item.rating,
     }
   },
   methods: {
     selectItem: function () {
-      this.$store.dispatch('itemStore/selectItem', this.searchText);
+      // this.$store.dispatch('itemStore/selectItem', this.searchText);
       this.$router.push({ name: 'ItemDetail' });
     },
-  }
+  },
 }
 </script>
 

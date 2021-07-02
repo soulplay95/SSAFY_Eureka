@@ -1,14 +1,13 @@
 <template>
   <div>
-    <NavBar/>
     <img :src='pic'>
     <br><br><br><br><br>
-    <h1>카테고리 별 추천 상품</h1>
-    <Carousel :items-to-show="2.5" :wrap-around="true">
-    <Slide v-for="(dog, idx) in dogImg" :key="idx">
+    <h1>지금 뜨는 상품</h1>
+    <Carousel :items-to-show="5" :wrap-around="true">
+    <Slide v-for="(item, idx) in hotItems" :key="idx">
       <div class="carousel__item">
         <img
-        :src="dog"
+        :src="item.product_img"
         >
       </div>
     </Slide>
@@ -17,22 +16,14 @@
     </template>
   </Carousel>
     <br><br><br>
-    <Carousel :items-to-show="2.5" :wrap-around="true">
-    <Slide v-for="slide in 10" :key="slide" @click="onClick">
-      <div class="carousel__item">{{ slide }}</div>
-    </Slide>
-
-    <template #addons>
-      <Navigation />
-    </template>
-  </Carousel>
   </div>
 </template>
 
 <script>
-import pic from '@/assets/food.png'
+// import _ from 'lodash'
+import axios from 'axios'
+import pic from '@/assets/main.png'
 import 'vue3-carousel/dist/carousel.css';
-import NavBar from '@/components/Bar/NavBar'
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
 // import Slide from '@/components/Carousel/Slide'
 
@@ -40,15 +31,21 @@ export default {
   data: function() {
     return {
       pic: pic,
-      dogImg: this.$store.state.itemStore.dogImage,
+      hotItems: [],
     }
   },
   components: {
     Slide,
-    NavBar,
     Carousel,
     Navigation,
-    // vuePositionSticky,
+  },
+  setup() {
+    const handleSelection = (selectedItem) => {
+      console.log(selectedItem);
+    };
+    return {
+      handleSelection,
+    };
   },
   methods: {
     onClick: function () {
@@ -60,12 +57,34 @@ export default {
     reversedMessage: function () {
       // `this` 는 vm 인스턴스를 가리킵니다.
       return this.message.split('').reverse().join('')
-    }
-  },  
+    },
+    // questions: function () {
+    //   return this.$store.state.CSQnaStore.myQnaHistory
+    // },
+  }, 
+  created: function () {
+    axios({
+      method: 'get',
+      url: `http://localhost/home/recommend`,
+    }).
+      then(res =>{
+        this.hotItems = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
 </script>
 
-<style>
 
+
+<style>
+@font-face {
+    font-family: 'EliceDigitalBaeum_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 </style>
