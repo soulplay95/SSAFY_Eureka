@@ -13,9 +13,9 @@
 	<select id="getCategoryTopList" resultType="product">
 		SELECT *
 		FROM product p
-		WHERE product_category=#{product_category}
-		ORDER BY product_count
-		limit 0,5;
+		WHERE product_category=4101
+		ORDER BY Rand()
+		LIMIT 5;
 	</select>
 	
 	<select id="getProductqna" resultType="productqna">
@@ -31,8 +31,8 @@
 	</select>
 	
 	<insert id="registProduct">
-		INSERT INTO `product` (product_name, product_category, product_price, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, seller_name) 
-		VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_img}, #{product_rating}, #{product_brand}, #{product_deliveryprice}, #{product_detailimg}, #{product_count}, #{seller_name});
+		INSERT INTO `product` (product_name, product_category, product_price, product_discount, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, seller_name) 
+		VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_discount}, #{product_img}, 0, #{product_brand}, #{product_deliveryprice}, null, #{product_count}, #{seller_name});
 	</insert>
 	
 
@@ -45,20 +45,30 @@
 		UPDATE product
 		SET product_name = #{product_name},  
 			product_category = #{product_category}, 
-			product_price = #{product_price},	  
+			product_price = #{product_price},	 
+			product_discount = #{product_discount},  
 			product_img =#{product_img}, 
 			product_rating = #{product_rating},  
 			product_brand = #{product_brand},  
 			product_deliveryprice =#{product_deliveryprice},  
 			product_detailimg = #{product_detailimg},  
 			product_count = #{product_count},  
-			member_userid = #{member_userid}
+			seller_name = #{seller_name}
 		WHERE product_id = #{product_id}
 	</update>
 	
 	
-	<select id="showSearchResult" parameterType="String" resultType="product">
+	<select id="showSearchResult" resultType="product">
 		SELECT *
+		FROM product p
+		WHERE product_name  LIKE concat('%', #{keyword}, '%')
+		OR product_brand LIKE concat('%', #{keyword}, '%')
+		OR product_category LIKE concat('%', #{keyword}, '%')
+		limit #{start}, 100;
+	</select>
+	
+	<select id="getProductSearchCount" resultType="int">
+		SELECT count(*)
 		FROM product p
 		WHERE product_name  LIKE concat('%', #{keyword}, '%')
 		OR product_brand LIKE concat('%', #{keyword}, '%')

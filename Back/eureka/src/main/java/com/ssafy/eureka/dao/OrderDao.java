@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ssafy.eureka.dto.Order;
 import com.ssafy.eureka.dto.OrderDetail;
 import com.ssafy.eureka.dto.Product;
+import com.ssafy.eureka.dto.ShipAddress;
 
 @Mapper
 public interface OrderDao {
@@ -20,11 +21,13 @@ public interface OrderDao {
 
 	int deleteOrder(String order_id);
 
-	List<Product> getCart(String member_userid);
+	List<Map<String,Object>> getCart(String member_userid);
 
 	int checkDup(Map<String, String> map);
 
 	int addCart(Map<String, String> map);
+
+	int modifyCart(Map<String, String> map);
 
 	int deleteCart(String member_userid, String product_id);
 
@@ -39,6 +42,15 @@ public interface OrderDao {
 	List<OrderDetail> showOrderDetailList(String order_id);
 
 	Integer getLastOrderid();
+
+	List<ShipAddress> getShippingAddress(String member_userid);
+
+	int addShippingAddress(ShipAddress shipAddress);
+
+	int changeAllTypeTo2ByMemberId(String member_userid);
+	int changeAllTypeTo2ByShipId(int shipaddress_id);
+	
+	int defaultShippingAddress(int shipaddress_id);
 
 
 }

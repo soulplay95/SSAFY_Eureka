@@ -19,9 +19,14 @@ public class ProductServiceImpl implements ProductService {
 	ProductDao dao;
 	
 	@Override
-	public List<Product> showSearchResult(String keyword) {
-		
-		return dao.showSearchResult(keyword);
+	public Map<String, Object> showSearchResult(String keyword, int page) {
+		int start = (page-1) * 100;
+		int all = dao.getProductSearchCount(keyword);
+		List<Product> products = dao.showSearchResult(keyword, start);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count", all);
+		map.put("products", products);
+		return map;
 	}
 
 	@Override
@@ -64,6 +69,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<Product> categoryTopList(String category) {
+		
 		return dao.getCategoryTopList(category);
 	}
 

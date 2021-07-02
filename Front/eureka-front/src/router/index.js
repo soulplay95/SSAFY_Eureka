@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 // Views imports
 // Home
-import Home from "@/views/Home.vue";
+import Home from '@/views/Home.vue';
 // 회원
 import Login from '@/views/User/Login.vue';
 import Join from '@/views/User/Join.vue';
@@ -24,11 +24,10 @@ import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
 import AdminItemModify from '@/views/Admin/AdminItemModify.vue'
 
 // 고객센터
-import CSQnaHistory from '@/views/CS/CSQnaHistory.vue';
-import CSFAQ from '@/views/CS/CSFAQ.vue';
-import CSQuestionForm from '@/views/CS/CSQuestionForm.vue';
+import CSQna from '@/views/CS/CSQna.vue';
 // 상품
 import ItemList from '@/views/Item/ItemList.vue';
+import ItemDetail from '@/views/Item/ItemDetail.vue';
 
 // JWT-common import
 import JWTcommon from '@/utils/JWT-common'
@@ -39,27 +38,27 @@ import JWTcommon from '@/utils/JWT-common'
 const routes = [
   // Home
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home,
   },
   /* ------------------------ 회원 ------------------------ */
   // 로그인
   {
-    path: "/user/login",
-    name: "Login",
+    path: '/user/login',
+    name: 'Login',
     component: Login,
   },
   // 회원가입
   {
-    path: "/user/join",
-    name: "Join",
+    path: '/user/join',
+    name: 'Join',
     component: Join,
   },
   // MyPage
   {
-    path: "/user/mypage",
-    name: "MyPage",
+    path: '/user/mypage',
+    name: 'MyPage',
     component: MyPage,
     meta: {
       requiresAuth: true,
@@ -67,8 +66,8 @@ const routes = [
   },
   // 회원 정보 수정
   {
-    path: "/user/modify",
-    name: "UserModify",
+    path: '/user/modify',
+    name: 'UserModify',
     component: UserModify,
     meta: {
       requiresAuth: true,
@@ -76,14 +75,14 @@ const routes = [
   },
   // 아이디 찾기
   {
-    path: "/user/search-id",
-    name: "SearchId",
+    path: '/user/search-id',
+    name: 'SearchId',
     component: SearchId,
   },
   // 비밀번호 찾기
   {
-    path: "/user/search-password",
-    name: "SearchPassword",
+    path: '/user/search-password',
+    name: 'SearchPassword',
     component: SearchPassword,
   },
   /* ------------------------ @도명 ------------------------ */
@@ -107,8 +106,8 @@ const routes = [
   /* ------------------------ 관리자 ------------------------ */
   // 관리자 화면 Home - 관리자 정보
   {
-    path: "/admin/profile",
-    name: "AdminProfile",
+    path: '/admin/profile',
+    name: 'AdminProfile',
     component: AdminProfile,
     meta: {
       // requiresAuth: true,
@@ -127,8 +126,8 @@ const routes = [
   },
   // 회원 리스트
   {
-    path: "/admin/user-list",
-    name: "AdminUserList",
+    path: '/admin/user-list',
+    name: 'AdminUserList',
     component: AdminUserList,
     meta: {
       // requiresAuth: true,
@@ -137,8 +136,8 @@ const routes = [
   },
   // 상품 리스트
   {
-    path: "/admin/item-list",
-    name: "AdminItemList",
+    path: '/admin/item-list',
+    name: 'AdminItemList',
     component: AdminItemList,
     meta: {
       // requiresAuth: true,
@@ -168,33 +167,23 @@ const routes = [
   /* ------------------------ 고객센터 ------------------------ */
   // Home - 나의 문의 내역
   {
-    path: "/cs/qna-history",
-    name: "CSQnaHistory",
-    component: CSQnaHistory,
-    meta: {
-      requiresAuth: true,
-    },
+    path: "/cs/cs-qna",
+    name: "CSQna",
+    component: CSQna,
   },
-  // 자주묻는 질문
-  {
-    path: "/cs/faq",
-    name: "CSFAQ",
-    component: CSFAQ,
-  },
-  // 질문하기 - form
-  {
-    path: "/cs/questionForm",
-    name: "CSQnaForm",
-    component: CSQuestionForm,
-    meta: {
-      requiresAuth: true,
-    },
-  },
+  /* ------------------------ 아이템 ------------------------ */
   // 상품 검색
   {
     path: '/item/item-list',
     name: 'ItemList',
     component: ItemList,
+  },
+  // 상품 디테일
+  {
+    path: '/item/item-detail',
+    name: 'ItemDetail',
+    component: ItemDetail,
+    // props: true, // for params
   },
 ];
 

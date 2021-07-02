@@ -9,7 +9,7 @@ import com.ssafy.eureka.dto.Product;
 
 public interface ProductService {
 
-	List<Product> showSearchResult(String keyword);
+	Map<String, Object> showSearchResult(String keyword, int page);
 
 	List<Product> showItemListByCategory(String category);
 

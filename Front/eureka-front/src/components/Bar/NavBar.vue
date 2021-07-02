@@ -74,24 +74,16 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="dropdown-item" href="#">
-                <router-link to="/cart">장바구니</router-link>
-              </a>
+              <router-link to="/cart" class="nav-link">장바구니</router-link>
             </li>
             <li v-if="!isAuthenticated" class="nav-item">
-              <a class="dropdown-item" href="#">
-                <router-link to="/user/login">로그인</router-link>
-              </a>
+                <router-link to="/user/login" class="nav-link">로그인</router-link>
             </li>
             <li v-if="isAuthenticated" class="nav-item">
-              <a class="dropdown-item" href="#">
-                <button @click="logout">로그아웃</button>
-              </a>
+                <button @click="logout" class="nav-link">로그아웃</button>
             </li>
             <li class="nav-item">
-              <a class="dropdown-item" href="#">
-                <router-link to="/user/join">회원가입</router-link>
-              </a>
+                <router-link to="/user/join" class="nav-link">회원가입</router-link>
             </li>
           </ul>
         </div>
@@ -102,12 +94,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
 export default {
   methods: {
     searchItem: function () {
-      this.$store.dispatch('itemStore/searchItem', this.searchText);
-      this.$router.push({ name: 'ItemList' });
+      this.$store.dispatch("itemStore/searchItem", this.searchText);
+      this.$router.push({ name: "ItemList" });
     },
     logout() {
       this.$store.dispatch('userStore/logout')
@@ -133,7 +124,7 @@ export default {
 </script>
 
 <style>
-nav{
+nav {
   height: 75px;
   padding: 1rem;
   color: white;

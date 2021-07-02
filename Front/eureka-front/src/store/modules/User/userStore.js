@@ -13,7 +13,7 @@ export const userStore = {
     isAuthenticated : false,
   },
   mutations: {
-    SET_AUTH (state, data) {
+    SET_AUTH(state, data) {
       // userid, name, phone, address 정보 받아옴
       state.user = data.data
       state.isAuthenticated = true

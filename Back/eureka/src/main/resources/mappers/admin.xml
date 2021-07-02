@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.eureka.dao.AdminDao">
+
+	<select id="getProductList" resultType="product">
+		SELECT *
+		FROM product p
+		limit #{start}, #{cnt}
+	</select>
+	<select id="getProductCount" resultType="int">
+		SELECT count(*)
+		FROM product p
+	</select>
+
+	<insert id="addProduct" parameterType="product">
+			INSERT INTO `product` (product_name, product_category, product_price,product_discount, product_img, product_rating, product_brand, product_deliveryprice, product_detailimg, product_count, seller_name) 
+			VALUES (#{product_name}, #{product_category}, #{product_price}, #{product_discount}, #{product_img}, 0, #{product_brand}, #{product_deliveryprice}, null, #{product_count}, #{seller_name});
+	</insert>
+	
+	<select id="getMemberList" resultType="member">
+		SELECT *
+		FROM member m
+	</select>
+	
+	<delete id="deleteProduct" parameterType="String">
+		DELETE FROM product
+		WHERE product_id = #{product_id}
+	</delete>
+	
+	<update id="modifyProduct" parameterType="Product">
+		UPDATE product
+		SET product_name = #{product_name},  
+			product_category = #{product_category}, 
+			product_price = #{product_price},	
+			product_discount = #{product_discount},  
+			product_img =#{product_img}, 
+			product_rating = #{product_rating},  
+			product_brand = #{product_brand},  
+			product_deliveryprice =#{product_deliveryprice},  
+			product_detailimg = #{product_detailimg},  
+			product_count = #{product_count},  
+			seller_name = #{seller_name}
+		WHERE product_id = #{product_id}
+	</update>
+</mapper>
