@@ -21,6 +21,7 @@ import AdminUserRegisterDetail from '@/views/Admin/AdminUserRegisterDetail.vue'
 import AdminUserList from "@/views/Admin/AdminUserList.vue";
 import AdminItemList from "@/views/Admin/AdminItemList.vue";
 import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
+import AdminItemModify from '@/views/Admin/AdminItemModify.vue'
 
 // 고객센터
 import CSQna from '@/views/CS/CSQna.vue';
@@ -29,7 +30,7 @@ import ItemList from '@/views/Item/ItemList.vue';
 import ItemDetail from '@/views/Item/ItemDetail.vue';
 
 // JWT-common import
-// import JWTcommon from '@/utils/JWT-common'
+import JWTcommon from '@/utils/JWT-common'
 
 // import mapGetters (admin) 
 // import store from '@/store'
@@ -90,6 +91,9 @@ const routes = [
     path: '/cart',
     name: 'CartView',
     component: CartView,
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/order',
@@ -106,8 +110,8 @@ const routes = [
     name: 'AdminProfile',
     component: AdminProfile,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 회원 가입 현황
@@ -116,8 +120,8 @@ const routes = [
     name: "AdminUserRegisterDetail",
     component: AdminUserRegisterDetail,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 회원 리스트
@@ -126,8 +130,8 @@ const routes = [
     name: 'AdminUserList',
     component: AdminUserList,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 상품 리스트
@@ -136,8 +140,8 @@ const routes = [
     name: 'AdminItemList',
     component: AdminItemList,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   // 상품 등록
@@ -146,8 +150,18 @@ const routes = [
     name: "AdminItemRegister",
     component: AdminItemRegister,
     meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
+      // requiresAuth: true,
+      // requiersAdmin: true,
+    },
+  },
+  // 상품 수정
+  {
+    path: "/admin/item-modify",
+    name: "AdminItemModify",
+    component: AdminItemModify,
+    meta: {
+      // requiresAuth: true,
+      // requiersAdmin: true,
     },
   },
   /* ------------------------ 고객센터 ------------------------ */
@@ -184,18 +198,19 @@ const router = createRouter({
 // 1. 로그인 해야 갈 수 있는 페이지 설정
 // 2. admin이여만 갈 수 있는 페이지에 일반 유저가 가는 것 방지
 
-// router.beforeEach((to, from, next) => {
-//   // Access Token이 필요한 곳에 들어가면
-//   // Access Token과 Refresh Token이 둘 다 없으면 로그인 하라고 시킴
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (!JWTcommon.getAccessToken()) {
-//       next()
-//     }
-//     else {
-//       next()
-//     }
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // Access Token이 있는 지 검사하고 없으면 로그인
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (!JWTcommon.getAccessToken()) {
+      next({name: 'Login'})
+    }
+    else {
+      next()
+    }
+  }
+  // admin 사이트 접근 시 분기 처리 필요
+  next()
+})
 
 
 

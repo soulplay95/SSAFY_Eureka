@@ -1,6 +1,6 @@
 <template>
   <div>
-    <adminSideBar/>
+    <admin-side-bar/>
     <h1>여기는 관리자 페이지 Main입니다!</h1>
     {{ isAdmin }}
     이름: {{ user.member_name }}

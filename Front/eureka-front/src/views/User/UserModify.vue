@@ -1,121 +1,138 @@
 <template>
   <div>
     <h1>회원가입 페이지!</h1>
-    <form @submit.prevent="onSubmit()">
+    <!-- 기본정보 수정 -->
+    <form @submit.prevent="onSubmitInfo()">
+      <!-- 아이디(이메일) -->
       <fieldset>
-        <!-- 이름 -->
         <input 
-          v-model="credentials.name" 
-          type="text" 
-          placeholder="이름"
+          :value="credentials.userid"
+          type="text"
+          disabled
         />
-        <!-- 비밀번호 -->
+      </fieldset>
+      <!-- 이름 -->
+      <fieldset>
+        <input 
+          v-model="currentUser.member_name" 
+          type="text"
+          placeholder="이름"
+          required
+        />
+      </fieldset>
+      <!-- 연락처 -->
+      <fieldset>
+        <input
+          v-model="currentUser.member_phone"
+          type="tel"
+          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+          placeholder="연락처"
+          required
+        />
+      </fieldset>
+      <fieldset>
+        <input
+          type="submit"
+          value="수정"
+        />
+      </fieldset>
+    </form>
+    <!-- 비밀번호 수정 -->
+    <form @submit.prevent="onSubmitPwd()">
+      <!-- 현재 비밀번호 -->
+      <fieldset>
         <input
           v-model="credentials.userpwd"
           type="password"
           minlength="8"
+          placeholder="현재 비밀번호"
+          autocomplete="password"
+          required
+        />
+      </fieldset>
+      <!-- 비밀번호 -->
+      <fieldset>
+        <input
+          v-model="credentials.newpwd"
+          type="password"
+          minlength="8"
           placeholder="신규 비밀번호"
           autocomplete="new-password"
+          required
         />
-        <!-- 비밀번호 확인 -->
+      </fieldset>
+      <!-- 비밀번호 확인 -->
+      <fieldset>
         <input
-          v-model="userpwdconfirmation"
+          v-model="newpwdconfirmation"
           type="password"
           minlength="8"
           placeholder="비밀번호 확인"
           autocomplete="new-password"
+          required
         />
-        <!-- 연락처 -->
+      </fieldset>
+      <fieldset>
         <input
-          v-model="credentials.phone"
-          type="tel"
-          pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-          placeholder="연락처"
-          
-        />
-        <!-- 현재 주소 -->
-        <div> 기존 주소: {{ credentials.address }} </div> 
-        <!-- 주소 -->
-        <addressForm class="addressForm"
-        ref="addressForm"
-        />
-        <input
-          type="submit" 
-          value="회원 정보 수정"
+          type="submit"
+          value="비밀번호 변경하기"
         />
       </fieldset>
     </form>
+    <!-- 현재 주소 -->
+    <div> 
+      <p>기존 주소 -  {{ currentUser.member_address }}</p>
+      주소록 관리는 주문페이지에서 진행하시면 됩니다🍕
+    </div>
   </div>
 </template>
 
 <script>
-// useStore 훅을 사용하여 store에 접근합니다.
-import addressForm from '@/components/User/Join/addressForm'
-import { useStore } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
   // vuex 불러오기
-  setup () {
-      const store = useStore();
-      return { store }
-  },
   name: "UserModify",
-  components: {
-    addressForm
-  },
   data() {
     return {
       credentials: {
-        // 명칭 재정의 필요
-        name: "",
-        phone: "",
-        address: "",
-        type: "일반"
+        userid: "",
+        userpwd: "",
+        newpwd: "",
       },
-      userpwdconfirmation: "",
+      newpwdconfirmation: "",
     }
   },
   // 비밀번호와 비밀번호 확인은 local에서 처리
   // 이후, 가입은 vuex에서 처리
   methods: {
-    onSubmit() {
+    onSubmitInfo() {
+      this.$store.dispatch('userStore/modifyuserinfo', this.currentUser)
+      console.log('회원정보수정 vuex로 보냄')
+    },
+    onSubmitPwd() {
       if (this.issamepassword) {
-        this.updateAddress()
-        // 회원가입 진행
-        this.store.dispatch("userStore/register", this.credentials)
+        this.$store.dispatch('userStore/modifyuserpwd', this.credentials)
+        console.log('비밀번호수정 vuex로 보냄')
       } else {
         this.resetPassword()
-        alert("입력하신 비밀번호가 다릅니다!")
+        alert("입력하신 비밀번호가 같아야합니다!")
       }
     },
     // 패스워드 입력창 초기화
     resetPassword() {
-        this.credentials.userpwd = ""
-        this.userpwdconfirmation = ""
+        this.credentials.newpwd = ""
+        this.newpwdconfirmation = ""
     },
-    // 주소 업데이트
-    updateAddress() {
-      let address = ""
-      // 기본 주소
-      address += this.$refs.addressForm.address
-      // 상세주소
-      if (this.$refs.addressForm.detailAddress) {
-        address += ' ' + this.$refs.addressForm.detailAddress
-      // 참고주소
-      address += ' ' + this.$refs.addressForm.extraAddr
-      // 우편번호
-      address += ' ' + this.$refs.addressForm.postcode
-      this.credentials.address = address
-      }
-    }
   },
   computed: {
+    ...mapGetters('userStore', ['currentUser']),
     issamepassword() {
-      return Boolean(this.credentials.userpwd === this.userpwdconfirmation)
-    },
+      return Boolean(this.credentials.newpwd === this.newpwdconfirmation)
+    }
   },
   created() {
-    
+    this.credentials.userid = this.currentUser.member_userid
   }
 }
 </script>

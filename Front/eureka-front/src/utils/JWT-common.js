@@ -19,4 +19,4 @@ export const destroyTokens = () => {
   window.localStorage.removeItem("refreshJwt")
 }
 
-export default { getAccessToken, getRefreshToken, saveTokens, destroyTokens };
+export default { getAccessToken, getRefreshToken, saveTokens, destroyTokens }

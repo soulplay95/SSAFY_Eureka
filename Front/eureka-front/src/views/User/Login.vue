@@ -12,19 +12,20 @@
           pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
           required
         >
+      </fieldset>
+      <fieldset>
         <input
-          v-model="credentials.password"
+          v-model="credentials.userpwd"
           type="password" placeholder="비밀번호"
           autocomplete="password"  
           required
         >
-        <input type="submit" value="로그인">
-
       </fieldset>
+      <input type="submit" value="로그인">
+    </form>
     <router-link to="/user/join">회원가입</router-link>
     <router-link to="/user/search-id">아이디 찾기</router-link>
     <router-link to="/user/search-password">비밀번호 찾기</router-link>
-    </form>
     <!-- <googleAuth/> -->
   </div>
 
