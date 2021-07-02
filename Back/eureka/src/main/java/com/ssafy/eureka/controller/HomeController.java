@@ -28,19 +28,11 @@ public class HomeController {
 	@Autowired
 	HomeService service;
 
-	@ApiOperation(value = "랜덤 카테고리 판매순 추천 리스트", notes = "2depth 카테고리중 판매량이 높은 상품을 n개 반환", response = List.class)
-	@GetMapping("/recommend/{n}")
-	public ResponseEntity<List<Product>> topN(@PathVariable String n) {
-
-		double dValue = Math.random();
-//		int randValue = (int)dValue*10;
-		int randValue = 41;
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("n", Integer.parseInt(n));
-		map.put("randValue", randValue);
-		
+	@ApiOperation(value = "추천 상품 리스트 (10개)", notes = "전체상품중 판매량이 높은 상품을 10개 반환", response = List.class)
+	@GetMapping("/recommend")
+	public ResponseEntity<List<Product>> topN() {
 		try {
-			List<Product> list = service.getRandomTopProductsByCategory(map);
+			List<Product> list = service.getRandomTopProductsByCategory();
 			return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -51,8 +43,7 @@ public class HomeController {
 	@GetMapping("/category/list")
 	public ResponseEntity<Map<String, Object>> getCategories () {
 		Map<String, Object> map = service.getCategories();
-		
-		
+		System.out.println(map);
 		return new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 	}
 }

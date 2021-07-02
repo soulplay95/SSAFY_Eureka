@@ -10,7 +10,7 @@ import com.ssafy.eureka.dto.Product;
 @Mapper
 public interface HomeDao {
 
-	public List<Product> getRandomTopProductsByCategory(Map map);
+	public List<Product> getRandomTopProductsByCategory();
 
 	public List<Map<String, Object>> get1depthCategory();
 	public List<Map<String, Object>> get2depthCategory();

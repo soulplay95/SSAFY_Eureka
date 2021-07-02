@@ -6,7 +6,11 @@ import { createApp } from 'vue';
 // import bootstrap5
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+
+// import Element UI Plus
+import ElementPlus from 'element-plus';
+import 'element-plus/lib/theme-chalk/index.css';
+
 
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
@@ -40,4 +44,5 @@ app.config.globalProperties.$filters = {
 app.use(store)
   .use(router)
   .use(VueAxios, axios)
+  .use(ElementPlus)
   .mount('#app');
