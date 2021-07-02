@@ -42,9 +42,5 @@ app.config.globalProperties.$filters = {
 app.use(store)
   .use(router)
   .use(VueAxios, axios)
-<<<<<<< HEAD
   .use(ElementPlus)
   .mount('#app');
-=======
-  .mount('#app');
->>>>>>> 3a577c899985dd8c9a4744cb996489e2d9ad94f1
