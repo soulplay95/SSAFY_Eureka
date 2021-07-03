@@ -25,6 +25,17 @@
   <el-form-item label="할인율(%)" prop="product_discount">
     <el-input v-model="itemFormInfo.product_discount"></el-input>
   </el-form-item>
+  <el-upload
+    action="https://jsonplaceholder.typicode.com/posts/"
+    list-type="picture-card"
+    :on-preview="handlePictureCardPreview"
+    :on-remove="handleRemove"
+  >
+  <i class="el-icon-plus"></i>
+  </el-upload>
+  <el-dialog v-model="dialogVisible">
+    <img width="100%" :src="dialogImageUrl" alt="" />
+  </el-dialog>
   <el-form-item>
     <el-button type="primary" @click="submitForm('itemForm')">Create</el-button>
     <el-button @click="resetForm('itemForm')">Reset</el-button>
@@ -45,6 +56,8 @@ export default {
     name: 'adminItemForm',
     data() {
       return {
+        dialogImageUrl: '',
+        dialogVisible: false,
         rules: {
           product_brand: [
             { message: '상품 브랜드를 입력해주세요', trigger: 'blur' },
@@ -107,7 +120,14 @@ export default {
             console.log(res)
             router.push({name: "AdminItemList"})
           })
-      }
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList)
+      },
+      handlePictureCardPreview(file) {
+        this.dialogImageUrl = file.url
+        this.dialogVisible = true
+      },
     },
     computed: {
       ...mapGetters('adminStore', ['itemFormInfo', 'currentMode'])

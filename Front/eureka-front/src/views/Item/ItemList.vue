@@ -63,8 +63,6 @@ export default {
       this.$router.push({ name: 'ItemDetail' });
     }
   },
-  methods: {},
-
   created() {
     // axios({
     //     method: 'get',

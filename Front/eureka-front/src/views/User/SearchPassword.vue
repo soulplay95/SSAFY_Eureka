@@ -23,7 +23,7 @@
         />
         <!-- 연락처 -->
         <input
-          v-model="credentials.phone"
+          v-model="phone"
           type="tel"
           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
           placeholder="연락처"
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import http from '@/utils/http-common'
 
 export default {
   name: 'SearchPassword',
@@ -61,23 +61,20 @@ export default {
   },
   methods: {
     onSubmit() {
-      axios({
-        methods: 'POST',
-        url: 'http://localhost/member/findpwd',
-        data: {
-            member_userid: this.userid,
-            member_name: this.name,
-            // 임시
-            member_phone: this.phone
-        }
-      })
-      .then((res) => {
+      const data = {
+          member_userid: this.userid,
+          member_name: this.name,
+          member_phone: this.phone
+      }
+      http
+        .post('member/findpwd', data)
+        .then((res) => {
         this.isSubmitted = true
         console.log(res)
-      })
-      .catch((err) => {
+        })
+        .catch((err) => {
         console.log(err)
-      })
+        })
     }
   }
 

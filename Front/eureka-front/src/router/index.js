@@ -110,7 +110,7 @@ const routes = [
     name: 'AdminProfile',
     component: AdminProfile,
     meta: {
-      // requiresAuth: true,
+      requiresAuth: true,
       // requiersAdmin: true,
     },
   },
@@ -120,7 +120,7 @@ const routes = [
     name: "AdminUserRegisterDetail",
     component: AdminUserRegisterDetail,
     meta: {
-      // requiresAuth: true,
+      requiresAuth: true,
       // requiersAdmin: true,
     },
   },
@@ -130,7 +130,7 @@ const routes = [
     name: 'AdminUserList',
     component: AdminUserList,
     meta: {
-      // requiresAuth: true,
+      requiresAuth: true,
       // requiersAdmin: true,
     },
   },
@@ -140,7 +140,7 @@ const routes = [
     name: 'AdminItemList',
     component: AdminItemList,
     meta: {
-      // requiresAuth: true,
+      requiresAuth: true,
       // requiersAdmin: true,
     },
   },
@@ -150,7 +150,7 @@ const routes = [
     name: "AdminItemRegister",
     component: AdminItemRegister,
     meta: {
-      // requiresAuth: true,
+      requiresAuth: true,
       // requiersAdmin: true,
     },
   },
@@ -160,7 +160,7 @@ const routes = [
     name: "AdminItemModify",
     component: AdminItemModify,
     meta: {
-      // requiresAuth: true,
+      requiresAuth: true,
       // requiersAdmin: true,
     },
   },
@@ -170,6 +170,9 @@ const routes = [
     path: "/cs/cs-qna",
     name: "CSQna",
     component: CSQna,
+    meta: {
+      requiresAuth: true,
+    },
   },
   /* ------------------------ 아이템 ------------------------ */
   // 상품 검색

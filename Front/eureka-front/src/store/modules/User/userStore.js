@@ -49,6 +49,7 @@ export const userStore = {
         })
     },
     login ({commit}, credentials) {
+      console.log('로그인 성공')
       const data = {
         member_userid: credentials.userid,
         member_userpwd: credentials.userpwd
@@ -63,6 +64,7 @@ export const userStore = {
         .catch((err) => {
           console.log(err)
         })
+      console.log('로그인 성공')
     },
     logout({commit, state}) {
       http
