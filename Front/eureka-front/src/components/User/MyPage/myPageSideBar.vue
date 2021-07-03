@@ -4,37 +4,46 @@
     class="el-menu-vertical-demo"
     @open="handleOpen"
     @close="handleClose"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b">
+    background-color="#e0e085"
+    text-color="black"
+    active-text-color="gray"
+  >
     <el-submenu index="1">
       <template #title>
         <i class="el-icon-location"></i>
         <span>MY 정보</span>
       </template>
-      <el-menu-item index="1-1">회원정보 수정</el-menu-item>
-      <el-menu-item index="1-2">배송지 관리</el-menu-item>
+      <el-menu-item @click="onClick($event)" index="userModify" route>회원정보 수정</el-menu-item>
+      <el-menu-item @click="onClick($event)" index="manageAddress">배송지 관리</el-menu-item>
     </el-submenu>
     <el-submenu index="2">
       <template #title>
         <i class="el-icon-location"></i>
         <span>MY 쇼핑</span>
       </template>
-      <el-menu-item index="2-1">주문목록</el-menu-item>
-      <el-menu-item index="2-2">장바구니</el-menu-item>
+      <el-menu-item @click="onClick($event)" index="orderList">주문목록</el-menu-item>
     </el-submenu>
   </el-menu>
 </template>
 
 <script>
   export default {
+    name: "myPageSideBar",
+    data() {
+      return {
+        currentMode: "",  
+      }
+    },
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
-      }
+      },
+      onClick(index) {
+        console.log(index)
+      },
     }
   }
 </script>

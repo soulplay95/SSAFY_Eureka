@@ -41,6 +41,13 @@
     <el-table-column
       label="이미지"
       prop="product_img">
+      <template v-slot="scope">
+        <el-image
+          style="width: 100px; height: 100px"
+          :src="scope.row.product_img"
+          :fit="fit">
+        </el-image>
+      </template>
     </el-table-column>
     <el-table-column
       label="평점"
@@ -52,7 +59,7 @@
         <el-input
           v-model="search"
           size="mini"
-          placeholder="이름 검색"/>
+          placeholder="상품명 검색"/>
       </template>
       <template #default="scope">
         <el-button
@@ -61,7 +68,7 @@
         <el-button
           size="mini"
           type="danger"
-          @click="deleteItem(scope.row)">Delete</el-button>
+          @click="deleteItemConfirmation(scope.row)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -90,9 +97,31 @@ export default {
     editItem(idx) {
       this.$store.dispatch('adminStore/getItemInfo', idx)
     },
-    deleteItem(item) {
-      const itemId = item.product_id
-      this.$store.dispatch('adminStore/deleteItem', itemId)
+    deleteItemConfirmation(item) {
+          this.$confirm('해당 상품을 삭제하시겠습니까?', 'Warning', {
+            confirmButtonText: '네',
+            cancelButtonText: '아니오',
+            type: 'warning',
+        })
+        .then((res) => {
+          console.log(res)
+          const selectedItemId = item.product_id
+          this.$store.dispatch('adminStore/deleteItem', selectedItemId)
+        })
+        .then((res) => {
+          console.log(res)
+          this.$message({
+            type: 'success',
+            message: '삭제 완료되었습니다😥'
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$message({
+            type:'info',
+            message: '삭제 취소되었습니다😚'
+          })
+        })
     }
   },
   computed: {

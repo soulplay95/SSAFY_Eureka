@@ -93,6 +93,17 @@ export const adminStore = {
           dispatch('setItemsInfo', this.currentPage)
           console.log(res)
         })
+      },
+      deleteUser({dispatch}, selectedUserId) {
+        http
+          .delete('member/delete/' + selectedUserId)
+          .then((res) => {
+            console.log(res)
+            dispatch('setUserInfo')
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       }     
     },
     getters: {

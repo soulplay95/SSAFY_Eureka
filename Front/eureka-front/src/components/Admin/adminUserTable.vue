@@ -41,11 +41,8 @@
       <template #default="scope">
         <el-button
           size="mini"
-          @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-        <el-button
-          size="mini"
           type="danger"
-          @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+          @click="deleteUserConfirmation(scope.row)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -62,12 +59,32 @@ export default {
       }
     },
     methods: {
-      handleEdit(index, row) {
-        console.log(index, row);
-      },
-      handleDelete(index, row) {
-        console.log(index, row);
-      },
+      deleteUserConfirmation(user) {
+        this.$confirm('해당 회원을 삭제하시겠습니까?', 'Warning', {
+          confirmButtonText: '네',
+          cancelButtonText: '아니오',
+          type: 'warning',
+        })
+        .then((res) => {
+          console.log(res)
+          const selectedUserId = user.member_userid
+          this.$store.dispatch('adminStore/deleteUser', selectedUserId)
+        })
+        .then((res) => {
+          console.log(res)
+          this.$message({
+            type: 'success',
+            message: '삭제 완료되었습니다😥'
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+          this.$message({
+            type:'info',
+            message: '삭제 취소되었습니다😚'
+          })
+        })
+      }
     },
     mounted() {
       // 유저 정보 가져오기

@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="d-flex flex-row mt-5">
     <admin-side-bar/>
-    <h1>여기는 상품 등록 페이지입니다(관리자 페이지)</h1>
-    <admin-item-form/>
+    <div>
+      <h1>여기는 상품 등록 페이지입니다(관리자 페이지)</h1>
+      <admin-item-form/>
+    </div>
   </div>
 </template>
 

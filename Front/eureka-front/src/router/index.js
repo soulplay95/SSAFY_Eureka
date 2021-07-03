@@ -7,7 +7,7 @@ import Home from '@/views/Home.vue';
 import Login from '@/views/User/Login.vue';
 import Join from '@/views/User/Join.vue';
 import MyPage from '@/views/User/MyPage.vue';
-import UserModify from '@/views/User/UserModify.vue';
+// import UserModify from '@/views/User/UserModify.vue';
 import SearchId from '@/views/User/SearchId.vue';
 import SearchPassword from '@/views/User/SearchPassword.vue';
 // 장바구니
@@ -17,7 +17,6 @@ import OrderView from '@/views/Order/OrderView.vue';
 
 // 관리자
 import AdminProfile from "@/views/Admin/AdminProfile.vue";
-import AdminUserRegisterDetail from '@/views/Admin/AdminUserRegisterDetail.vue'
 import AdminUserList from "@/views/Admin/AdminUserList.vue";
 import AdminItemList from "@/views/Admin/AdminItemList.vue";
 import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
@@ -64,15 +63,15 @@ const routes = [
       requiresAuth: true,
     },
   },
-  // 회원 정보 수정
-  {
-    path: '/user/modify',
-    name: 'UserModify',
-    component: UserModify,
-    meta: {
-      requiresAuth: true,
-    },
-  },
+  // // 회원 정보 수정
+  // {
+  //   path: '/user/modify',
+  //   name: 'UserModify',
+  //   component: UserModify,
+  //   meta: {
+  //     requiresAuth: true,
+  //   },
+  // },
   // 아이디 찾기
   {
     path: '/user/search-id',
@@ -109,16 +108,6 @@ const routes = [
     path: '/admin/profile',
     name: 'AdminProfile',
     component: AdminProfile,
-    meta: {
-      requiresAuth: true,
-      // requiersAdmin: true,
-    },
-  },
-  // 회원 가입 현황
-  {
-    path: "/admin/user-register-detail",
-    name: "AdminUserRegisterDetail",
-    component: AdminUserRegisterDetail,
     meta: {
       requiresAuth: true,
       // requiersAdmin: true,

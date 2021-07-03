@@ -1,6 +1,8 @@
 <template>
-  <adminSideBar/>
-  <adminUserTable/>
+  <div class="d-flex flex-row mt-5">
+    <adminSideBar/>
+    <adminUserTable/>
+  </div>
 </template>
 
 
