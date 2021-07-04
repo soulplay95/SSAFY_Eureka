@@ -37,11 +37,6 @@ public class Order {
 	public void setShipaddress_id(int shipaddress_id) {
 		this.shipaddress_id = shipaddress_id;
 	}
-	@Override
-	public String toString() {
-		return "Order [order_id=" + order_id + ", order_date=" + order_date + ", order_totalprice=" + order_totalprice
-				+ ", member_userid=" + member_userid + ", shipaddress_id=" + shipaddress_id + "]";
-	}
 	
 	
 	
