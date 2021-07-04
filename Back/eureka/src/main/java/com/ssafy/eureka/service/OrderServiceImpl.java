@@ -61,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
 		 ObjectMapper mapper = new ObjectMapper();
 		 List<OrderDetail> list =  mapper.convertValue(od_list, new TypeReference<List<OrderDetail>>() {});
 		int cnt = 0;
+		int price = 0;
 		int size = list.size();
 		Map<String, Object> order = (Map<String, Object>) map.get("order");
 		dao.addOrder(order);
@@ -68,7 +69,7 @@ public class OrderServiceImpl implements OrderService {
 		for(int i = 0; i < size; i++) {
 			OrderDetail temp = list.get(i);
 			temp.setOrder_id(order_id);
-			cnt += dao.addOrderdetail(temp);
+			cnt += dao.addOrderdetail(temp);			
 		}
 		return cnt;
 	}
