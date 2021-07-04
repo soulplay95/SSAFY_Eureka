@@ -149,4 +149,17 @@ public class OrderServiceImpl implements OrderService {
 		return dao.defaultShippingAddress(shipaddress_id);
 	}
 
+	@Override
+	public int deleteShippingAddress(int shipaddress_id) {
+		return dao.deleteShippingAddress(shipaddress_id);
+	}
+
+	@Override
+	public int modifyShippingAddress(ShipAddress shipAddress) {
+		if(shipAddress.getShipaddress_type() == 1) {
+			dao.changeAllTypeTo2ByMemberId(shipAddress.getMember_userid());
+		}
+		return dao.modifyShippingAddress(shipAddress);
+	}
+
 }
