@@ -218,4 +218,34 @@ public class OrderController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	@PutMapping("/shipping")
+	@ApiOperation(value = "배송지로 수정", notes = "ShipAddress를 받아 수정")
+	private ResponseEntity<String> modifyShippingAddress(@RequestBody ShipAddress shipAddress) {
+		try {
+			if(service.modifyShippingAddress(shipAddress)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@DeleteMapping("/shipping/{shipaddress_id}")
+	@ApiOperation(value = "배송지 삭제", notes = "shipaddrlist_id에 해당하는 배송지를 삭제")
+	private ResponseEntity<String> deleteShippingAddress(@PathVariable int shipaddress_id) {
+		try {
+			if(service.deleteShippingAddress(shipaddress_id)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
 }

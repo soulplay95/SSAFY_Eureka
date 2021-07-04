@@ -126,6 +126,21 @@
 		WHERE shipaddress_id = #{shipaddress_id}
 	</update>
 	
+	<delete id="deleteShippingAddress">
+		DELETE FROM shipaddress
+		WHERE shipaddress_id = #{shipaddress_id}
+	</delete>
+	
+	<update id="modifyShippingAddress" parameterType="shipaddress">
+		UPDATE shipaddress 
+		SET shipaddress_nickname = #{shipaddress_nickname},
+			shipaddress_addr = #{shipaddress_addr},
+			shipaddress_phone = #{shipaddress_phone},
+			shipaddress_request = #{shipaddress_request}, 
+			shipaddress_type = #{shipaddress_type}
+		WHERE shipaddress_id = #{shipaddress_id}
+	</update>
+	
 </mapper>
 
 
