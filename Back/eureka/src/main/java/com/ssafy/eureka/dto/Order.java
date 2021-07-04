@@ -7,7 +7,6 @@ public class Order {
 	String order_totalprice;
 	String member_userid;
 	int shipaddress_id;
-
 	public int getOrder_id() {
 		return order_id;
 	}
@@ -32,19 +31,13 @@ public class Order {
 	public void setMember_userid(String member_userid) {
 		this.member_userid = member_userid;
 	}
-
 	public int getShipaddress_id() {
 		return shipaddress_id;
 	}
 	public void setShipaddress_id(int shipaddress_id) {
 		this.shipaddress_id = shipaddress_id;
 	}
-	@Override
-	public String toString() {
-		return "Order [order_id=" + order_id + ", order_date=" + order_date + ", order_totalprice=" + order_totalprice
-				+ ", member_userid=" + member_userid + ", shipaddress_id=" + shipaddress_id + "]";
-	}
-
+	
 	
 	
 }
