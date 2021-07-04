@@ -13,7 +13,7 @@
 	<select id="getCategoryTopList" resultType="product">
 		SELECT *
 		FROM product p
-		WHERE product_category=4101
+		WHERE product_category=#{product_category}
 		ORDER BY Rand()
 		LIMIT 5;
 	</select>
