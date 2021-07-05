@@ -4,9 +4,32 @@ export const itemDetail = {
   namespaced: true,
   state: () => ({
     // 상품 정보
-    product: {},
+    productInfo: {},
   }),
-  getters: {},
-  mutations: {},
-  actions: {},
+  getters: {
+    productInfo(state) {
+      return state.productInfo;
+    },
+  },
+  mutations: {
+    GET_PRODUCT_INFO(state, data) {
+      state.productInfo = data;
+    },
+  },
+  actions: {
+    getProductInfo({ commit }, product_id) {
+      http
+        .get('/product/detailview/' + product_id)
+        .then((res) => {
+          if (res.status == 200) {
+            commit('GET_PRODUCT_INFO', res.data);
+          } else {
+            alert('상품 정보 로딩 실패');
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
 };

@@ -8,6 +8,11 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
+// import PRIME VUE
+// import PrimeVue from 'primevue/config';
+
+import VTooltip from 'v-tooltip';
+
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
 import axios from 'axios';
@@ -36,8 +41,4 @@ app.config.globalProperties.$filters = {
   },
 };
 
-
-app.use(store)
-  .use(router)
-  .use(VueAxios, axios)
-  .mount('#app');
+app.use(store).use(router).use(VueAxios, axios).use(VTooltip).mount('#app');
