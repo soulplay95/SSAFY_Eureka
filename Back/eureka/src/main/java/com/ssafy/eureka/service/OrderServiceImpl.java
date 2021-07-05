@@ -2,6 +2,7 @@ package com.ssafy.eureka.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import com.ssafy.eureka.dao.OrderDao;
 import com.ssafy.eureka.dto.Order;
 import com.ssafy.eureka.dto.OrderDetail;
 import com.ssafy.eureka.dto.Product;
+import com.ssafy.eureka.dto.ShipAddress;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -61,10 +63,7 @@ public class OrderServiceImpl implements OrderService {
 		int cnt = 0;
 		int price = 0;
 		int size = list.size();
-		for(int i = 0; i < size; i++) {
-			price += Integer.parseInt(list.get(i).getOrderdetail_price()) * Integer.parseInt(list.get(i).getOrderdetail_count());
-		}
-		Order order = new Order(price+"", (String)map.get("member_userid"));
+		Map<String, Object> order = (Map<String, Object>) map.get("order");
 		dao.addOrder(order);
 		int order_id = dao.getLastOrderid();
 		for(int i = 0; i < size; i++) {
@@ -128,6 +127,39 @@ public class OrderServiceImpl implements OrderService {
 		return dao.deleteWish(product_id, member_userid);
 	}
 
+	@Override
+	public List<ShipAddress> getShippingAddress(String member_userid) {
+		
+		return dao.getShippingAddress(member_userid);	
+	}
 
+	@Override
+	public int addShippingAddress(ShipAddress shipAddress) {
+		
+		if(shipAddress.getShipaddress_type() == 1) { // 기본 배송지로 추가 하는 경우, 모두 2로 바꾼 ㅎ
+			dao.changeAllTypeTo2ByMemberId(shipAddress.getMember_userid());
+		}
+		
+		return dao.addShippingAddress(shipAddress);
+	}
+
+	@Override
+	public int defaultShippingAddress(int shipaddress_id) {
+		dao.changeAllTypeTo2ByShipId(shipaddress_id);
+		return dao.defaultShippingAddress(shipaddress_id);
+	}
+
+	@Override
+	public int deleteShippingAddress(int shipaddress_id) {
+		return dao.deleteShippingAddress(shipaddress_id);
+	}
+
+	@Override
+	public int modifyShippingAddress(ShipAddress shipAddress) {
+		if(shipAddress.getShipaddress_type() == 1) {
+			dao.changeAllTypeTo2ByMemberId(shipAddress.getMember_userid());
+		}
+		return dao.modifyShippingAddress(shipAddress);
+	}
 
 }

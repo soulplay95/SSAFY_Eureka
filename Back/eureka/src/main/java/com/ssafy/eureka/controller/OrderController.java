@@ -22,6 +22,7 @@ import com.ssafy.eureka.dto.Order;
 import com.ssafy.eureka.dto.OrderDetail;
 import com.ssafy.eureka.dto.Product;
 import com.ssafy.eureka.dto.Productqna;
+import com.ssafy.eureka.dto.ShipAddress;
 import com.ssafy.eureka.service.OrderService;
 
 import io.swagger.annotations.ApiOperation;
@@ -50,7 +51,7 @@ public class OrderController {
 		logger.debug("showOrderList - 호출");
 		List<Map<String,Object>> list = service.showAllOrderList(member_userid);
 		if(list.size() > 0) {
-			return new ResponseEntity<List<Map<String,Object>>>(HttpStatus.OK);
+			return new ResponseEntity<List<Map<String,Object>>>(list,HttpStatus.OK);
 		}
 		return new ResponseEntity<List<Map<String,Object>>>(HttpStatus.NO_CONTENT);	
 	}
@@ -65,7 +66,7 @@ public class OrderController {
 //	}
 	
 	@PostMapping("/order")
-	@ApiOperation(value = "주문 추가", notes = "Member_userid, List<Orderdetail>를 전달받아 주문 추가. 리턴값 없음")
+	@ApiOperation(value = "주문 추가", notes = "Order, List<Orderdetail>를 전달받아 주문 추가. 리턴값 없음")
 	private ResponseEntity<String> addOrder(@RequestBody Map<String, Object> map) {
 		logger.debug("addOrder - 호출");		
 		if(service.addOrder(map) > 0) {
@@ -170,5 +171,81 @@ public class OrderController {
 			return new ResponseEntity<String>(HttpStatus.OK);
 		}
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/shipping/list/{member_userid}")
+	@ApiOperation(value = "배송지 목록 조회", notes = "기본배송지 + 나머지 배송지목록 조회")
+	private ResponseEntity<List<ShipAddress>> getShippingAddress(@PathVariable String member_userid) {
+		try {
+			List<ShipAddress> shiplist = service.getShippingAddress(member_userid);
+			return new ResponseEntity<List<ShipAddress>>(shiplist, HttpStatus.OK);
+		} catch(Exception e) {
+//			System.out.println();
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@PostMapping("/shipping/add")
+	@ApiOperation(value = "배송지 추가", notes = "배송지 추가")
+	private ResponseEntity<String> addShippingAddress(@RequestBody ShipAddress shipAddress) {
+		try {
+			if(service.addShippingAddress(shipAddress)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				System.out.println("트라이");
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
+			System.out.println("캣치");
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@PutMapping("/shipping/default/{shipaddress_id}")
+	@ApiOperation(value = "기본 배송지로 설정", notes = "shipaddrlist_id에 해당하는 배송지를 기본 배송지로 설정")
+	private ResponseEntity<List<ShipAddress>> defaultShippingAddress(@PathVariable int shipaddress_id) {
+		try {
+			if(service.defaultShippingAddress(shipaddress_id)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
+//			System.out.println();
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@PutMapping("/shipping")
+	@ApiOperation(value = "배송지로 수정", notes = "ShipAddress를 받아 수정")
+	private ResponseEntity<String> modifyShippingAddress(@RequestBody ShipAddress shipAddress) {
+		try {
+			if(service.modifyShippingAddress(shipAddress)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@DeleteMapping("/shipping/{shipaddress_id}")
+	@ApiOperation(value = "배송지 삭제", notes = "shipaddrlist_id에 해당하는 배송지를 삭제")
+	private ResponseEntity<String> deleteShippingAddress(@PathVariable int shipaddress_id) {
+		try {
+			if(service.deleteShippingAddress(shipaddress_id)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 	}
 }

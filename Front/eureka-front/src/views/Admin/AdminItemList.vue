@@ -1,21 +1,24 @@
 <template>
-  <div>
-    <adminSideBar/>
-    <h1>여기는 상품 관리 - 상품 리스트 페이지입니다!(관리자)</h1>
+  <div class="d-flex flex-row mt-5">
+    <admin-side-bar/>
+    <div>
+      <admin-item-table/>
+    </div>
   </div>
 </template>
 
 <script>
 import adminSideBar from '@/components/Admin/adminSideBar'
+import adminItemTable from '@/components/Admin/adminItemTable'
 
 export default {
   name: "AdminItemList",
   components: {
-    adminSideBar
+    adminSideBar,
+    adminItemTable
   }
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>

@@ -6,7 +6,11 @@ import { createApp } from 'vue';
 // import bootstrap5
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+
+// import Element UI Plus
+import ElementPlus from 'element-plus';
+import 'element-plus/lib/theme-chalk/index.css';
+
 
 // import PRIME VUE
 // import PrimeVue from 'primevue/config';
@@ -41,4 +45,8 @@ app.config.globalProperties.$filters = {
   },
 };
 
-app.use(store).use(router).use(VueAxios, axios).use(VTooltip).mount('#app');
+app.use(store)
+  .use(router)
+  .use(VueAxios, axios)
+  .use(ElementPlus)
+  .mount('#app');

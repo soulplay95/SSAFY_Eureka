@@ -9,9 +9,9 @@ import com.ssafy.eureka.dto.Product;
 
 public interface ProductService {
 
-	List<Product> showSearchResult(String keyword);
+	Map<String, Object> showSearchResult(String keyword, int page);
 
-	List<Product> showItemListByCategory(String category);
+	Map<String, Object> showItemListByCategory(String category, int page);
 
 	Map<String, Object> showDetail(String product_id);
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar/>
     <h1>고객센터</h1>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
@@ -28,14 +27,12 @@
 </template>
 
 <script>
-import NavBar from '@/components/Bar/NavBar'
 import CSQnaFAQ from '@/components/CSQna/CSQnaFAQ'
 import CSQnaForm from '@/components/CSQna/CSQnaForm'
 import CSQnaHistory from '@/components/CSQna/CSQnaHistory'
 
 export default {
   components: {
-    NavBar,
     CSQnaFAQ,
     CSQnaForm,
     CSQnaHistory

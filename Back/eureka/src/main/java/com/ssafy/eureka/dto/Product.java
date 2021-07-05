@@ -5,6 +5,7 @@ public class Product {
 	String product_name;
 	String product_category;
 	String product_price;
+	String product_discount;
 	String product_img;
 	String product_rating;
 	String product_brand;
@@ -35,6 +36,12 @@ public class Product {
 	}
 	public void setProduct_price(String product_price) {
 		this.product_price = product_price;
+	}
+	public String getProduct_discount() {
+		return product_discount;
+	}
+	public void setProduct_discount(String product_discount) {
+		this.product_discount = product_discount;
 	}
 	public String getProduct_img() {
 		return product_img;
@@ -81,11 +88,12 @@ public class Product {
 	@Override
 	public String toString() {
 		return "Product [product_id=" + product_id + ", product_name=" + product_name + ", product_category="
-				+ product_category + ", product_price=" + product_price + ", product_img=" + product_img
-				+ ", product_rating=" + product_rating + ", product_brand=" + product_brand + ", product_deliveryprice="
-				+ product_deliveryprice + ", product_detailimg=" + product_detailimg + ", product_count="
-				+ product_count + ", seller_name=" + seller_name + "]";
+				+ product_category + ", product_price=" + product_price + ", product_discount=" + product_discount
+				+ ", product_img=" + product_img + ", product_rating=" + product_rating + ", product_brand="
+				+ product_brand + ", product_deliveryprice=" + product_deliveryprice + ", product_detailimg="
+				+ product_detailimg + ", product_count=" + product_count + ", seller_name=" + seller_name + "]";
 	}
+	
 	
 	
 	

@@ -19,6 +19,11 @@
 		</if>
 	</select>
 	
+	<update id="setProduct_rating" parameterType="review">
+		update temp.product set product_rating = (product_rating*(select count(*) from temp.review where product_id = 3) + 5 ) / ((select count(*) from temp.review where product_id = 3) + 1)
+		where product_id = 3;
+	</update>
+	
 	<insert id="registReview" parameterType="review">
 		INSERT INTO `review` (review_title, review_content,review_date, review_rating, review_liked, review_img, member_userid, product_id) 
 		VALUES (#{review_title}, #{review_content},now() ,#{review_rating}, "0", #{review_img}, #{member_userid}, #{product_id});
