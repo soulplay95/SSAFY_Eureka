@@ -8,6 +8,7 @@ import { userStore } from "@/store/modules/User/userStore";
 import { CSQnaStore } from "@/store/modules/CSQna/CSQnaStore";
 import { order } from '@/store/modules/Order/order';
 import { adminStore } from '@/store/modules/Admin/adminStore';
+import { myPageStore } from '@/store/modules/MyPage/myPageStore';
 
 import createPersistedState from "vuex-persistedstate"
 
@@ -16,10 +17,10 @@ export default createStore({
   },
   mutations: {},
   actions: {},
-  modules: { cart, itemStore, userStore, order, adminStore, CSQnaStore },
+  modules: { cart, itemStore, userStore, order, adminStore, CSQnaStore, myPageStore },
   plugins: [
     createPersistedState({
-      paths: ['userStore', 'adminStore', 'itemStore']
+      paths: ['userStore', 'adminStore.modifyItemInfo', 'itemStore']
     })
   ],
 });

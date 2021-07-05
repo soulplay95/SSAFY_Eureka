@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="d-flex flex-row mt-5">
     <admin-side-bar/>
-    <h1>여기는 상품 관리 - 상품 리스트 페이지입니다!(관리자)</h1>
-    <admin-item-table/>
+    <div>
+      <admin-item-table/>
+    </div>
   </div>
 </template>
 
@@ -19,6 +20,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>
