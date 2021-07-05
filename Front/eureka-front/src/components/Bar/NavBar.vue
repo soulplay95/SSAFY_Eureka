@@ -20,23 +20,23 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <div style="float: none">
-              <form class="d-flex">
+              <div class="d-flex">
                 <input
-                  class="form-control me-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
                   v-model.trim="searchText"
+                  class="form-control me-2"
+                  type="text"
+                  placeholder="Search"
                   @keyup.enter="searchItem"
-                />
+                >
                 <button
                   class="btn btn-outline-success"
-                  type="submit"
+                  type="text"
+                  placeholder="Search"
                   @click="searchItem"
                 >
                   Search
                 </button>
-              </form>
+              </div>
             </div>
             <li class="nav-item dropdown">
               <a
@@ -95,8 +95,12 @@ export default {
   },
   methods: {
     searchItem: function () {
-      this.$store.dispatch("itemStore/searchItem", this.searchText);
-      this.$router.push({ name: "ItemList" });
+      console.log(this.searchText)
+      const searchText = this.searchText
+      const val = 1
+      this.$store.dispatch("itemStore/searchItem", { searchText, val})
+      this.$router.push({ name: "ItemList" })
+      this.searchText=""
     },
     logout() {
       this.$store.dispatch('userStore/logout')

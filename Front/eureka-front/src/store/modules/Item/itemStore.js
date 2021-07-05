@@ -4,130 +4,110 @@ export const itemStore = {
   namespaced: true,
   state: () => ({
     searchText: "",
-    allData: [
-      {
-        id: 1,
-        name: "파인애플",
-        category: "과일",
-        price: 30000,
-        img: "https://picsum.photos/720/960/?image=476",
-        rating: 4.5,
-        brand: "삼성",
-        deliveryprice: 2500,
-        detailimg: null,
-        count: 100,
-      },
-      {
-        id: 2,
-        name: "파인애플",
-        category: "과일",
-        price: 30000,
-        img: "https://picsum.photos/720/960/?image=476",
-        rating: 4.5,
-        brand: "삼성",
-        deliveryprice: 2500,
-        detailimg: null,
-        count: 100,
-      },
-      {
-        id: 3,
-        name: '사과',
-        category: '과일',
-        price: 14000,
-        img: 'https://picsum.photos/720/960/?image=476',
-        rating: 2.5,
-        brand: '삼성',
-        deliveryprice: 2500,
-        detailimg: null,
-        count: 100,
-      },
-      {
-        id: 4,
-        name: "사과",
-        category: "과일",
-        price: 30000,
-        img: "https://picsum.photos/720/960/?image=476",
-        rating: 4.5,
-        brand: "삼성",
-        deliveryprice: 2500,
-        detailimg: null,
-        count: 100,
-      },
-    ],
-    filterItems: [
-
-    ],
-    searchItems: [
-      
-    ],
-    HomeCarousel: [
-      
-    ],
+    rawSearchItems: [],
+    searchItems: [],
+    HomeCarousel: [],
     selectItems: [],
+    pageCount: null,
+    categoryHotItems: [],
+    rawCategoryItems: [],
+    categoryItems: [],
+    categoryIndex: null,
+    maxPrice: 0,
+    filtery: 0, // filtery가 0이면 검색이 최근, 1이면 카테고리가 최근.
   }),
   getters: {
-    searchText (state) {
-      return state.searchText
-    },
-    searchItems (state) {
-      console.log(state.searchItems)
-      return state.searchItems
-    }
   },
   mutations: {
-    SEARCH_ITEM(state, searchText ) {
+    SEARCH_ITEM(state, {products, searchText, pageCount} ) {
+      state.maxPrice = 0
+      for(let i = 0; i < products.length; i++) {
+        if (state.maxPrice < Number(products[i]['product_price'])) {
+          state.maxPrice = Number(products[i]['product_price'])
+        }
+      }
+      state.rawSearchItems = products
+      state.searchItems = products
+      state.searchText = searchText
+      state.pageCount = pageCount
+      state.filtery = 0
+    },
+    SET_CATEGORY_HOT_ITEMS(state, payload) {
+      state.categoryHotItems = payload
+    },
+    SET_CATEGORY_ITEMS(state, {products, searchText, pageCount, categoryNum} ) {
+      state.maxPrice = 0
+      for(let i = 0; i < products.length; i++) {
+        if (state.maxPrice < Number(products[i]['product_price'])) {
+          state.maxPrice = Number(products[i]['product_price'])
+        }
+      }
+      state.rawCategoryItems = products
+      state.categoryItems = products
+      state.searchText = searchText
+      state.pageCount = pageCount
+      state.categoryIndex = categoryNum
+      state.filtery = 1
+    },
+    SET_FILTER_ITEM(state, filterQuery ) {
+      if (state.filtery === 0){
+        state.searchItems = []
+        for(let i = 0; i < state.rawSearchItems.length; i++){
+          if (filterQuery.startPrice <= state.rawSearchItems[i].product_price && state.rawSearchItems[i].product_price <= filterQuery.endPrice){
+            state.searchItems.push(state.rawSearchItems[i])
+          }
+        }
+      } else {
+        state.categoryItems = []
+        for(let i = 0; i < state.rawCategoryItems.length; i++){
+          if (filterQuery.startPrice <= state.rawCategoryItems[i].product_price && state.rawCategoryItems[i].product_price <= filterQuery.endPrice){
+            state.categoryItems.push(state.rawCategoryItems[i])
+          }
+        }
+      }
+    }
+  },
+  actions: {
+    searchItem({ commit }, { searchText, val } ){
       axios({
         method: 'get',
-        url: `http://localhost:8080/product/search?keyword=${searchText}&page=1`,
+        url: `http://localhost/product/search?keyword=${searchText}&page=${ val }`,
       }).
         then(res =>{
-          console.log(11111111111)
-          console.log(res)
-          state.searchItems = res
-          console.log(res)
+          // console.log(res.data['products'])
+          const products = res.data['products']
+          const pageCount = res.data['count']
+          commit('SEARCH_ITEM', {products, searchText, pageCount})
         })
         .catch(err => {
           console.log(err)
         })
-      console.log(state.searchText)
     },
-    // 아직 완성 못한 filterquery
-    // FILTER_ITEM(state, filterQuery ) {
-    //   state.filterItems = []
-    //   const pricetmp = null
-    //   if (filterQuery.maxprice !== null){
-    //     pricetmp = state.searchItems.find((searchItem) => {
-    //       return (filterQuery.minprice <= searchItem.price && searchItem.price <= filterQuery.maxprice)
-    //     })
-    //   }
-    //   else {
-        
-    //   }
-    // }
-  },
-  actions: {
-    searchItem({ commit }, searchText ){
-      console.log(1)
-      axios.get('http://localhost/product/search?keyword='+ searchText + '&page=1')
-      .then(res => {
-        console.log(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-      // axios({
-      //   method: 'get',
-      //   url: `http://localhost/product/search?keyword=${searchText}&page=1`,
-      // }).
-      //   then(res =>{
-      //     console.log(11111111111)
-      //     console.log(res)
-      //     console.log(res)
-      //   })
-      //   .catch(err => {
-      //     console.log(err)
-      //   })
-      commit('SEARCH_ITEM', searchText)
+    clickCategory({ commit }, { searchText, categoryNum, val } ){
+      axios({ // top5 상품들
+        method: 'get',
+        url: `http://localhost/product/categorytops/${ categoryNum }`,
+      }).
+        then(res =>{
+          const products = res.data
+          commit('SET_CATEGORY_HOT_ITEMS', products)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+
+        axios({ // category 상품들
+          method: 'get',
+          url: `http://localhost/product/listview?category=${ categoryNum }&page=${ val }`,
+        }).
+          then(res =>{
+            const products = res.data['products']
+            const pageCount = res.data['count']
+            commit('SET_CATEGORY_ITEMS', {products, searchText, pageCount, categoryNum})
+          })
+          .catch(err => {
+            console.log(err)
+          })
     },
     selectItem({ commit }, searchText){
       axios({
@@ -144,8 +124,7 @@ export const itemStore = {
       commit('SEARCH_ITEM', searchText)
     },
     filterItem({ commit }, filterQuery ){
-      commit('FILTER_ITEM', filterQuery)
-      console.log(filterQuery)
+      commit('SET_FILTER_ITEM', filterQuery)
     },
   }
 };

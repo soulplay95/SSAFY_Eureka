@@ -67,8 +67,8 @@ export default {
     axios({
       method: 'get',
       url: `http://localhost/home/recommend`,
-    }).
-      then(res =>{
+    })
+      .then(res =>{
         this.hotItems = res.data
       })
       .catch(err => {

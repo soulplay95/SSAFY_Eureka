@@ -1,5 +1,6 @@
 import axios from 'axios'
 import JWTcommon from "@/utils/JWT-common";
+import { getAccessToken } from '../../../utils/JWT-common';
 
 export const CSQnaStore = {
   namespaced: true,
@@ -11,6 +12,7 @@ export const CSQnaStore = {
         content: '바꿔줘요'
       }
     ],
+    setToken: getAccessToken
   }),
   mutations: {
     SUBMIT_QNA( state, query) {

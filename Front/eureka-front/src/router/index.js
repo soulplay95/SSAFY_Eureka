@@ -35,6 +35,7 @@ import AdminItemModify from '@/views/Admin/AdminItemModify.vue'
 import CSQna from '@/views/CS/CSQna.vue';
 // 상품
 import ItemList from '@/views/Item/ItemList.vue';
+import CategoryItemList from '@/views/Item/CategoryItemList.vue';
 import ItemDetail from '@/views/Item/ItemDetail.vue';
 import ItemDetailImage from '@/components/Item/ItemDetailImage.vue';
 import ItemReview from '@/components/Item/ItemReview.vue';
@@ -237,6 +238,12 @@ const routes = [
     path: '/item/item-list',
     name: 'ItemList',
     component: ItemList,
+  },
+  // 카테고리별 상품 리스트
+  {
+    path: '/item/category-item-list',
+    name: 'CategoryItemList',
+    component: CategoryItemList,
   },
   // 상품 디테일
   {
