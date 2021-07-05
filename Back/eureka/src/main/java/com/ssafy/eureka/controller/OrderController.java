@@ -51,7 +51,7 @@ public class OrderController {
 		logger.debug("showOrderList - 호출");
 		List<Map<String,Object>> list = service.showAllOrderList(member_userid);
 		if(list.size() > 0) {
-			return new ResponseEntity<List<Map<String,Object>>>(HttpStatus.OK);
+			return new ResponseEntity<List<Map<String,Object>>>(list,HttpStatus.OK);
 		}
 		return new ResponseEntity<List<Map<String,Object>>>(HttpStatus.NO_CONTENT);	
 	}
@@ -66,7 +66,7 @@ public class OrderController {
 //	}
 	
 	@PostMapping("/order")
-	@ApiOperation(value = "주문 추가", notes = "Member_userid, List<Orderdetail>를 전달받아 주문 추가. 리턴값 없음")
+	@ApiOperation(value = "주문 추가", notes = "Order, List<Orderdetail>를 전달받아 주문 추가. 리턴값 없음")
 	private ResponseEntity<String> addOrder(@RequestBody Map<String, Object> map) {
 		logger.debug("addOrder - 호출");		
 		if(service.addOrder(map) > 0) {
@@ -214,6 +214,36 @@ public class OrderController {
 			}
 		} catch(Exception e) {
 //			System.out.println();
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@PutMapping("/shipping")
+	@ApiOperation(value = "배송지로 수정", notes = "ShipAddress를 받아 수정")
+	private ResponseEntity<String> modifyShippingAddress(@RequestBody ShipAddress shipAddress) {
+		try {
+			if(service.modifyShippingAddress(shipAddress)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
+	@DeleteMapping("/shipping/{shipaddress_id}")
+	@ApiOperation(value = "배송지 삭제", notes = "shipaddrlist_id에 해당하는 배송지를 삭제")
+	private ResponseEntity<String> deleteShippingAddress(@PathVariable int shipaddress_id) {
+		try {
+			if(service.deleteShippingAddress(shipaddress_id)==1) {
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+		} catch(Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}

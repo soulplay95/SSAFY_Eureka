@@ -31,12 +31,12 @@ export const itemStore = {
       },
       {
         id: 3,
-        name: "사과",
-        category: "과일",
-        price: 30000,
-        img: "https://picsum.photos/720/960/?image=476",
-        rating: 4.5,
-        brand: "삼성",
+        name: '사과',
+        category: '과일',
+        price: 14000,
+        img: 'https://picsum.photos/720/960/?image=476',
+        rating: 2.5,
+        brand: '삼성',
         deliveryprice: 2500,
         detailimg: null,
         count: 100,
@@ -54,74 +54,98 @@ export const itemStore = {
         count: 100,
       },
     ],
-    searchItems: [],
-    selectItems: [],
-    dogImage: [
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
-      "https://placedog.net/200/200?random",
+    filterItems: [
+
     ],
+    searchItems: [
+      
+    ],
+    HomeCarousel: [
+      
+    ],
+    selectItems: [],
   }),
-  getters: {},
-  mutations: {
-    // SEARCH_ITEM(state, { searchItems, searchText } ) {
-    //   state.searchText = searchText
-    //   state.searchItems = searchItems
-    // },
-    SEARCH_ITEM(state, searchText ) {
-      state.searchItems = []
-      state.searchText = searchText
-      const temp = state.allData.filter(item => {
-        if (item.name === searchText) {
-          state.searchItems.push(item)
-        }
-      })
+  getters: {
+    searchText (state) {
+      return state.searchText
+    },
+    searchItems (state) {
       console.log(state.searchItems)
-      return temp
+      return state.searchItems
     }
   },
-  actions: {
-  // 카테고리 목차를 만든다. 그런데 카테고리는 이중이다
-  // 예를 들어, '잡화 - 신발'이 그 예이다.
-  // 그런데 카테고리는 하나만 주어진다.
-    searchItem({ commit }, searchText ){
-      commit('SEARCH_ITEM', searchText)
-      console.log(searchText)
+  mutations: {
+    SEARCH_ITEM(state, searchText ) {
+      axios({
+        method: 'get',
+        url: `http://localhost:8080/product/search?keyword=${searchText}&page=1`,
+      }).
+        then(res =>{
+          console.log(11111111111)
+          console.log(res)
+          state.searchItems = res
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+      console.log(state.searchText)
     },
-    // searchItem({ commit }, searchText){
-    //   axios({
-    //     method: 'get',
-    //     url: `http://localhost/product/search?keyword=${searchText}`,
-    //   })
-    //   .then(res => {
-    //     console.log(res.data)
-    //     commit('SEARCH_ITEM', ( res.data, searchText))
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-    //   commit('SEARCH_ITEM', searchText)
-    // },
+    // 아직 완성 못한 filterquery
+    // FILTER_ITEM(state, filterQuery ) {
+    //   state.filterItems = []
+    //   const pricetmp = null
+    //   if (filterQuery.maxprice !== null){
+    //     pricetmp = state.searchItems.find((searchItem) => {
+    //       return (filterQuery.minprice <= searchItem.price && searchItem.price <= filterQuery.maxprice)
+    //     })
+    //   }
+    //   else {
+        
+    //   }
+    // }
+  },
+  actions: {
+    searchItem({ commit }, searchText ){
+      console.log(1)
+      axios.get('http://localhost/product/search?keyword='+ searchText + '&page=1')
+      .then(res => {
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      // axios({
+      //   method: 'get',
+      //   url: `http://localhost/product/search?keyword=${searchText}&page=1`,
+      // }).
+      //   then(res =>{
+      //     console.log(11111111111)
+      //     console.log(res)
+      //     console.log(res)
+      //   })
+      //   .catch(err => {
+      //     console.log(err)
+      //   })
+      commit('SEARCH_ITEM', searchText)
+    },
     selectItem({ commit }, searchText){
       axios({
         method: "get",
         url: `http://localhost/product/search?keyword=${searchText}`,
       })
-        .then((res) => {
-          console.log(res.data);
-          commit("SEARCH_ITEM", res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      commit("SEARCH_ITEM", searchText);
+      .then(res => {
+        console.log(res.data)
+        commit('SEARCH_ITEM', res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+      commit('SEARCH_ITEM', searchText)
     },
-  },
+    filterItem({ commit }, filterQuery ){
+      commit('FILTER_ITEM', filterQuery)
+      console.log(filterQuery)
+    },
+  }
 };

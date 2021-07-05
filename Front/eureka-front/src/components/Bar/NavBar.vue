@@ -3,7 +3,9 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-red">
       <div class="container">
         <!--fluid에서 그냥 container로 바꿈 -->
-        <router-link to="/" class="navbar-brand">Navbar</router-link>
+        <router-link to="/" class="navbar-brand" style="margin: 0px 20px 0px 100px;">
+          <img :src="pic" alt="EUREKA">
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -27,7 +29,6 @@
                   v-model.trim="searchText"
                   @keyup.enter="searchItem"
                 />
-                <!-- <input class="form-control me-2" type="search" v-model.trim="searchText" @keyup.enter="searchItem"> -->
                 <button
                   class="btn btn-outline-success"
                   type="submit"
@@ -37,24 +38,6 @@
                 </button>
               </form>
             </div>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                카테고리
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">주문목록</a></li>
-                <li><a class="dropdown-item" href="#">취소/반품</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#">찜리스트</a></li>
-              </ul>
-            </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -84,16 +67,32 @@
             <li v-if="isAuthenticated" class="nav-item">
                 <router-link to="/admin/profile" v-if="isAdmin" class="nav-link">관리자 메뉴</router-link>
             </li>
+            <li class="nav-item">
+              <router-link to="/cs/cs-qna" class="nav-link">고객센터</router-link>
+            </li>
           </ul>
         </div>
       </div>
+      <CategoryBar/>
     </nav>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+
+import pic from '@/assets/eureka.png'
+// import { mapGetters } from 'vuex'
+import CategoryBar from '@/components/Bar/CategoryBar'
 export default {
+  data: function () {
+    return {
+      searchText: null,
+      pic:pic,
+    }
+  },
+  components: {
+    CategoryBar,
+  },
   methods: {
     searchItem: function () {
       this.$store.dispatch("itemStore/searchItem", this.searchText);

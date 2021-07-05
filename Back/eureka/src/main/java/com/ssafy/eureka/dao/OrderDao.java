@@ -15,7 +15,7 @@ public interface OrderDao {
 
 	List<Order> showOrderList(String member_userid);
 
-	int addOrder(Order order);
+	int addOrder(Map map);
 
 	int addOrderdetail(OrderDetail orderdetail);
 
@@ -51,6 +51,10 @@ public interface OrderDao {
 	int changeAllTypeTo2ByShipId(int shipaddress_id);
 	
 	int defaultShippingAddress(int shipaddress_id);
+
+	int deleteShippingAddress(int shipaddress_id);
+
+	int modifyShippingAddress(ShipAddress shipAddress);
 
 
 }
