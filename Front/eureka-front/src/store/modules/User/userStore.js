@@ -9,8 +9,14 @@ export const userStore = {
   state: {
     // 서버와의 통신이 끝난 후 JWT 관련 내용
     // persistedState 의문?
-    user: {},
-    isAuthenticated : false,
+    user: {
+      // @도명 for testing
+      // member_userid: 'jejin009@gmail.com',
+      // member_name: '테스트맨',
+      // member_address: '서울시 용산구',
+      // member_phone: '010-1234-5678',
+    },
+    isAuthenticated: false,
   },
   mutations: {
     SET_AUTH(state, data) {
@@ -116,11 +122,11 @@ export const userStore = {
       return state.user
     },
     isAuthenticated(state) {
-      return state.isAuthenticated
+      return state.isAuthenticated;
     },
     isAdmin(state) {
-      return state.user.member_type === '관리자' 
-    }
+      return state.user.member_type === '관리자';
+    },
   },
   modules: {},
 };
