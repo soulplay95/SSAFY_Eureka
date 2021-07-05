@@ -11,11 +11,6 @@
         </el-descriptions-item>
         <el-descriptions-item label="Address">{{ user.member_address }}</el-descriptions-item>
       </el-descriptions>
-      <!-- <h1>여기는 관리자 페이지 Main입니다!</h1>
-      {{ isAdmin }}
-      이름: {{ user.member_name }}
-      연락처: {{ user.member_phone }}
-      주소: {{ user.member_address }} -->
   </div>
 </template>
 

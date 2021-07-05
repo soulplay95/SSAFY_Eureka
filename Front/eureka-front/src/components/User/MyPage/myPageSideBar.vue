@@ -13,7 +13,7 @@
         <i class="el-icon-location"></i>
         <span>MY 정보</span>
       </template>
-      <el-menu-item @click="onClick($event)" index="userModify" route>회원정보 수정</el-menu-item>
+      <el-menu-item @click="onClick($event)" index="userModify">회원정보 수정</el-menu-item>
       <el-menu-item @click="onClick($event)" index="manageAddress">배송지 관리</el-menu-item>
     </el-submenu>
     <el-submenu index="2">
@@ -41,8 +41,9 @@
       handleClose(key, keyPath) {
         console.log(key, keyPath);
       },
-      onClick(index) {
-        console.log(index)
+      onClick(key) {
+        const selectedMode = key.index
+        this.$store.dispatch('myPageStore/changeMode', selectedMode)
       },
     }
   }

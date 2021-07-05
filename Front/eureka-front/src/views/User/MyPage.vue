@@ -5,8 +5,9 @@
       <my-page-side-bar/>
     </el-aside>
     <div>
-      <h1>여기가 마이페이지입니다!</h1>
-      <user-modify/> 
+      <user-modify v-if="currentMode==='userModify'"/>
+      <!-- 주문목록 -->
+      <!-- 배송지관리 -->
     </div>
   </div>
 </template>
@@ -15,7 +16,7 @@
 import myPageSideBar from '@/components/User/MyPage/myPageSideBar'
 import navBar from "@/components/Bar/NavBar"
 import UserModify from "@/components/User/MyPage/UserModify"
-
+import { mapGetters } from 'vuex'
 
 export default {
   name: "MyPage",
@@ -24,10 +25,8 @@ export default {
     navBar,
     UserModify
   },
-  data() {
-    return {
-      currentMode: '',
-    }
+  computed: {
+    ...mapGetters('myPageStore', ['currentMode'])
   }
 }
 </script>

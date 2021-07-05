@@ -24,23 +24,17 @@
       <input type="submit" value="로그인">
     </form>
     <router-link to="/user/join">회원가입</router-link>
-    <router-link to="/user/search-id">아이디 찾기</router-link>
     <router-link to="/user/search-password">비밀번호 찾기</router-link>
-    <!-- <googleAuth/> -->
   </div>
 
 
 </template>
 
 <script>
-// import googleAuth from '@/components/User/Join/googleAuth'
 
 export default {
   // vuex 불러오기
   name: "Login",
-  components: {
-    // googleAuth
-  },
   data() {
     return {
       credentials: {

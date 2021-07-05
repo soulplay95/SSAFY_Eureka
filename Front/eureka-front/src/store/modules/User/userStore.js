@@ -1,6 +1,6 @@
 import router from '@/router'
 // JWT 토큰 가져오는 용도
-import JWTcommon from "@/utils/JWT-common"
+import JWTservice from "@/utils/JWT-common"
 import http from '@/utils/http-common'
 
 // index.js에서 import 필요
@@ -17,13 +17,13 @@ export const userStore = {
       // userid, name, phone, address 정보 받아옴
       state.user = data.data
       state.isAuthenticated = true
-      JWTcommon.saveTokens(data.auth_token)
+      JWTservice.saveTokens(data.auth_token)
       console.log('토큰설정', state.user, state.isAuthenticated)
     },
     DESTROY_AUTH (state) {
       state.user = {}
       state.isAuthenticated = false
-      JWTcommon.destroyTokens()
+      JWTservice.destroyTokens()
       console.log('토큰삭제', state.user, state.isAuthenticated)
     },
   },

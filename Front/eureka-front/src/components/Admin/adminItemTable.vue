@@ -43,9 +43,9 @@
       prop="product_img">
       <template v-slot="scope">
         <el-image
-          style="width: 100px; height: 100px"
+          style="width: 100%;"
           :src="scope.row.product_img"
-          :fit="fit">
+          :fit="fill">
         </el-image>
       </template>
     </el-table-column>
