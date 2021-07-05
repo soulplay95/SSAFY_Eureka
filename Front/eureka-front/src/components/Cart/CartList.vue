@@ -45,7 +45,8 @@
             <!-- 상품명 -->
             <td class="column-3">
               <router-link
-                :to="{ name: 'ItemDetail', query: item.product_id }"
+                style="text-decoration: none"
+                :to="'/item/item-detail?product_id=' + item.product_id"
                 >{{ item.product_name }}</router-link
               >
             </td>
@@ -127,29 +128,29 @@ export default {
     deleteItem(id) {
       this.$store.dispatch('cart/deleteItem', {
         id: id,
-        userid: this.$store.state.userStore.member_userid,
+        userid: this.$store.state.userStore.user.member_userid,
       });
     },
     // 해당 상품 수량 증가
     increaseQuantity(id, quantity) {
       this.$store.dispatch('cart/updateQuantity', {
         product_id: id,
-        member_userid: this.$store.state.userStore.member_userid,
+        member_userid: this.$store.state.userStore.user.member_userid,
         quantity: quantity,
       });
     },
     // 해당 상품 수량 감소
     decreaseQuantity(id, quantity) {
-      if (quantity <= 1) {
+      if (quantity < 1) {
         // 상품 삭제
         this.$store.dispatch('cart/deleteItem', {
           id: id,
-          userid: this.$store.state.userStore.member_userid,
+          userid: this.$store.state.userStore.user.member_userid,
         });
       } else {
         this.$store.dispatch('cart/updateQuantity', {
           product_id: id,
-          member_userid: this.$store.state.userStore.member_userid,
+          member_userid: this.$store.state.userStore.user.member_userid,
           quantity: quantity,
         });
       }
@@ -188,12 +189,12 @@ export default {
         // 상품 삭제
         this.$store.dispatch('cart/deleteItem', {
           id: id,
-          userid: this.$store.state.userStore.member_userid,
+          userid: this.$store.state.userStore.user.member_userid,
         });
       } else {
         this.$store.dispatch('cart/updateQuantity', {
           product_id: id,
-          member_userid: this.$store.state.userStore.member_userid,
+          member_userid: this.$store.state.userStore.user.member_userid,
           quantity: inputQuantity,
         });
       }

@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <adminSideBar/>
-    <h1>여기는 관리자 페이지 Main입니다!</h1>
-    {{ isAdmin }}
-    이름: {{ user.member_name }}
-    연락처: {{ user.member_phone }}
-    주소: {{ user.member_address }}
-    
+
+  <div class="d-flex flex-row mt-5">
+    <admin-side-bar/>
+      <el-descriptions title="관리자 프로필" direction="vertical" :column="4" border>
+        <el-descriptions-item label="Adminname">{{ user.member_name }}</el-descriptions-item>
+        <el-descriptions-item label="Telephone">{{ user.member_phone }}</el-descriptions-item>
+        <el-descriptions-item label="AdminID" :span="4">{{ user.member_userid }}</el-descriptions-item>
+        <el-descriptions-item label="Join Date">
+          <el-tag size="small">{{ user.member_joindate }} </el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="Address">{{ user.member_address }}</el-descriptions-item>
+      </el-descriptions>
   </div>
 </template>
 
@@ -17,12 +21,7 @@ import adminSideBar from '@/components/Admin/adminSideBar'
 export default {
   name: 'AdminProfile',
   components: {
-    adminSideBar
-  },
-  data() {
-    return {
-
-    }
+    adminSideBar,
   },
   computed: {
     ...mapState('userStore', ['user']),

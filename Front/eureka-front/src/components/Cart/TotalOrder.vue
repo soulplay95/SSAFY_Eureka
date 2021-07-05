@@ -50,7 +50,7 @@
       <!-- Button -->
       <button
         class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4"
-        @click="go()"
+        @click="go(checked)"
       >
         구매하기
       </button>
@@ -92,8 +92,12 @@ export default {
     },
   },
   methods: {
-    go() {
-      this.$router.push('/order');
+    go(checked) {
+      if (checked.length == 0) {
+        alert('1개 이상의 상품을 선택해주세요');
+      } else {
+        this.$router.push('/order');
+      }
     },
   },
 };

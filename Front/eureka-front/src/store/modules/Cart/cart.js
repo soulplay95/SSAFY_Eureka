@@ -12,6 +12,23 @@ export const cart = {
     totalDiscountPrice: 0, // (선택된) 전체 할인 금액
   }),
   getters: {
+    items(state) {
+      return state.items;
+    },
+    // 선택된 상품들
+    selectedProducts(state) {
+      let items = state.items;
+      let checked = state.checked;
+      let selectedItems = [];
+
+      // checked 배열을 순회하여 선택된 id와 일치하는 상품을 push한다.
+      checked.forEach((id) => {
+        let temp = items.filter((item) => item.product_id === id);
+        selectedItems.push(temp[0]);
+      });
+
+      return selectedItems;
+    },
     // (선택된) 전체 상품 금액
     totalProductPrice(state) {
       let sum = 0;
@@ -46,7 +63,8 @@ export const cart = {
           if (state.items[j].product_id === state.checked[i]) {
             sum +=
               state.items[j].product_price *
-              (state.items[j].product_discount / 100);
+              (state.items[j].product_discount / 100) *
+              state.items[j].quantity;
           }
         }
       }
@@ -146,7 +164,6 @@ export const cart = {
       http
         .get('/cart/' + userid)
         .then((response) => {
-          console.log(response.data);
           commit('GET_ITEMS', response.data);
         })
         .catch((error) => {
@@ -157,12 +174,9 @@ export const cart = {
     deleteItem({ commit }, ids) {
       // @RequestParam => member_userid, product_id
       http
-        .delete(
-          '/cart/delete?member_userid=' + ids.userid + '&product_id=' + ids.id
-        )
+        .delete('/cart?member_userid=' + ids.userid + '&product_id=' + ids.id)
         .then((response) => {
           if (response.status == 200) {
-            this.getItems(ids.userid);
             commit('DELETE_ITEM', ids.id);
           } else {
             alert('삭제 실패!');
@@ -174,7 +188,6 @@ export const cart = {
     },
     // 상품 수량 변경
     updateQuantity({ commit }, info) {
-      console.log(info);
       http
         .put('/cart', info)
         .then((response) => {

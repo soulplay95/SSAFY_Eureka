@@ -35,8 +35,7 @@ export default {
     // 장바구니 데이터를 가져온다.
     this.$store.dispatch(
       'cart/getItems',
-      // this.$store.state.userStore.user.member_userid
-      'jejin009@gmail.com'
+      this.$store.state.userStore.user.member_userid
     );
   },
 };

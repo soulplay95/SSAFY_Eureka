@@ -11,7 +11,6 @@
         </button>
         <div class="collapse" id="home-collapse" style="">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><router-link  to="/admin/user-register-detail" class="link-dark rounded">회원 가입현황</router-link></li>
             <li><router-link to="/admin/user-list" class="link-dark rounded">회원 리스트</router-link></li>
           </ul>
         </div>

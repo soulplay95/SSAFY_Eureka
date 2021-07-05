@@ -50,23 +50,22 @@
                 마이유레카
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">주문목록</a></li>
-                <li><a class="dropdown-item" href="#">취소/반품</a></li>
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" href="#">찜리스트</a></li>
+                <li><router-link to="/user/mypage" class="dropdown-item">마이 페이지</router-link></li>
+                <li><router-link to="/cart" class="dropdown-item">장바구니</router-link></li>
+                <li><router-link to="/cs/cs-qna" class="dropdown-item">MY QNA</router-link></li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <router-link to="/cart" class="nav-link">장바구니</router-link>
             </li>
             <li v-if="!isAuthenticated" class="nav-item">
                 <router-link to="/user/login" class="nav-link">로그인</router-link>
             </li>
-            <li v-if="isAuthenticated" class="nav-item">
-                <button @click="logout" class="nav-link">로그아웃</button>
-            </li>
-            <li class="nav-item">
+            <li v-if="!isAuthenticated" class="nav-item">
                 <router-link to="/user/join" class="nav-link">회원가입</router-link>
+            </li>
+            <li v-if="isAuthenticated" class="nav-item">
+                <a @click="logout" class="nav-link">로그아웃</a>
+            </li>
+            <li v-if="isAuthenticated" class="nav-item">
+                <router-link to="/admin/profile" v-if="isAdmin" class="nav-link">관리자 메뉴</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/cs/cs-qna" class="nav-link">고객센터</router-link>
@@ -108,7 +107,20 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters ("userStore", ["isAuthenticated"])
+    ...mapGetters ("userStore", ["isAuthenticated", "isAdmin"])
+  },
+  created() {
+    // 카테고리 url이 정해지면 axios에 넣을 것.
+    // axios({
+    //   method: 'get',
+    //   url: TMDB_URL,
+    // })
+    //   .then(res => {
+    //     console.log(res)
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
   },
 };
 </script>
@@ -123,5 +135,9 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-item {
+  cursor: pointer;
 }
 </style>

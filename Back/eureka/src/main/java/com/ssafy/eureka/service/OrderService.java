@@ -47,6 +47,10 @@ public interface OrderService {
 
 	int defaultShippingAddress(int shipaddress_id);
 
+	int deleteShippingAddress(int shipaddress_id);
+
+	int modifyShippingAddress(ShipAddress shipAddress);
+
 
 
 

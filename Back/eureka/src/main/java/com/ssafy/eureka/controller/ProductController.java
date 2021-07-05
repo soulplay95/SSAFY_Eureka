@@ -35,20 +35,20 @@ public class ProductController {
 	ProductService service;
 
 	@GetMapping("/search")
-	@ApiOperation(value = "검색정보", notes = "keyword, page를 받아 모든 상품 정보 중 keyword를 하나라도 포함하는 상품들의 총 개수와 page에 해당하는 상품 100개 리스트를 map으로 반환 ", response = List.class)
+	@ApiOperation(value = "검색정보", notes = "keyword, page를 받아 모든 상품 정보 중 keyword를 하나라도 포함하는 상품들의 총 개수와 page에 해당하는 상품 30개 리스트를 map으로 반환 ", response = List.class)
 	private ResponseEntity<Map<String, Object>> showSearchResult(@RequestParam String keyword, @RequestParam int page) {
 
 		Map<String, Object> list = service.showSearchResult(keyword, page);
 		return new ResponseEntity<Map<String, Object>>(list, HttpStatus.OK);
 	}
 
-	@GetMapping("/listview/{category}")
+	@GetMapping("/listview")
 	@ApiOperation(value = "카테고리별 상품리스트", notes = "미정", response = List.class)
-	private ResponseEntity<List<Product>> showItemList(@PathVariable String category) {
+	private ResponseEntity<Map<String, Object>> showItemList(@RequestParam String category, @RequestParam int page) {
 
-		List<Product> list = service.showItemListByCategory(category);
+		Map<String, Object> map = service.showItemListByCategory(category, page);
 
-		return new ResponseEntity<List<Product>>(list, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 
 	@GetMapping("/categorytops/{category}")

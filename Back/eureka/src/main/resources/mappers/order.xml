@@ -15,10 +15,11 @@
 		WHERE order_id=#{order_id};
 	</select>
 	
-	<insert id="addOrder" parameterType="order">
-		INSERT INTO temp.order (order_date, order_totalprice, member_userid)
-		VALUES (now(),#{order_totalprice},#{member_userid})
+	<insert id="addOrder">
+		INSERT INTO temp.order (order_date, order_totalprice, member_userid, shipaddress_id)
+		VALUES (now(),#{order_totalprice},#{member_userid},#{shipaddress_id})
 	</insert>
+	
 	<select id="getLastOrderid" resultType="Integer">
         SELECT LAST_INSERT_ID()
     </select>
@@ -40,6 +41,7 @@
 			) j
 		where j.product_id = p.product_id
 	</select>
+	
 	
 	<select id="checkDup" resultType="Integer">
 		SELECT count(*) FROM temp.cart 
@@ -121,6 +123,21 @@
 	<update id="defaultShippingAddress">
 		UPDATE shipaddress
 		SET shipaddress_type = 1
+		WHERE shipaddress_id = #{shipaddress_id}
+	</update>
+	
+	<delete id="deleteShippingAddress">
+		DELETE FROM shipaddress
+		WHERE shipaddress_id = #{shipaddress_id}
+	</delete>
+	
+	<update id="modifyShippingAddress" parameterType="shipaddress">
+		UPDATE shipaddress 
+		SET shipaddress_nickname = #{shipaddress_nickname},
+			shipaddress_addr = #{shipaddress_addr},
+			shipaddress_phone = #{shipaddress_phone},
+			shipaddress_request = #{shipaddress_request}, 
+			shipaddress_type = #{shipaddress_type}
 		WHERE shipaddress_id = #{shipaddress_id}
 	</update>
 	

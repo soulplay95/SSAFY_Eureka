@@ -21,7 +21,9 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public int registReview(Review review) {
 		logger.debug("registReview service - 호출 ");
-		return dao.registReview(review);
+		int cnt = dao.registReview(review);
+		dao.setProduct_rating(review);
+		return cnt;
 	}
 
 	@Override

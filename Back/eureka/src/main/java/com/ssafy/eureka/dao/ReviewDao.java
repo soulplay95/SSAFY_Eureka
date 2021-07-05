@@ -22,4 +22,6 @@ public interface ReviewDao {
 
 	int likedReview(String review_id);
 
+	int setProduct_rating(Review review);
+
 }
