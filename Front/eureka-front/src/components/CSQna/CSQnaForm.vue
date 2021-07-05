@@ -44,9 +44,9 @@ export default {
   methods: {
     submitQna: function () {
       const query = {
-        title: this.title,
-        content: this.content,
-        category: this.category,
+        qna_qtitle: this.title,
+        qna_qcontent: this.content,
+        qna_category: String(this.category),
       }
       this.$store.dispatch('CSQnaStore/submitQna', query);
     },

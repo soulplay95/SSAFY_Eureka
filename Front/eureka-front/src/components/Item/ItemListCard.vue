@@ -2,20 +2,18 @@
   <div>
     <div class="col">
             <div class="card">
-              <img :src="`https://placedog.net/300/200?random`"
+              <img :src=item.product_img
               class="card-img-top" alt="..."
               @click="selectItem">
                 <div class="card text-end">
                   <div class="card-body" @click="selectItem">
-                    <h5 class="card-title">{{ item.name }}</h5>
+                    <h5 class="card-title">{{ item.product_name }}</h5>
                     <el-rate
                       v-model="value"
                       disabled
-                      show-score
-                      text-color="#ff9900"
-                      score-template="{value} points">
+                      show-score>
                     </el-rate>
-                    <h3>{{ item.price }}</h3>
+                    <h3>{{ item.product_price }}</h3>
                   </div>                
                 </div>
             </div>
@@ -32,8 +30,7 @@ export default {
   },
   data: function() {
     return {
-      searchText: '',
-      value: this.item.rating,
+      value: Number(this.item.product_rating),
     }
   },
   methods: {

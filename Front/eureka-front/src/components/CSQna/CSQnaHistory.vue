@@ -10,15 +10,36 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapState, mapActions } from 'vuex' 
 import CSQnaHistoryItem from '@/components/CSQna/CSQnaHistoryItem'
 export default {
   components: {
     CSQnaHistoryItem,
   },
   computed: {
-    questions: function () {
-      return this.$store.state.CSQnaStore.myQnaHistory
-    }
+    ...mapState( 'CSQnaStore', ['myQnaHistory', 'setToken']),
+    ...mapActions(
+      'CSQnaStore', 
+      [
+        // 'getArticleDetail', 'addComment', 
+        // 'likeArticle', 'deleteArticle', 'getUpdateData'
+
+      ]
+    ),
+  }, 
+  created: function () {
+    axios({
+      method: 'get',
+      url: `http://localhost/qna`,
+      headers: this.setToken
+    })
+    .then(res =>{
+      console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 }
 </script>

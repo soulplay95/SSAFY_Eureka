@@ -30,6 +30,7 @@ export default {
       depthTwo: null,
       depthThree: null,
       items: [],
+      categoryNum: {},
     }
   },
   components: {
@@ -79,6 +80,7 @@ export default {
                   this.items[j]['subMenu']['items'][k]['subMenu']['items'].push({
                     'name': this.depthThree[i].category_3depth
                   })
+                  this.categoryNum[this.depthThree[i].category_3depth] = String(this.depthThree[i].category_code)
                 }
               }
             }
@@ -88,6 +90,15 @@ export default {
       .catch(err => {
         console.log(err)
       })
+  },
+  methods: {
+    handleSelection: function () {
+      const searchText = event.target.outerText
+      const categoryNum = this.categoryNum[event.target.outerText]
+      const val = 1
+      this.$store.dispatch("itemStore/clickCategory", { searchText, categoryNum, val })
+      this.$router.push({ name: "CategoryItemList" })
+    }
   }
 }
 </script>

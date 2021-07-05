@@ -50,13 +50,6 @@ export const userStore = {
       .catch((err) => {
         alert(err)
       })
-        .then((res) => {
-          commit('SET_AUTH', res.data);
-          console.log(res);
-        })
-        .catch((err) => {
-          alert(err);
-        });
     },
 
     login ({commit}, credentials) {

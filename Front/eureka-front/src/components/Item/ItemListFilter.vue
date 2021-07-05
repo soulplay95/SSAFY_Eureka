@@ -1,7 +1,11 @@
 <template>
   <div>
-    <span class="filter">필터
-    </span>
+    <div class="row">
+    <div class="col-sm-6" id="filter">필터</div>
+    <div class="col-sm-4">
+      <el-button type="primary" icon="el-icon-search" @click="filterItem">초기화</el-button>
+    </div>
+    </div>
     <hr>
     <p>별점</p>
     <div class="block">
@@ -15,14 +19,14 @@
     <hr>
     <p>가격</p>
     <div class="block">
-      <button type="button" class="btn btn-outline-success" @click="onPriceClick">가격 전체</button>
+      <button type="button" class="btn btn-outline-success" @click="resetPrice">가격 전체</button>
       <br>
       <el-slider
         v-model="value"
         range
-        :step="5000"
+        :step="10000"
         show-stops
-        :max="100000">
+        :max="maxPrice">
       </el-slider>
     </div>
     <hr>
@@ -38,6 +42,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex' 
 export default {
   data: function() {
     return {
@@ -49,26 +54,28 @@ export default {
   },
   methods: {
     filterItem: function () {
-      // const filterQuery = {
-      //   'minprice': this.value[0],
-      //   'maxprice': this.value[1],
-      //   'rate': this.value2,
-      // }
-      // this.$store.dispatch('itemStore/filterItem', filterQuery);
-      this.$router.push({ name: 'ItemList' });
+      // console.log(this.value)
+      const filterQuery = {
+        'startPrice': this.value[0],
+        'endPrice': this.value[1]
+      }
+      this.$store.dispatch('itemStore/filterItem', filterQuery)
     },
     onRateClick: function () {
       this.value2 = null
     },
-    onPriceClick: function () {
-      this.value = [0, 0]
+    resetPrice: function () {
+      this.value = [0, this.maxPrice]
     }
-  }
+  },
+  computed: {
+    ...mapState( 'itemStore', ['maxPrice'])
+  },
 }
 </script>
 
 <style>
-.filter {
+#filter {
   font-weight: 900;
   font-size: 24px;
 }
