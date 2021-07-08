@@ -43,7 +43,6 @@ export const userStore = {
         member_address: credentials.address,
         member_type: credentials.type
       }
-      console.log('회원가입', credentials)
       http
         .post('member/regist', data)
         .then((res) => {

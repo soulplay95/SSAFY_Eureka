@@ -1,9 +1,9 @@
 <template>
-  <navBar/>
   <div class="d-flex">
-    <el-aside width="200px">
+    <side-bar-npm/>
+    <!-- <el-aside width="200px">
       <my-page-side-bar/>
-    </el-aside>
+    </el-aside> -->
     <div>
       <user-modify v-if="currentMode==='userModify'"/>
       <!-- 주문목록 -->
@@ -13,17 +13,16 @@
 </template>
 
 <script>
-import myPageSideBar from '@/components/User/MyPage/myPageSideBar'
-import navBar from "@/components/Bar/NavBar"
+// import myPageSideBar from '@/components/User/MyPage/myPageSideBar'
 import UserModify from "@/components/User/MyPage/UserModify"
 import { mapGetters } from 'vuex'
+import SideBarNpm from '@/components/Admin/sideBarNpm.vue'
 
 export default {
   name: "MyPage",
   components: {
-    myPageSideBar,
-    navBar,
-    UserModify
+    UserModify,
+    SideBarNpm,
   },
   computed: {
     ...mapGetters('myPageStore', ['currentMode'])

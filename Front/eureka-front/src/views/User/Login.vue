@@ -1,30 +1,23 @@
 <template>
   <div>
-    <h1>여기는 로그인 페이지!</h1>
-    <img src="https://picsum.photos/id/239/500/150" alt="Logo image" />
-    <form @submit.prevent="onSubmit()">
-      <fieldset>
-        <input
-          v-model="credentials.userid"
-          type="email"
-          placeholder="아이디(이메일)"
-          autocomplete="email"
-          pattern="^[^(\.)][a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}"
-          required
-        >
-      </fieldset>
-      <fieldset>
-        <input
-          v-model="credentials.userpwd"
-          type="password" placeholder="비밀번호"
-          autocomplete="password"  
-          required
-        >
-      </fieldset>
-      <input type="submit" value="로그인">
-    </form>
-    <router-link to="/user/join">회원가입</router-link>
-    <router-link to="/user/search-password">비밀번호 찾기</router-link>
+    
+    <el-form
+      :model="credentials"
+      :rules="rules"
+    >
+      <!-- 아이디 -->
+      <el-form-item>
+        <el-input v-model="credentials.userid" placeholder="아이디(이메일)"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="credentials.userpwd" placeholder="비밀번호"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click.prevent="onSubmit('loginForm')">로그인</el-button>
+        <el-button type="info" @click="$router.push('join')">회원가입</el-button>
+        <el-button type="info" @click="$router.push('search-password')">비밀번호 찾기</el-button>
+      </el-form-item>
+    </el-form>
   </div>
 
 
@@ -40,6 +33,23 @@ export default {
       credentials: {
         userid: '',
         userpwd: ''
+      },
+      rules: {
+        userid: [
+          {
+            required: true,
+            type:"email",
+            message: '아이디를 입력해주세요',
+            trigger: 'blur'
+          }
+        ],
+        userpwd: [
+          {
+            required: true,
+            message: '비밀번호를 입력해주세요',
+            trigger: 'blur'
+          }
+        ]
       }
     }
   },
@@ -52,13 +62,4 @@ export default {
 </script>
 
 <style scoped>
-div, fieldset {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-fieldset > * {
-  margin-top: 1rem;
-}
 </style>

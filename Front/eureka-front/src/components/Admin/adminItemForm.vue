@@ -38,7 +38,6 @@
   </el-dialog>
   <el-form-item>
     <el-button type="primary" @click="submitForm('itemForm')">Create</el-button>
-    <el-button @click="resetForm('itemForm')">Reset</el-button>
   </el-form-item>
 </el-form>
 </template>
@@ -101,9 +100,6 @@ export default {
             return false;
           }
         });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields()
       },
       registerItem() {
         http

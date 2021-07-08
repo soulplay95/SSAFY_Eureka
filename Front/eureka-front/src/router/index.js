@@ -46,7 +46,16 @@ import JWTcommon from '@/utils/JWT-common'
 // import mapGetters (admin)
 // import store from '@/store'
 
+// temp
+import Temp from '@/views/User/Temp.vue'
+
 const routes = [
+  // temp
+  {
+    path: '/temp',
+    name: 'Temp',
+    component: Temp,
+  },
   // Home
   {
     path: '/',
@@ -167,16 +176,6 @@ const routes = [
     path: '/admin/profile',
     name: 'AdminProfile',
     component: AdminProfile,
-    meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
-    },
-  },
-  // 회원 가입 현황
-  {
-    path: '/admin/user-register-detail',
-    name: 'AdminUserRegisterDetail',
-    component: AdminUserRegisterDetail,
     meta: {
       requiresAuth: true,
       requiersAdmin: true,

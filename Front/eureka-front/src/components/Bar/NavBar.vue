@@ -81,7 +81,7 @@
 <script>
 
 import pic from '@/assets/eureka.png'
-// import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import CategoryBar from '@/components/Bar/CategoryBar'
 export default {
   data: function () {

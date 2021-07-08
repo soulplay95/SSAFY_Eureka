@@ -1,16 +1,32 @@
 <template>
   <div>
     <!-- 주소 -->
-    <input type="text" :value="postcode" placeholder="우편번호" /><br />
-    <input type="button" @click="getAddress" value="우편번호 찾기" /><br />
-    <input type="text" :value="address" placeholder="주소" /><br />
-    <input
-      type="text"
-      v-model="detailAddress"
-      ref="detailAddress"
-      placeholder="상세주소"
-    /><br />
-    <input type="text" :value="extraAddr" placeholder="참고항목" />
+    <el-form-item>
+      <el-input  
+        :value="address" placeholder="주소"
+      >
+      </el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-input      
+        :value="extraAddr" placeholder="참고항목"
+      >
+      </el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-input
+        v-model="detailAddress"
+        ref="detailAddress"
+        placeholder="상세주소"
+      >
+      </el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-input 
+        :value="postcode" placeholder="우편번호">
+      </el-input>
+    </el-form-item>
+    <el-button type="info" @click="getAddress()">우편번호 찾기</el-button>
   </div>
 </template>
 
@@ -22,8 +38,8 @@ export default {
       address: '',
       extraAddr: '',
       postcode: '',
-      detailAddress: '',
-    };
+      detailAddress: ''
+    }
   },
   methods: {
     getAddress() {
