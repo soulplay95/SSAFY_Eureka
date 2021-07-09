@@ -1,16 +1,17 @@
 <template>
   <div>
-    
+    <logo/>
     <el-form
       :model="credentials"
       :rules="rules"
+      ref="loginForm"
     >
       <!-- 아이디 -->
-      <el-form-item>
-        <el-input v-model="credentials.userid" placeholder="아이디(이메일)"></el-input>
+      <el-form-item prop="userid">
+        <el-input v-model="credentials.userid" placeholder="아이디(이메일) " @keyup.enter="onSubmit('loginForm')"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-input v-model="credentials.userpwd" placeholder="비밀번호"></el-input>
+      <el-form-item prop="userpwd">
+        <el-input v-model="credentials.userpwd" @keyup.enter="onSubmit('loginForm')" placeholder="비밀번호"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click.prevent="onSubmit('loginForm')">로그인</el-button>
@@ -24,10 +25,14 @@
 </template>
 
 <script>
+import logo from '@/components/User/Common/logo'
 
 export default {
   // vuex 불러오기
   name: "Login",
+  components: {
+    logo
+  },
   data() {
     return {
       credentials: {
@@ -54,8 +59,14 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
-      this.$store.dispatch('userStore/login', this.credentials)
+    onSubmit(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.$store.dispatch('userStore/login', this.credentials)
+        } else {
+          return false
+        }
+      })
     }
   },
 };

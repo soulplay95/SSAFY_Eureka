@@ -1,5 +1,6 @@
 <template>
   <div>
+    <logo/>
     <el-form 
       :model="credentials" :rules="rules" :label-position="labelPosition" ref="signUpForm" label-width="150px"
     >
@@ -43,11 +44,13 @@
 // useStore 훅을 사용하여 store에 접근합니다.
 import addressForm from '@/components/User/Join/addressForm'
 import http from '@/utils/http-common'
+import logo from '@/components/User/Common/logo'
 
 export default {
   name: "Join",
   components: {
-    addressForm
+    addressForm,
+    logo
   },
   data() {
     const validatePass = (rule, value, callback) => {

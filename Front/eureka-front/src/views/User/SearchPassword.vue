@@ -1,7 +1,8 @@
-  <template>
-  <div>
-    <h2>비밀번호의 경우 암호화 저장되어 분실 시 찾아드릴 수 없는 정보 입니다.</h2>
-    <h3>가입하실 때 사용하신 이메일로 임시 비밀번호를 발급해드립니다</h3>
+<template>
+  <div justify="center">
+    <logo/>
+    <span>비밀번호의 경우 암호화 저장되어 분실 시 찾아드릴 수 없는 정보 입니다.</span>
+    <span>가입하실 때 사용하신 이메일로 임시 비밀번호를 발급해드립니다</span>
     <el-form
       :model="credentials"
       :rules="rules"
@@ -47,9 +48,13 @@
 
 <script>
 import http from '@/utils/http-common'
+import logo from '@/components/User/Common/logo'
 
 export default {
   name: 'SearchPassword',
+  components: {
+    logo
+  },
   data() {
     return {
       credentials: {
