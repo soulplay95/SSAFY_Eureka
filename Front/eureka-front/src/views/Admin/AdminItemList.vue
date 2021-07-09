@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-row mt-5">
     <admin-side-bar/>
-    <div>
+    <div class="admin-item-table">
       <admin-item-table/>
       <back-top/>
     </div>
@@ -24,4 +24,8 @@ export default {
 </script>
 
 <style scoped>
+.admin-item-table {
+  width: 80%;
+}
+
 </style>

@@ -1,43 +1,48 @@
 <template>
-  <div>
-    <logo/>
-    <el-form 
-      :model="credentials" :rules="rules" :label-position="labelPosition" ref="signUpForm" label-width="150px"
-    >
-      <!-- 아이디 -->
-      <el-form-item 
-        label="아이디(이메일) ex)abc123@naver.com"
-        prop="userid"
+  <el-row class="signup-container" type="flex" align="middle">
+    <el-col :span="8" :offset="8" class="signup-form">
+      <logo/>
+      <el-form 
+        :model="credentials"
+        :rules="rules"
+        :label-position="labelPosition"
+        ref="signUpForm"
+        label-width="150px"
       >
-        <el-input v-model="credentials.userid"  :disabled="isIdChecked"></el-input>
-        <el-button type="info" round size="small" @click.prevent="onSubmitId()">{{ idCheckMessage }}</el-button>
-      </el-form-item>
-      <!-- 비밀번호 -->
-      <el-form-item label="비밀번호" prop="userpwd">
-        <el-input v-model="credentials.userpwd"></el-input>
-      </el-form-item>
-      <el-form-item label="비밀번호 확인" prop="userpwdconfirmation">
-        <!-- 비밀번호 확인 -->
-        <el-input v-model="credentials.userpwdconfirmation"></el-input>
-      </el-form-item>
-      <!-- 이름 -->
-      <el-form-item label="이름" prop="name">
-        <el-input v-model="credentials.name"></el-input>
-      </el-form-item>
-      <!-- 연락처 -->
-      <el-form-item label="연락처 (ex.010-1234-5678)" prop="phone">
-        <el-input v-model="credentials.phone"></el-input>
-      </el-form-item>
-      <!-- 주소 -->
-      <el-form-item ref="addressForm" label="주소">
-        <addressForm prop="address" class="addressForm"/>
-      </el-form-item>
-      <!-- 제출, 리셋 버튼 -->
-      <el-form-item>
-        <el-button type="primary" @click.prevent="onSubmit('signUpForm')">회원가입</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+        <!-- 아이디 -->
+        <el-form-item label="아이디(이메일)" prop="userid" style="font-size: 5rem;">
+          <div class="input-userid">
+            <el-input v-model="credentials.userid"  :disabled="isIdChecked"></el-input>
+            <el-button type="info" size="small" @click.prevent="onSubmitId()">{{ idCheckMessage }}</el-button>
+          </div>
+        </el-form-item>
+        <!-- 비밀번호 -->
+        <el-form-item label="비밀번호" prop="userpwd">
+          <el-input v-model="credentials.userpwd" show-password></el-input>
+        </el-form-item>
+        <el-form-item label="비밀번호 확인" prop="userpwdconfirmation">
+          <!-- 비밀번호 확인 -->
+          <el-input v-model="credentials.userpwdconfirmation" show-password></el-input>
+        </el-form-item>
+        <!-- 이름 -->
+        <el-form-item label="이름" prop="name">
+          <el-input v-model="credentials.name"></el-input>
+        </el-form-item>
+        <!-- 연락처 -->
+        <el-form-item label="연락처 (ex.010-1234-5678)" prop="phone">
+          <el-input v-model="credentials.phone"></el-input>
+        </el-form-item>
+        <!-- 주소 -->
+        <el-form-item ref="addressForm" label="주소">
+          <addressForm prop="address" class="addressForm"/>
+        </el-form-item>
+        <!-- 제출, 리셋 버튼 -->
+        <el-form-item>
+          <el-button type="primary" round @click.prevent="onSubmit('signUpForm')">회원가입</el-button>
+        </el-form-item>
+      </el-form>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
@@ -45,6 +50,7 @@
 import addressForm from '@/components/User/Join/addressForm'
 import http from '@/utils/http-common'
 import logo from '@/components/User/Common/logo'
+import Swal from 'sweetalert2'
 
 export default {
   name: "Join",
@@ -137,7 +143,10 @@ export default {
     // 회원가입 정보 Submit
     onSubmit(formName) {
       if (!this.isIdChecked) {
-        return alert('아이디 중복 검사를 진행해주세요!')
+        return Swal.fire({
+            icon: 'error',
+            text: '아이디 중복검사를 진행해주세요😀',
+          })
       }
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -145,7 +154,11 @@ export default {
           console.log('회원가입진행')
           this.$store.dispatch("userStore/register", this.credentials)
         } else {
-          alert('입력하신 정보를 한 번 더 확인해주세요😀')
+          Swal.fire({
+            icon: 'error',
+            title: '잘못된 정보',
+            text: '입력하신 정보를 한 번 더 확인해주세요😀',
+          })
         }
       })
     },
@@ -160,16 +173,21 @@ export default {
           .get('member/isDuplicated/' + this.credentials.userid)
           .then((res) => {
             if (res.status == 200) {
-              alert('사용가능합니다')
+              Swal.fire({
+                icon: 'success',
+                text: '사용가능한 아이디입니다😀',
+              })
               this.isIdChecked = true
             } else if (res.status == 204) {
-              alert('아이디가 사용중입니다')
+              Swal.fire({
+                icon: 'error',
+                text: '사용중인 아이디입니다😥',
+              })
               this.resetUserId()
             }
           })
           .catch((err) => {
             console.log(err)          
-            alert('아이디를 다시 입력해주세요!')
           })
       }
     },
@@ -203,28 +221,29 @@ export default {
 }
 </script>
 <style scoped>
-  /* fieldset {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    border-radius: 1rem;
-  }  fieldset * {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-  }  fieldset input {
-    border: 1px solid black;
-    border-radius: 1rem;
-    margin: 1rem 2rem;
-  }   fieldset input:focus {
-    outline:none;
-  } */
+.addressForm {
+  display: flex;
+}
+.signup-container {
+  min-height: 80vh;
+}
 
-  .addressForm {
-    display: flex;
-  }
+.signup-form {
+  min-width:660px;
+  padding: 35px;
+  border-radius: 10px solid black;
+}
 
-  .beDisabled {
-    position: dis;
-  }
+.signup-form > logo {
+  margin-top: 40px;
+}
 
+.input-userid {
+  display: flex !important;
+  flex-direction: row;
+}
+
+#text {
+  font-size: 5rem !important;
+}
 </style>

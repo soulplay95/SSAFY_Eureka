@@ -8,7 +8,6 @@ import Login from '@/views/User/Login.vue';
 import Join from '@/views/User/Join.vue';
 import MyPage from '@/views/User/MyPage.vue';
 // import UserModify from '@/views/User/UserModify.vue';
-import SearchId from '@/views/User/SearchId.vue';
 import SearchPassword from '@/views/User/SearchPassword.vue';
 
 // 장바구니 페이지
@@ -93,12 +92,6 @@ const routes = [
   //     requiresAuth: true,
   //   },
   // },
-  // 아이디 찾기
-  {
-    path: '/user/search-id',
-    name: 'SearchId',
-    component: SearchId,
-  },
   // 비밀번호 찾기
   {
     path: '/user/search-password',

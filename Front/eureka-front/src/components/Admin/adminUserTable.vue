@@ -1,7 +1,6 @@
 <template>
   <el-table
-    :data="userInfo.filter(data => !search || data.member_name.toLowerCase().includes(search.toLowerCase()))"
-    style="width: 100%">
+    :data="userInfo.filter(data => !search || data.member_name.toLowerCase().includes(search.toLowerCase()))">
     <el-table-column
       label="아이디(이메일)"
       prop="member_userid">
@@ -42,6 +41,7 @@
         <el-button
           size="mini"
           type="danger"
+          round
           @click="deleteUserConfirmation(scope.row)">Delete</el-button>
       </template>
     </el-table-column>

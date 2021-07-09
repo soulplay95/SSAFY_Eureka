@@ -1,7 +1,7 @@
 <template>
   <el-table
     :data="itemsInfo.filter(data => !search || data.product_name.toLowerCase().includes(search.toLowerCase()))"
-    style="width: 100%">
+    class="item-list">
     <el-table-column
       label="상품id"
       prop="product_id">
@@ -63,16 +63,18 @@
       </template>
       <template #default="scope">
         <el-button
-          size="mini"
-          @click="editItem(scope.$index)">Edit</el-button>
+          size="mini" round
+          @click="editItem(scope.$index)" class="edit-button">Edit</el-button>
         <el-button
           size="mini"
           type="danger"
+          round
           @click="deleteItemConfirmation(scope.$index)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
   <el-pagination
+    style="font-size: 1.5rem;"
     background
     layout="prev, pager, next"
     @current-change="updatePage($event)"
@@ -156,6 +158,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.edit-button {
+  margin-bottom: 5px;
+}
 
+.item-list {
+  margin-bottom: 20px;
+}
 </style>
