@@ -1,6 +1,6 @@
 <template>
   <el-row class="signup-container" type="flex" align="middle">
-    <el-col :span="8" :offset="8" class="signup-form">
+    <el-col :span="8" :offset="7" class="signup-form">
       <logo/>
       <el-form 
         :model="credentials"

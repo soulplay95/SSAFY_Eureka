@@ -26,6 +26,7 @@ export const userStore = {
       state.isAuthenticated = true
       JWTservice.saveTokens(data.auth_token)
       console.log('토큰설정', state.user, state.isAuthenticated)
+      console.log('토큰 데이터', data.auth_token)
     },
     DESTROY_AUTH (state) {
       state.user = {}
@@ -111,8 +112,16 @@ export const userStore = {
       http
         .put('member/updatepwd', data)
         .then((res) => {
-          dispatch('logout')
-          console.log(res)
+          if (res.status === 204){
+            Swal.fire({
+              icon: 'error',
+              title: '오류😥',
+              text: '정보를 다시 확인해주세요!'
+            })
+          } else {
+            dispatch('logout')
+            console.log(res)
+          }
         })
         .then((err) => {
           console.log(err)

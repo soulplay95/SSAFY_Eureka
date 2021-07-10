@@ -1,30 +1,35 @@
 <template>
-  <el-form :label-position="labelPosition" label-width="100px" :model="credentials">
-    <el-form-item label="Name">
-      <el-input v-model="credentials.name"></el-input>
-    </el-form-item>
-  </el-form>
+  <button @click="postQna">실험</button>
 </template>
 
 <script>
+import http from '@/utils/http-common'
+
 export default {
   name: 'Temp',
   data() {
     return {
-      credentials: {
-        userid: "",
-        userpwd: "",
-        name: "",
-        phone: "",
-        address: "",
-        type: "일반"
-      },
-      userpwdconfirmation: "",
-      isIdChecked: false,
-      labelPosition: 'top'
+      qnaInfo: {
+        qna_qtitle: 'axios가 안됩니다',
+        qna_qcontent: 'axios header가 안담겨요',
+        qna_category: '202',
+        member_userid: 'abc@naver.com'
+      }
     }
   },
-
+  methods: {
+    postQna() {
+      http
+        .post('qna', this.qnaInfo)
+        .then((res) => {
+          console.log('성공', res)
+        })
+        .catch((err) => {
+          alert(err)
+        })
+      
+    }
+  }
 }
 </script>
 

@@ -20,10 +20,11 @@
 <script>
 import NavBar from '@/components/Bar/NavBar'
 import { defineComponent } from '@vue/composition-api'
+
 export default defineComponent({
   components: {
     NavBar,
-  }
+  },
 })
 </script>
 
