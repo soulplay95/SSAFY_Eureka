@@ -1,7 +1,10 @@
 <template>
   <div class="d-flex flex-row mt-5">
     <adminSideBar/>
-    <adminUserTable/>
+    <div class="admin-user-table">
+      <adminUserTable/>
+      <back-top/>
+    </div>
   </div>
 </template>
 
@@ -19,6 +22,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.admin-user-table {
+  width: 80%;
+  margin-bottom: 50px;
+}
 
 </style>

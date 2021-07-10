@@ -11,11 +11,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 
-
-// import PRIME VUE
-// import PrimeVue from 'primevue/config';
-
-import VTooltip from 'v-tooltip';
+// import vue-sidebar
+import VueSidebarMenu from 'vue-sidebar-menu'
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
@@ -49,4 +47,5 @@ app.use(store)
   .use(router)
   .use(VueAxios, axios)
   .use(ElementPlus)
+  .use(VueSidebarMenu)
   .mount('#app');

@@ -8,7 +8,6 @@ import Login from '@/views/User/Login.vue';
 import Join from '@/views/User/Join.vue';
 import MyPage from '@/views/User/MyPage.vue';
 // import UserModify from '@/views/User/UserModify.vue';
-import SearchId from '@/views/User/SearchId.vue';
 import SearchPassword from '@/views/User/SearchPassword.vue';
 
 // 장바구니 페이지
@@ -46,7 +45,16 @@ import JWTcommon from '@/utils/JWT-common'
 // import mapGetters (admin)
 // import store from '@/store'
 
+// temp
+import Temp from '@/views/User/Temp.vue'
+
 const routes = [
+  // temp
+  {
+    path: '/temp',
+    name: 'Temp',
+    component: Temp,
+  },
   // Home
   {
     path: '/',
@@ -84,12 +92,6 @@ const routes = [
   //     requiresAuth: true,
   //   },
   // },
-  // 아이디 찾기
-  {
-    path: '/user/search-id',
-    name: 'SearchId',
-    component: SearchId,
-  },
   // 비밀번호 찾기
   {
     path: '/user/search-password',
@@ -167,16 +169,6 @@ const routes = [
     path: '/admin/profile',
     name: 'AdminProfile',
     component: AdminProfile,
-    meta: {
-      requiresAuth: true,
-      requiersAdmin: true,
-    },
-  },
-  // 회원 가입 현황
-  {
-    path: '/admin/user-register-detail',
-    name: 'AdminUserRegisterDetail',
-    component: AdminUserRegisterDetail,
     meta: {
       requiresAuth: true,
       requiersAdmin: true,

@@ -1,7 +1,7 @@
 <template>
   <el-table
     :data="itemsInfo.filter(data => !search || data.product_name.toLowerCase().includes(search.toLowerCase()))"
-    style="width: 100%">
+    class="item-list">
     <el-table-column
       label="상품id"
       prop="product_id">
@@ -45,7 +45,7 @@
         <el-image
           style="width: 100%;"
           :src="scope.row.product_img"
-          :fit="fill">
+          :fit="imageSize">
         </el-image>
       </template>
     </el-table-column>
@@ -63,16 +63,18 @@
       </template>
       <template #default="scope">
         <el-button
-          size="mini"
-          @click="editItem(scope.$index)">Edit</el-button>
+          size="mini" round
+          @click="editItem(scope.$index)" class="edit-button">Edit</el-button>
         <el-button
           size="mini"
           type="danger"
-          @click="deleteItemConfirmation(scope.row)">Delete</el-button>
+          round
+          @click="deleteItemConfirmation(scope.$index)">Delete</el-button>
       </template>
     </el-table-column>
   </el-table>
   <el-pagination
+    style="font-size: 1.5rem;"
     background
     layout="prev, pager, next"
     @current-change="updatePage($event)"
@@ -82,12 +84,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+// import Swal from 'sweetalert2'
 
 export default {
   name:"adminItemTable",
   data() {
     return {
       search: '',
+      imageSize: 'fill',
     }
   },
   methods: {
@@ -97,11 +101,31 @@ export default {
     editItem(idx) {
       this.$store.dispatch('adminStore/getItemInfo', idx)
     },
+    // deleteItemConfirmation() {
+    //   Swal.fire({
+    //     title: '해당 상품을 삭제하시겠습니까?',
+    //     text: "다시 복구할 수 없습니다😥",
+    //     icon: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#3085d6',
+    //     cancelButtonColor: '#d33',
+    //     cancelButtonText: '취소',
+    //     confirmButtonText: '네, 삭제하겠습니다'
+    //   }).then((result) => {
+    //     if (result.isConfirmed) {
+    //       Swal.fire(
+    //         '삭제!',
+    //         '해당 상품이 삭제되었습니다',
+    //         'success'
+    //       )
+    //     }
+    //   })
+    // },
     deleteItemConfirmation(item) {
-          this.$confirm('해당 상품을 삭제하시겠습니까?', 'Warning', {
-            confirmButtonText: '네',
-            cancelButtonText: '아니오',
-            type: 'warning',
+        this.$confirm('해당 상품을 삭제하시겠습니까?', '주의🚨', {
+          confirmButtonText: '네',
+          cancelButtonText: '아니오',
+          type: 'warning',
         })
         .then((res) => {
           console.log(res)
@@ -134,6 +158,12 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.edit-button {
+  margin-bottom: 5px;
+}
 
+.item-list {
+  margin-bottom: 20px;
+}
 </style>
