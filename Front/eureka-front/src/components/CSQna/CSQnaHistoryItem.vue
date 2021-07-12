@@ -2,24 +2,13 @@
   <div>
     <div class="row">
       <div class="col">
-        <span v-if="question.category === 1">
-          (배송)
-        </span>
-        <span v-else-if="question.category === 2">
-          (주문)
-        </span>
-        <span v-else-if="question.category === 3">
-          (서비스 칭찬)
-        </span>
-        <span v-else>
-          (시스템개선)
-        </span>
+        <span>{{ question.qna_category }}</span>
       </div>
       <div class="col">
-        {{ question.title }}
+        {{ question.qna_qtitle }}
       </div>
       <div class="col-6">
-        {{ question.content }}
+        {{ question.qna_qcontent }}
       </div>
       <button class="col" @click="deleteQuestion(question)">Delete</button>
     </div>

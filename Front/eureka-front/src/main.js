@@ -2,7 +2,6 @@ import App from './App.vue';
 import store from './store';
 import router from './router';
 import { createApp } from 'vue';
-
 // import bootstrap5
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +18,34 @@ import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 import moment from 'moment';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+
+//font-awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { faUserLock } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faHeadset } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { faTasks } from "@fortawesome/free-solid-svg-icons";
+import { faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
+import { faThList } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faUserLock);  
+library.add(faSearch);  
+library.add(faSignInAlt);  
+library.add(faSignOutAlt);  
+library.add(faUserPlus);  
+library.add(faHeadset);  
+library.add(faUserSecret)
+library.add(faLightbulb)
+library.add(faTasks)
+library.add(faPlaneDeparture)
+library.add(faThList)
 
 const app = createApp(App);
 
@@ -43,6 +70,7 @@ app.config.globalProperties.$filters = {
   },
 };
 
+app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(store)
   .use(router)
   .use(VueAxios, axios)

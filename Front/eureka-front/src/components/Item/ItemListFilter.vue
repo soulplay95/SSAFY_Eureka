@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div class="row">
-    <div class="col-sm-6" id="filter">필터</div>
+  <div class="all">
+    <div class="row" style="height:50px; box-sizing: border-box;">
+    <div class="col-sm-6" id="filter" style="padding:10px;">필터</div>
     <div class="col-sm-4">
-      <el-button type="primary" icon="el-icon-search" @click="filterItem">초기화</el-button>
+      <el-button icon="el-icon-search" @click="resetFilter" style="background-color:#b0eacd; color:white;">초기화</el-button>
     </div>
     </div>
     <hr>
-    <p>별점</p>
+    <p class="rate">별점</p>
     <div class="block">
-      <button type="button" class="btn btn-outline-success" @click="onRateClick">별점 전체</button>
+      <button type="button" class="btn btn-outline-success" @click="resetRate" >별점 전체</button>
       <br><br>
       <el-rate
         v-model="value2"
@@ -26,18 +26,19 @@
         range
         :step="10000"
         show-stops
-        :max="maxPrice">
+        :max="maxPrice"
+        style="color: green;">
       </el-slider>
     </div>
     <hr>
-    <p>배송료</p>
+    <!-- <p>배송료</p>
     <div>
       <p>배송료 전체</p>
-    </div>
+    </div> -->
     <div>
 
     </div>
-    <el-button type="primary" icon="el-icon-search" @click="filterItem">Filter</el-button>
+    <el-button icon="el-icon-search" @click="filterItem" style="background-color:#b0eacd; color:white;">Filter</el-button>
   </div>
 </template>
 
@@ -57,15 +58,21 @@ export default {
       // console.log(this.value)
       const filterQuery = {
         'startPrice': this.value[0],
-        'endPrice': this.value[1]
+        'endPrice': this.value[1],
+        'rate': this.value2
       }
+      console.log(filterQuery)
       this.$store.dispatch('itemStore/filterItem', filterQuery)
     },
-    onRateClick: function () {
+    resetRate: function () {
       this.value2 = null
     },
     resetPrice: function () {
       this.value = [0, this.maxPrice]
+    },
+    resetFilter: function () {
+      this.value = [0, this.maxPrice]
+      this.value2 = null
     }
   },
   computed: {
@@ -75,9 +82,22 @@ export default {
 </script>
 
 <style>
+
+@font-face {
+     font-family: 'S-CoreDream-6Bold';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
+.all {
+  font-family: S-CoreDream-6Bold
+}
+
 #filter {
   font-weight: 900;
   font-size: 24px;
+  color: #21bf73;
 }
 .category {
   font-size: 20px;

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <p><span class="search">‘{{ searchText }}’</span>에 대한 결과</p>
-    <h3>HOT ITEMS</h3>
+    <p class="result"><span class="searchResult">‘{{ searchText }}’</span>에 대한 결과</p>
+    <h3 class="detail">HOT ITEMS</h3>
     <div class="row g-0">
-      <div class="col-6 col-md-2" style="border:2px solid grey; padding:10px; height:1000px; margin: 10px 10px 10px 10px;">
+      <div class="col-6 col-md-2" style="border:2px solid #b0eacd; padding:10px; height:1000px; margin: 10px 10px 10px 10px;">
         <ItemListFilter/>
       </div>
-      <div class="col-sm-6 col-md-8">
+      <div class="col-sm-6 col-md-9">
         <div class="row row-cols-1 row-cols-md-5 g-4">
           <ItemListCard 
           v-for="(item, idx) in categoryHotItems"
@@ -15,7 +15,7 @@
           />
         </div>
         <br><br>
-        <h3>NORMAL ITEMS</h3>
+        <h3 class="detail">NORMAL ITEMS</h3>
           <div class="row row-cols-1 row-cols-md-5 g-4">
           <ItemListCard 
           v-for="(item, idx) in categoryItems"
@@ -64,7 +64,13 @@ export default {
 </script>
 
 <style>
-.search {
+/* .search {
+  color: #21bf73;
+} */
+.detail {
+  color: #21bf73;
+}
+.searchResult {
   font-weight: 900;
 }
 .filter {
