@@ -2,25 +2,23 @@
   <div>
     <div class="col">
             <div class="card">
-              <img :src=item.product_img
-              class="card-img-top" alt="..."
-              @click="selectItem">
+              <router-link :to="'/item/item-detail?product_id=' + item.product_id">
+                <img :src=item.product_img
+                class="card-img-top" alt="...">
+              </router-link>
                 <div class="card text-end">
-                  <div class="card-body" @click="selectItem">
-                    <h5 class="card-title">{{ item.product_name }}</h5>
-                    <el-rate
-                      v-model="value"
-                      disabled
-                      show-score>
-                    </el-rate>
-                    <h3 class="price">{{ item.product_price }}</h3>
-                  </div>                
+                    <div class="card-body">
+                      <h5 class="card-title">{{ item.product_name }}</h5>
+                      <el-rate
+                        v-model="value"
+                        disabled
+                        show-score>
+                      </el-rate>
+                      <div><span class="price">{{ $filters.price(item.product_price) }}</span>원</div>
+                    </div>      
                 </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -31,18 +29,12 @@ export default {
       type: Object,
     },
   },
-  data: function () {
+  data: function() {
     return {
       value: Number(this.item.product_rating),
-    };
+    }
   },
-  methods: {
-    selectItem: function (id) {
-      // this.$store.dispatch('itemStore/selectItem', this.searchText);
-      this.$router.push('/item/item-detail?product_id=' + id);
-    },
-  },
-};
+}
 </script>
 
 <style>
@@ -68,7 +60,8 @@ export default {
   font-family: S-CoreDream-6Bold
 }
 .price {
-  font-family: SEBANG_Gothic_Bold
+  font-family: SEBANG_Gothic_Bold;
+  font-size: 28px;
 }
 .card-title {
   font-size: 16px;

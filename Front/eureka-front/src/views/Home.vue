@@ -10,10 +10,9 @@
     <Carousel :items-to-show="5" :wrap-around="true">
     <Slide v-for="(item, idx) in hotItems" :key="idx" >
       <div class="carousel__item">
-        <img
-        :src="item.product_img"
-        @click="selectItem"
-        >
+        <router-link :to="'/item/item-detail?product_id=' + item.product_id">
+          <img :src="item.product_img">
+        </router-link>
       </div>
     </Slide>
     <template #addons>
@@ -25,7 +24,6 @@
 </template>
 
 <script>
-// import _ from 'lodash'
 import axios from 'axios'
 import pic from '@/assets/star.png'
 import random from '@/assets/random.png'
@@ -34,7 +32,6 @@ import main3 from '@/assets/main3.png'
 import main4 from '@/assets/main4.png'
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Navigation, Slide } from 'vue3-carousel';
-// import Slide from '@/components/Carousel/Slide'
 
 export default {
   data: function () {
@@ -62,22 +59,12 @@ export default {
       handleSelection,
     };
   },
-
-  methods: {
-    selectItem: function () {
-      // this.$store.dispatch('itemStore/selectItem', this.searchText);
-      this.$router.push({ name: 'ItemDetail' });
-    },
-  },
   computed: {
     // 계산된 getter
     reversedMessage: function () {
       // `this` 는 vm 인스턴스를 가리킵니다.
       return this.message.split('').reverse().join('');
     },
-    // questions: function () {
-    //   return this.$store.state.CSQnaStore.myQnaHistory
-    // },
   },
   created: function () {
     axios({
