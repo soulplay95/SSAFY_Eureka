@@ -1,10 +1,19 @@
 <template>
   <div>
+    <section
+      class="bg-title-page flex-col-c-m"
+      style="background-image: url(https://picsum.photos/seed/picsum/1920/239)"
+    >
+      <h2 class="l-text2 t-center">Review Modify</h2>
+    </section>
     <section class="cart bgwhite">
       <div class="container">
         <!-- form -->
-        <div class="mb-3">
-          <label for="rating" class="form-label">평점</label>
+        <label for="rating" class="form-label">평점</label>
+        <div
+          class="mb-3"
+          style="display: flex; align-items: center; justify-content: center"
+        >
           <star-rating id="rating" v-model:rating="rate"></star-rating>
         </div>
         <div class="mb-3">
@@ -97,7 +106,8 @@ export default {
     modify() {
       http
         .put('/review', {
-          member_userid: this.$store.getters['userStore/user'].member_userid,
+          member_userid:
+            this.$store.getters['userStore/currentUser'].member_userid,
           product_id: this.$route.params.product_id,
           review_content: this.content,
           review_img: this.image,

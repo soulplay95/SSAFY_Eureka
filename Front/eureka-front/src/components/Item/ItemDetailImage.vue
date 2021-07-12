@@ -7,10 +7,10 @@
 <script>
 export default {
   name: 'itemDetailImage',
+
   computed: {
     itemDetailImage() {
-      return this.$store.getters['itemDetail/productInfo'].product
-        .product_detailimg;
+      return this.$store.getters['itemDetail/productInfo'].product.product_img;
     },
   },
 };

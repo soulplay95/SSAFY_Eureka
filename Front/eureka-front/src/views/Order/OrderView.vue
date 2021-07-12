@@ -25,12 +25,12 @@
 </template>
 
 <script>
-import CustomerInfo from "@/components/Order/CustomerInfo.vue";
-import ProductInfo from "@/components/Order/ProductInfo.vue";
-import PayInfo from "@/components/Order/PayInfo.vue";
+import CustomerInfo from '@/components/Order/CustomerInfo.vue';
+import ProductInfo from '@/components/Order/ProductInfo.vue';
+import PayInfo from '@/components/Order/PayInfo.vue';
 
 export default {
-  name: "orderView",
+  name: 'OrderView',
   components: {
     CustomerInfo,
     ProductInfo,
