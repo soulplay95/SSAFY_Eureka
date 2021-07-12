@@ -64,6 +64,13 @@
 		FROM member
 		WHERE member_userid = #{member_userid}
 	</select>
+	
+	<select id="getReviewByMid" resultType="review">
+		SELECT *
+		FROM review
+		WHERE member_userid = #{member_userid}
+	</select>
+	
 </mapper>
 
 

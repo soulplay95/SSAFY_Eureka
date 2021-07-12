@@ -1,9 +1,11 @@
 package com.ssafy.eureka.service;
 
+import java.util.List;
 import java.util.Map;
 
 
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.dto.Review;
 
 public interface MemberService {
 
@@ -20,4 +22,5 @@ public interface MemberService {
 	public boolean checkInfo(Member member);
 	public int modifyPwd(Map<String, String> map);
 	public Member checkDuplicate(String member_userid);
+	public List<Review> getReviewByMid(String member_userid);
 }
