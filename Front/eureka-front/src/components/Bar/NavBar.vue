@@ -263,4 +263,8 @@ body{
   transform: translate(20%, -140%);
   /* transform: translate(-150%, 10%); */
 }
+
+.nav-item {
+  cursor: pointer;
+}
 </style>

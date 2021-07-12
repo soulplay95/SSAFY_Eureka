@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- ======================== 구매자정보 ======================== -->
-    <h2>구매자정보</h2>
+    <h2>구매자 정보</h2>
     <table class="infoTable">
       <tr>
         <th>이름</th>
@@ -17,13 +17,14 @@
       </tr>
     </table>
     <!-- ======================== 받는사람정보 ======================== -->
-    <h2>받는사람정보</h2>
+    <h2>받는사람 정보</h2>
     <!-- 배송지 추가 모달창 trigger 버튼 -->
     <button
       type="button"
-      class="btn btn-primary"
+      class="btn btn-info"
       data-bs-toggle="modal"
       data-bs-target="#add"
+      style="margin-bottom: 20px"
       v-if="addressBook.length == 0"
     >
       배송지 추가
@@ -31,9 +32,10 @@
     <!-- 배송 주소록(배송지 선택) 모달창 trigger 버튼 -->
     <button
       type="button"
-      class="btn btn-primary"
+      class="btn btn-info"
       data-bs-toggle="modal"
       data-bs-target="#select"
+      style="margin-bottom: 20px"
       v-if="addressBook.length != 0"
     >
       배송지 변경
@@ -45,19 +47,24 @@
     <table class="infoTable" v-if="addressBook.length != 0">
       <tr>
         <th>이름(별칭)</th>
-        <td>{{ receiverInfo.name }}</td>
+        <td>
+          {{ receiverInfo.shipaddress_nickname }}
+          <span v-if="receiverInfo.shipaddress_type == 1">* 기본배송지</span>
+        </td>
       </tr>
       <tr>
         <th>배송주소</th>
-        <td>{{ receiverInfo.address }}</td>
+        <td>
+          {{ receiverInfo.shipaddress_addr }}
+        </td>
       </tr>
       <tr>
         <th>연락처</th>
-        <td>{{ receiverInfo.phone }}</td>
+        <td>{{ receiverInfo.shipaddress_phone }}</td>
       </tr>
       <tr>
         <th>배송 요청사항</th>
-        <td>{{ receiverInfo.request }}</td>
+        <td>{{ receiverInfo.shipaddress_request }}</td>
       </tr>
     </table>
 
@@ -86,24 +93,26 @@
           <div class="modal-body">
             <table
               class="modalTable"
-              :class="{ selected: receiverInfo.id == addr.id }"
+              :class="{
+                selected: receiverInfo.shipaddress_id == addr.shipaddress_id,
+              }"
               v-for="(addr, index) in addressBook"
               :key="`${index}_item`"
             >
               <tr>
-                <th>{{ addr.name }}</th>
+                <th>{{ addr.shipaddress_nickname }}</th>
               </tr>
-              <tr v-if="addr.type === 1" style="color: blue">
+              <tr v-if="addr.shipaddress_type === 1" style="color: blue">
                 기본배송지
               </tr>
               <tr>
-                <td>{{ addr.address }}</td>
+                <td>{{ addr.shipaddress_addr }}</td>
               </tr>
               <tr>
-                <td>{{ addr.phone }}</td>
+                <td>{{ addr.shipaddress_phone }}</td>
               </tr>
               <tr>
-                <td>{{ addr.request }}</td>
+                <td>{{ addr.shipaddress_request }}</td>
               </tr>
               <tr>
                 <td>
@@ -170,7 +179,7 @@
               <fieldset>
                 <!-- 이름 -->
                 <input
-                  v-model="input.name"
+                  v-model="input.shipaddress_nickname"
                   type="text"
                   placeholder="받는 사람"
                   style="width: 100%"
@@ -208,7 +217,7 @@
                 </div>
                 <!-- 연락처 -->
                 <input
-                  v-model="input.phone"
+                  v-model="input.shipaddress_phone"
                   type="tel"
                   pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
                   placeholder="연락처"
@@ -216,7 +225,7 @@
                 />
                 <!-- 배송요청사항 -->
                 <input
-                  v-model="input.request"
+                  v-model="input.shipaddress_request"
                   type="text"
                   placeholder="배송 요청사항"
                   style="width: 100%"
@@ -275,7 +284,7 @@
               <fieldset>
                 <!-- 이름 -->
                 <input
-                  v-model="addressInEdit.name"
+                  v-model="addressInEdit.shipaddress_nickname"
                   type="text"
                   placeholder="받는 사람"
                   style="width: 100%"
@@ -313,7 +322,7 @@
                 </div>
                 <!-- 연락처 -->
                 <input
-                  v-model="addressInEdit.phone"
+                  v-model="addressInEdit.shipaddress_phone"
                   type="tel"
                   pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
                   placeholder="연락처"
@@ -321,7 +330,7 @@
                 />
                 <!-- 배송요청사항 -->
                 <input
-                  v-model="addressInEdit.request"
+                  v-model="addressInEdit.shipaddress_request"
                   type="text"
                   placeholder="배송 요청사항"
                   style="width: 100%"
@@ -345,7 +354,7 @@
               data-bs-target="#select"
               data-bs-toggle="modal"
               data-bs-dismiss="modal"
-              @click="modify(addressInEdit.id)"
+              @click="modify(addressInEdit.shipaddress_id)"
             >
               수정
             </button>
@@ -354,7 +363,7 @@
               data-bs-target="#select"
               data-bs-toggle="modal"
               data-bs-dismiss="modal"
-              @click="deleteAddr(addressInEdit.id, addressInEdit.member_id)"
+              @click="deleteAddr(addressInEdit.shipaddress_id)"
             >
               삭제
             </button>
@@ -371,9 +380,9 @@ export default {
   data() {
     return {
       input: {
-        name: '',
-        phone: '',
-        request: '',
+        shipaddress_nickname: '',
+        shipaddress_phone: '',
+        shipaddress_request: '',
         isBasic: false,
       },
       address: '',
@@ -386,30 +395,34 @@ export default {
   computed: {
     // 로그인된 유저 정보
     user() {
-      return this.$store.state.userStore.user;
+      return this.$store.getters['userStore/user'];
     },
     // 로그인된 유저의 배송 주소록
     addressBook() {
-      return this.$store.state.order.addressBook;
+      return this.$store.getters['order/addressBook'];
     },
     // 받는사람정보
     receiverInfo: {
       get() {
-        return this.$store.state.order.receiverInfo;
+        return this.$store.getters['order/receiverInfo'];
       },
       set(value) {
         this.$store.state.order.receiverInfo = value;
       },
     },
-    checked() {
-      return this.addressInEdit.type == 1;
+    // 기본배송지인지
+    checked: {
+      get() {
+        return this.addressInEdit.shipaddress_type == 1;
+      },
+      set(value) {
+        this.addressInEdit.shipaddress_type = value ? 1 : 2;
+      },
     },
   },
   methods: {
     // 리시버 정보를 변경한다.
     updateReceiver(addr) {
-      // this.$store.state.order.receiverInfo = addr;
-      // this.receiverInfo = addr;
       this.$store.dispatch('order/updateReceiver', addr);
     },
     // 우편번호찾기
@@ -445,7 +458,7 @@ export default {
     save(id) {
       // 전처리 - 데이터 다듬기
       var newAddr = {};
-      newAddr.name = this.input.name;
+      newAddr.shipaddress_nickname = this.input.shipaddress_nickname;
       var fullAddr =
         this.address +
         ' ' +
@@ -454,49 +467,43 @@ export default {
         this.extraAddr +
         ' ' +
         this.postcode;
-      newAddr.address = fullAddr;
-      newAddr.phone = this.input.name;
-      newAddr.request = this.input.name;
-      newAddr.type = this.input.isBasic ? 1 : 2;
-      newAddr.member_id = id;
-
-      // 기본배송지로 지정 후 추가 시
-      if (newAddr.type == 1) {
-        this.$store.dispatch('order/resetDefaultAddress');
-      }
+      newAddr.shipaddress_addr = fullAddr;
+      newAddr.shipaddress_phone = this.input.shipaddress_phone;
+      newAddr.shipaddress_request = this.input.shipaddress_request;
+      newAddr.shipaddress_type = this.input.isBasic ? 1 : 2;
+      newAddr.member_userid = id;
 
       // addressBook에 추가
       this.$store.dispatch('order/addAddress', newAddr);
 
       // 초기화
-      this.input.name = '';
-      this.input.phone = '';
-      this.input.request = '';
+      this.input.shipaddress_nickname = '';
+      this.input.shipaddress_phone = '';
+      this.input.shipaddress_request = '';
       this.input.isBasic = false;
-      this.input.address = '';
-      this.input.extraAddr = '';
-      this.input.postcode = '';
-      this.input.detailAddress = '';
+      this.address = '';
+      this.extraAddr = '';
+      this.postcode = '';
+      this.detailAddress = '';
     },
+    // 수정 대상으로 설정
     edit(addr) {
       this.addressInEdit = addr;
     },
     // 배송지 수정
     modify(addrID) {
       var addr = {};
-      addr.id = addrID;
-      addr.name = this.addressInEdit.name;
-      addr.phone = this.addressInEdit.name;
-      addr.request = this.addressInEdit.name;
+      addr.shipaddress_id = addrID;
+      addr.shipaddress_nickname = this.addressInEdit.shipaddress_nickname;
+      addr.shipaddress_phone = this.addressInEdit.shipaddress_phone;
+      addr.shipaddress_request = this.addressInEdit.shipaddress_nickname;
       // 기본배송지로 수정
-      console.log(this.checked);
       if (this.checked) {
-        this.$store.dispatch('order/resetDefaultAddress');
-        addr.type = 1;
+        addr.shipaddress_type = 1;
       } else {
-        addr.type = 2;
+        addr.shipaddress_type = 2;
       }
-      addr.member_id = this.addressInEdit.member_id;
+      addr.member_userid = this.addressInEdit.member_userid;
       // 주소 전처리
       var fullAddr =
         this.address +
@@ -506,20 +513,20 @@ export default {
         this.extraAddr +
         ' ' +
         this.postcode;
-      addr.address = fullAddr;
+      addr.shipaddress_addr = fullAddr;
       // 수정
       this.$store.dispatch('order/modifyAddress', addr);
+
+      this.addressInEdit = {};
     },
-    deleteAddr(addrID, userid) {
-      this.$store.dispatch('order/deleteAddress', {
-        id: addrID,
-        userid: userid,
-      });
+    // 배송지 삭제
+    deleteAddr(addrID) {
+      this.$store.dispatch('order/deleteAddress', addrID);
     },
   },
   created() {
     // 배송 주소록 받아오기
-    // this.$store.dispatch('order/getAddressBook', this.user.member_userid);
+    this.$store.dispatch('order/getAddressBook', this.user.member_userid);
     // 받는사람정보 기본배송지로 초기화
     this.$store.dispatch('order/initReceiverInfo');
   },

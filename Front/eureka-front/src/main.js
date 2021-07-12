@@ -11,6 +11,11 @@ import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 
 
+// import PRIME VUE
+// import PrimeVue from 'primevue/config';
+
+import VTooltip from 'v-tooltip';
+
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
 import axios from 'axios';

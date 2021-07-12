@@ -1,64 +1,140 @@
 <template>
   <div>
-    <h2>주문상품 정보</h2>
-    <!-- Card 형식으로 여러개 띄워준다. -->
-    <div
-      class="card mb-3"
-      style="max-width: 540px"
-      v-for="(item, index) in selectedProducts"
-      :key="`${index}_item`"
-    >
-      <div class="row g-0">
-        <div class="col-md-4">
-          <img
-            :src="item.product_img"
-            class="img-fluid rounded-start"
-            alt="상품 메인 이미지"
-          />
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <!-- <h5 class="card-title">{{ item.title }}</h5> -->
-            <p class="card-text">
-              {{ item.seller_name }}
-            </p>
-            <p class="card-text">
-              {{ item.product_name }}
-            </p>
-            <p class="card-text">
-              <del v-if="item.product_discount > 0">
-                {{ $filters.price(item.price * item.quantity) }}원
-              </del>
-              <b v-else> {{ $filters.price(item.price * item.quantity) }}원 </b>
-              /
-              <b> {{ item.quantity }}개 </b>
-            </p>
-          </div>
-        </div>
-      </div>
+    <h2>결제 정보</h2>
+    <div class="orderInfo">
+      <ul class="info1">
+        <li style="margin-left: 100px">
+          <dl>
+            <dt style="float: left">상품금액</dt>
+            <dd style="text-align: right; margin-right: 100px">
+              {{ $filters.price(totalProductPrice) }}원
+            </dd>
+          </dl>
+        </li>
+        <li style="margin-left: 100px">
+          <dl>
+            <dt style="float: left">할인금액</dt>
+            <dd style="text-align: right; margin-right: 100px">
+              - {{ $filters.price(totalDiscountPrice) }}원
+            </dd>
+          </dl>
+        </li>
+        <li style="margin-left: 100px">
+          <dl>
+            <dt style="float: left">배송비</dt>
+            <dd style="text-align: right; margin-right: 100px">
+              + {{ $filters.price(totalDeliveryPrice) }}원
+            </dd>
+          </dl>
+        </li>
+        <hr style="margin: 0 0" />
+        <li style="margin-left: 100px; margin-top: 30px">
+          <dl>
+            <dt style="float: left">결제금액</dt>
+            <dd style="text-align: right; margin-right: 100px">
+              <strong>{{ $filters.price(totalPrice) }}원</strong>
+            </dd>
+          </dl>
+        </li>
+      </ul>
     </div>
+    <!-- 결제 버튼 -->
+    <button
+      type="button"
+      class="btn btn-primary"
+      style="font-size: 25px; padding: 10px 10px"
+      @click="pay(selectedProducts)"
+    >
+      결제하기
+    </button>
   </div>
 </template>
 
 <script>
+import http from '@/utils/http-common';
+
 export default {
   name: 'payInfo',
   computed: {
-    // 주문 예정(장바구니에서 선택된) 상품 정보
+    totalProductPrice() {
+      return this.$store.getters['cart/totalProductPrice'];
+    },
+    totalDiscountPrice() {
+      return this.$store.getters['cart/totalDiscountPrice'];
+    },
+    totalDeliveryPrice() {
+      return this.$store.getters['cart/totalDeliveryPrice'];
+    },
+    totalPrice() {
+      return this.$store.getters['cart/totalPrice'];
+    },
+    // 결제 예정 상품 리스트
     selectedProducts() {
-      let items = this.$store.state.cart.items;
-      let checked = this.$store.state.cart.checked;
-      let selectedItems = [];
+      return this.$store.getters['cart/selectedProducts'];
+    },
+    // 배송지
+    shipaddress_id() {
+      return this.$store.getters['order/receiverInfo'].shipaddress_id;
+    },
+  },
+  methods: {
+    // 결제하기
+    pay(list) {
+      let map = {};
+      let order = {};
+      order.member_userid = this.$store.getters['userStore/user'].member_userid; // user id
 
-      // checked 배열을 순회하여 선택된 id와 일치하는 상품을 push한다.
-      checked.forEach((id) => {
-        selectedItems.push(items.filter((item) => item.id === id));
+      // orderdetails 속성 만들기
+      let array = [];
+      list.forEach((element) => {
+        let item = {};
+        item.orderdetail_count = element.quantity;
+        item.product_id = element.product_id;
+        item.orderdetail_state = '배송준비중';
+        let price = Number(element.product_price);
+        let discount = Number(element.product_discount);
+        let delivery = Number(element.product_deliveryprice);
+        let tprice =
+          Math.floor(
+            (element.quantity * (price * (1 - discount / 100)) + delivery) / 10
+          ) * 10;
+        item.orderdetail_price = String(tprice);
+
+        array.push(item);
       });
 
-      return selectedItems;
+      map.orderdetails = array;
+
+      order.shipaddress_id = this.shipaddress_id;
+      order.order_totalprice = this.totalPrice;
+
+      map.order = order;
+
+      http
+        .post('/order', map)
+        .then((res) => {
+          if (res.status == 200) {
+            alert('결제 성공!');
+            this.$router.push('/');
+          } else {
+            alert('결제 실패!');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.orderInfo {
+  width: 100%;
+  margin-bottom: 20px;
+  border: 4px solid #333333;
+}
+.info1 {
+  padding: 15px 0px 15px 15px;
+}
+</style>
