@@ -2,6 +2,7 @@ import router from '@/router'
 // JWT 토큰 가져오는 용도
 import JWTservice from "@/utils/JWT-common"
 import http from '@/utils/http-common'
+import Swal from 'sweetalert2'
 
 // index.js에서 import 필요
 export const userStore = {
@@ -25,6 +26,7 @@ export const userStore = {
       state.isAuthenticated = true
       JWTservice.saveTokens(data.auth_token)
       console.log('토큰설정', state.user, state.isAuthenticated)
+      console.log('토큰 데이터', data.auth_token)
     },
     DESTROY_AUTH (state) {
       state.user = {}
@@ -43,7 +45,6 @@ export const userStore = {
         member_address: credentials.address,
         member_type: credentials.type
       }
-      console.log('회원가입', credentials)
       http
         .post('member/regist', data)
         .then((res) => {
@@ -55,7 +56,6 @@ export const userStore = {
         })
     },
     login ({commit}, credentials) {
-      console.log('로그인 성공')
       const data = {
         member_userid: credentials.userid,
         member_userpwd: credentials.userpwd
@@ -63,14 +63,17 @@ export const userStore = {
       http
         .post('member/login', data)
         .then((res) => {
-          console.log('로그인 성공')
           commit("SET_AUTH", res.data)
           router.push({ name: "Home" })
         })
         .catch((err) => {
+          Swal.fire({
+            icon: 'error',
+            title: '로그인 실패😥',
+            text: '아이디 또는 비밀번호를 다시 확인해주세요'
+          })
           console.log(err)
         })
-      console.log('로그인 성공')
     },
     logout({commit, state}) {
       http
@@ -109,8 +112,16 @@ export const userStore = {
       http
         .put('member/updatepwd', data)
         .then((res) => {
-          dispatch('logout')
-          console.log(res)
+          if (res.status === 204){
+            Swal.fire({
+              icon: 'error',
+              title: '오류😥',
+              text: '정보를 다시 확인해주세요!'
+            })
+          } else {
+            dispatch('logout')
+            console.log(res)
+          }
         })
         .then((err) => {
           console.log(err)

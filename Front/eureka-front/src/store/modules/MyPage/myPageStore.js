@@ -11,7 +11,7 @@ export const myPageStore = {
     actions: {
       changeMode({commit}, selectedMode) {
         commit('CHANGE_MODE', selectedMode)
-      }  
+      }
     },
     getters: {
         currentMode(state) {

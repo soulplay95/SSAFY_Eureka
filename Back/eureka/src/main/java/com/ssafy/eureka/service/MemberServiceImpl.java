@@ -1,5 +1,6 @@
 package com.ssafy.eureka.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.mail.HtmlEmail;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.eureka.dao.MemberDao;
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.dto.Review;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -133,6 +135,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member checkDuplicate(String member_userid) {
 		return dao.checkDuplicate(member_userid);
+	}
+
+	@Override
+	public List<Review> getReviewByMid(String member_userid) {
+		// TODO Auto-generated method stub
+		return dao.getReviewByMid(member_userid);
 	}
 
 }
