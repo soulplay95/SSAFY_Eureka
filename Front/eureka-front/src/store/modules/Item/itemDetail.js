@@ -17,8 +17,8 @@ export const itemDetail = {
     },
   },
   actions: {
-    getProductInfo({ commit }, product_id) {
-      http
+    async getProductInfo({ commit }, product_id) {
+      await http
         .get('/product/detailview/' + product_id)
         .then((res) => {
           if (res.status == 200) {

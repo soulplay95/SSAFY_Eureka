@@ -54,29 +54,39 @@
             <td class="column-4">{{ $filters.price(item.product_price) }}원</td>
             <!-- 수량 -->
             <td class="column-5" style="padding-left: 70px">
-              <div class="flex-w bo5 of-hidden w-size17">
-                <button
+              <div class="flex-w bo5 of-hidden w-size17" style="border: 0px">
+                <!-- <button
                   class="btn-num-product-down color1 flex-c-m size7 bg8 eff2"
                   value="-"
-                  @click="decreaseQuantity(item.product_id, item.quantity - 1)"
+                  
                 >
                   <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-                </button>
+                </button> -->
+                <el-button
+                  icon="el-icon-minus"
+                  circle
+                  @click="decreaseQuantity(item.product_id, item.quantity - 1)"
+                ></el-button>
 
                 <input
-                  class="size8 m-text18 t-center num-product"
+                  class="size8 m-text18 t-center num-product bo5 of-hidden"
                   type="number"
                   name="num-product1"
                   :value="item.quantity"
                   @blur="updateQuantity(item.product_id, $event)"
                 />
 
-                <button
-                  class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
+                <el-button
+                  icon="el-icon-plus"
+                  circle
                   @click="increaseQuantity(item.product_id, item.quantity + 1)"
+                ></el-button>
+                <!-- <button
+                  class="btn-num-product-up color1 flex-c-m size7 bg8 eff2"
+                  
                 >
                   <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-                </button>
+                </button> -->
               </div>
               <!-- 총 금액 => 개당 금액 * 수량 -->
             </td>
@@ -394,7 +404,7 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 .cart-img-product::after {
-  content: '\e870';
+  content: 'x';
   font-family: Linearicons;
   font-size: 16px;
   display: -webkit-box;

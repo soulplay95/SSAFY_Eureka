@@ -30,7 +30,5 @@ public interface ProductDao {
 	int getProductSearchCount(String keyword);
 
 	int getCountByCategory(String category);
-
-
 	
 }

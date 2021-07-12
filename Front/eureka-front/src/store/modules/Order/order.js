@@ -60,11 +60,9 @@ export const order = {
     },
 
     MODIFY_ADDRESS(state, data) {
-      let list = state.addressBook;
-
-      for (let i = 0; i < list.size; i++) {
-        if (list[i].shipaddress_id == data.shipaddress_id) {
-          list[i] = data;
+      for (let i = 0; i < state.addressBook.size; i++) {
+        if (state.addressBook[i].shipaddress_id == data.shipaddress_id) {
+          state.addressBook[i] = data;
           break;
         }
       }
@@ -126,10 +124,9 @@ export const order = {
     },
 
     // 배송 주소록 수정
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ TODO: 백엔드에서 정해진 url 입력 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     modifyAddress({ commit }, addr) {
       http
-        .put('--', addr)
+        .put('/shipping', addr)
         .then((response) => {
           if (response.status == 200) {
             commit('MODIFY_ADDRESS', addr);
@@ -143,10 +140,9 @@ export const order = {
     },
 
     // 배송 주소록 삭제
-    // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ TODO: 백엔드에서 정해진 url 입력 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
     deleteAddress({ commit }, id) {
       http
-        .delete('--/' + id)
+        .delete('/shipping/' + id)
         .then((response) => {
           if (response.status == 200) {
             commit('DELETE_ADDRESS', id);

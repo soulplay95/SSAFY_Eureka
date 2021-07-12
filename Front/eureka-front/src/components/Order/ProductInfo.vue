@@ -25,8 +25,8 @@
             </p>
             <p class="card-text">
               <router-link
-                :to="{ name: 'ItemDetail', query: item.product_id }"
                 style="text-decoration: none"
+                :to="'/item/item-detail?product_id=' + item.product_id"
                 >{{ item.product_name }}</router-link
               >
             </p>
@@ -71,8 +71,8 @@ export default {
   },
   methods: {
     showDetail(productId) {
-      // this.$router.push('/item/item-detail?product_id=' + productId);
-      this.$router.push({ name: 'ItemDetail', query: productId });
+      this.$router.push('/item/item-detail?product_id=' + productId);
+      // this.$router.push({ name: 'ItemDetail', query: productId });
     },
   },
 };

@@ -47,7 +47,7 @@ export default {
         main4
       ],
       hotItems: [],
-    }
+    };
   },
   components: {
     Slide,
@@ -73,36 +73,34 @@ export default {
     // 계산된 getter
     reversedMessage: function () {
       // `this` 는 vm 인스턴스를 가리킵니다.
-      return this.message.split('').reverse().join('')
+      return this.message.split('').reverse().join('');
     },
     // questions: function () {
     //   return this.$store.state.CSQnaStore.myQnaHistory
     // },
-  }, 
+  },
   created: function () {
     axios({
       method: 'get',
       url: `http://localhost/home/recommend`,
     })
-      .then(res =>{
-        this.hotItems = res.data
+      .then((res) => {
+        this.hotItems = res.data;
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
-}
-
+      .catch((err) => {
+        console.log(err);
+      });
+  },
+};
 </script>
-
-
 
 <style>
 @font-face {
-    font-family: 'EliceDigitalBaeum_Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'EliceDigitalBaeum_Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .today {

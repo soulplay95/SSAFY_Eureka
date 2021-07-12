@@ -25,28 +25,13 @@
   <el-form-item label="할인율(%)" prop="product_discount">
     <el-input v-model="itemFormInfo.product_discount"></el-input>
   </el-form-item>
-  <el-upload
-    action="https://jsonplaceholder.typicode.com/posts/"
-    list-type="picture-card"
-    :on-preview="handlePictureCardPreview"
-    :on-remove="handleRemove"
-  >
-  <i class="el-icon-plus"></i>
-  </el-upload>
-  <el-dialog v-model="dialogVisible">
-    <img width="100%" :src="dialogImageUrl" alt="" />
-  </el-dialog>
   <el-form-item>
-    <el-button type="primary" @click="submitForm('itemForm')">Create</el-button>
-    <el-button @click="resetForm('itemForm')">Reset</el-button>
+    <el-button type="primary" round @click="submitForm('itemForm')">수정하기</el-button>
   </el-form-item>
 </el-form>
 </template>
 
 <script>
-// textarea : [brand, deliveryprice, name, price, seller_name, count, discount, rate ]
-// imgform : [img]
-// category : [category]
 
 import { mapGetters } from 'vuex'
 import http from '@/utils/http-common'
@@ -102,9 +87,6 @@ export default {
           }
         });
       },
-      resetForm(formName) {
-        this.$refs[formName].resetFields()
-      },
       registerItem() {
         http
           .post('admin/product', this.itemFormInfo)
@@ -118,6 +100,10 @@ export default {
           .put('admin/modify', this.itemFormInfo)
           .then((res) => {
             console.log(res)
+            this.$message({
+              type: 'success',
+              message: '수정 완료되었습니다😀'
+            })
             router.push({name: "AdminItemList"})
           })
       },
@@ -135,6 +121,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.el-input{
+  min-width: 500px;
+}
 
 </style>

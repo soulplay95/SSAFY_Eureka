@@ -82,7 +82,8 @@ export default {
     pay(list) {
       let map = {};
       let order = {};
-      order.member_userid = this.$store.getters['userStore/user'].member_userid; // user id
+      order.member_userid =
+        this.$store.getters['userStore/currentUser'].member_userid; // user id
 
       // orderdetails 속성 만들기
       let array = [];

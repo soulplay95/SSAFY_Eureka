@@ -1,10 +1,15 @@
 <template>
   <div>
+    <section
+      class="bg-title-page flex-col-c-m"
+      style="background-image: url(https://picsum.photos/1920/239/?image=1056)"
+    >
+      <h2 class="l-text2 t-center">Product Details</h2>
+    </section>
     <section class="cart bgwhite">
       <div class="container">
         <!-- 카테고리 Dropdown -->
-        <div id="category_dropdown">
-          <!-- 1 depth -->
+        <!-- <div id="category_dropdown">
           <div class="dropdown" style="display: inline-block">
             <button
               class="btn btn-secondary dropdown-toggle"
@@ -32,7 +37,6 @@
             </ul>
           </div>
           >
-          <!-- 2 depth -->
           <div class="dropdown" style="display: inline-block">
             <button
               class="btn btn-secondary dropdown-toggle"
@@ -60,7 +64,6 @@
             </ul>
           </div>
           >
-          <!-- 3 depth -->
           <div class="dropdown" style="display: inline-block">
             <button
               class="btn btn-secondary dropdown-toggle"
@@ -87,7 +90,8 @@
               </li>
             </ul>
           </div>
-        </div>
+        </div> -->
+
         <!-- 상품 정보 -->
         <div id="product_info">
           <div id="product_img">
@@ -176,20 +180,8 @@
                 justify-content: center;
               "
             >
-              <button
-                type="button"
-                class="btn btn-success"
-                style="display: inline-block"
-              >
-                장바구니</button
-              >&nbsp;&nbsp;&nbsp;
-              <button
-                type="button"
-                class="btn btn-primary"
-                style="display: inline-block"
-              >
-                바로구매
-              </button>
+              <el-button type="primary">장바구니</el-button>&nbsp;&nbsp;&nbsp;
+              <el-button type="success">바로구매</el-button>
             </div>
           </div>
         </div>
@@ -209,12 +201,12 @@
             autocomplete="off"
             checked
           />
-          <label class="btn btn-outline-primary" for="btnradio1">
+          <label
+            class="btn btn-outline-primary"
+            for="btnradio1"
+            @click="setMode('detail')"
+          >
             상품상세
-            <router-link
-              to="/item/item-detail-img"
-              style="text-decoration: none"
-            ></router-link>
           </label>
 
           <input
@@ -224,13 +216,18 @@
             id="btnradio2"
             autocomplete="off"
           />
-          <label class="btn btn-outline-primary" for="btnradio2">
+          <label
+            class="btn btn-outline-primary"
+            for="btnradio2"
+            @click="setMode('review')"
+          >
             상품리뷰
-            <router-link
+            <!-- <router-link
               to="/item/item-review"
               style="text-decoration: none"
             ></router-link
-          ></label>
+          > -->
+          </label>
 
           <input
             type="radio"
@@ -239,15 +236,23 @@
             id="btnradio3"
             autocomplete="off"
           />
-          <label class="btn btn-outline-primary" for="btnradio3">
+          <label
+            class="btn btn-outline-primary"
+            for="btnradio3"
+            @click="setMode('qna')"
+          >
             상품문의
-            <router-link
-              to="/item/item-qna"
-              style="text-decoration: none"
-            ></router-link
-          ></label>
+          </label>
         </div>
-        <router-view></router-view>
+        <div v-if="mode == 'detail'">
+          <item-detail-image></item-detail-image>
+        </div>
+        <div v-if="mode == 'review'">
+          <item-review></item-review>
+        </div>
+        <div v-if="mode == 'qna'">
+          <item-qna></item-qna>
+        </div>
       </div>
     </section>
   </div>
@@ -255,14 +260,25 @@
 
 <script>
 import StarRating from 'vue-star-rating';
+import itemDetailImage from '@/components/Item/ItemDetailImage';
+import itemReview from '@/components/Item/ItemReview';
+import itemQna from '@/components/Item/ItemQna';
 
 export default {
   name: 'itemDetail',
   components: {
     StarRating,
+    itemDetailImage,
+    itemReview,
+    itemQna,
   },
-  created() {
-    this.$store.dispatch(
+  data() {
+    return {
+      mode: 'detail',
+    };
+  },
+  async created() {
+    await this.$store.dispatch(
       'itemDetail/getProductInfo',
       this.$route.query.product_id
     );
@@ -270,6 +286,11 @@ export default {
   computed: {
     product() {
       return this.$store.getters['itemDetail/productInfo'];
+    },
+  },
+  methods: {
+    setMode(key) {
+      this.mode = key;
     },
   },
 };
