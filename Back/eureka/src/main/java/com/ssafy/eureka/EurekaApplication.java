@@ -30,8 +30,8 @@ public class EurekaApplication extends SpringBootServletInitializer implements W
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor).addPathPatterns(Arrays.asList("/home","/qna"));
-//		.excludePathPatterns(Arrays.asList("/member/**", "/api/aptrest/**","/api/interest","/api/notice/get/**", "/api/member/join", "/api/member/findpwd","/swagger-ui.html"));
+		registry.addInterceptor(jwtInterceptor).addPathPatterns(Arrays.asList("/member","/member/**","/shipping","/shipping/**","/qna","/qna/**","/admin","/admin/**","/cart","/cart/**","/wish","/wish/**","/order","/order/**","/product/regist","/product/modify","/product/delete","/pqna","/pqna/**","/review","/review/**"))
+		.excludePathPatterns(Arrays.asList("/member/login","/member/findPwd","/member/regist","/member/isDuplicated"));
 	}
 
 	@Override
