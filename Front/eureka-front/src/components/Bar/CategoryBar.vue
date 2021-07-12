@@ -13,7 +13,7 @@
           textSelectedColor: '#1c9e60',
         }"
       >
-    category
+      <FontAwesomeIcon class="fa-2x" :icon="['fas', 'th-list']" />
     </FloatMenu>
   </div>
 </template>
@@ -22,6 +22,7 @@
 import axios from 'axios'
 import { FloatMenu } from "vue-float-menu";
 import "vue-float-menu/dist/vue-float-menu.css";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
   data: function() {
@@ -35,6 +36,7 @@ export default {
   },
   components: {
     FloatMenu,
+    FontAwesomeIcon,
   },
   created: function () {
     axios({

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>고객센터</h1>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">문의 내역</button>
@@ -36,7 +35,10 @@ export default {
     CSQnaFAQ,
     CSQnaForm,
     CSQnaHistory
-  }
+  },
+  // created: function () {
+  //   console.log(request.user.is_authenticated)
+  // }
 }
 </script>
 
