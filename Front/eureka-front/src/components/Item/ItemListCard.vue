@@ -13,7 +13,7 @@
                       disabled
                       show-score>
                     </el-rate>
-                    <h3>{{ item.product_price }}</h3>
+                    <h3 class="price">{{ item.product_price }}</h3>
                   </div>                
                 </div>
             </div>
@@ -42,4 +42,32 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+@font-face {
+    font-family: 'SEBANG_Gothic_Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+     font-family: 'S-CoreDream-6Bold';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+.card-title {
+  font-family: S-CoreDream-6Bold
+}
+.price {
+  font-family: SEBANG_Gothic_Bold
+}
+.card-title {
+  font-size: 16px;
+}
+</style>

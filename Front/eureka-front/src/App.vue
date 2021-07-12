@@ -28,12 +28,16 @@ export default defineComponent({
 </script>
 
 <style>
-@font-face {
+/* @font-face {
     font-family: 'SEBANG_Gothic_Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/SEBANG_Gothic_Bold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
+*
+{
+  font-family: SEBANG_Gothic_Bold
+} */
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

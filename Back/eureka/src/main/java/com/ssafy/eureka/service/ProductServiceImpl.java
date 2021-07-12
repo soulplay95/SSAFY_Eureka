@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Map<String, Object> showSearchResult(String keyword, int page) {
-		int start = (page-1) * 100;
+		int start = (page-1) * 30;
 		int all = dao.getProductSearchCount(keyword);
 		List<Product> products = dao.showSearchResult(keyword, start);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -30,9 +30,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> showItemListByCategory(String category) {
-		
-		return dao.showItemListByCategory(category);
+	public Map<String, Object> showItemListByCategory(String category, int page) {
+		int start = (page-1) * 30;
+		int count = dao.getCountByCategory(category);
+		List<Product> products = dao.showItemListByCategory(category, start);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("count", count);
+		map.put("products", products);
+		return map;
 	}
 
 	@Override

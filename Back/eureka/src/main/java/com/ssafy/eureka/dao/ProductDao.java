@@ -13,7 +13,7 @@ public interface ProductDao {
 
 	List<Product> showSearchResult(String keyword, int start);
 
-	List<Product> showItemListByCategory(String category);
+	List<Product> showItemListByCategory(String category, int start);
 
 	List<Product> getCategoryTopList(String product_category);
 
@@ -28,6 +28,8 @@ public interface ProductDao {
 	int deleteProduct(String product_id);
 
 	int getProductSearchCount(String keyword);
+
+	int getCountByCategory(String category);
 
 
 	

@@ -52,16 +52,38 @@ export const itemStore = {
     SET_FILTER_ITEM(state, filterQuery ) {
       if (state.filtery === 0){
         state.searchItems = []
-        for(let i = 0; i < state.rawSearchItems.length; i++){
-          if (filterQuery.startPrice <= state.rawSearchItems[i].product_price && state.rawSearchItems[i].product_price <= filterQuery.endPrice){
-            state.searchItems.push(state.rawSearchItems[i])
+        if (filterQuery.rate != null){
+          for(let i = 0; i < state.rawSearchItems.length; i++){
+            if (filterQuery.startPrice <= state.rawSearchItems[i].product_price &&
+               state.rawSearchItems[i].product_price <= filterQuery.endPrice &&
+               state.rawSearchItems[i].product_rating == filterQuery.rate){
+              state.searchItems.push(state.rawSearchItems[i])
+            }
+          }
+        } else {
+          for(let i = 0; i < state.rawSearchItems.length; i++){
+            if (filterQuery.startPrice <= state.rawSearchItems[i].product_price &&
+               state.rawSearchItems[i].product_price <= filterQuery.endPrice){
+              state.searchItems.push(state.rawSearchItems[i])
+            }
           }
         }
       } else {
         state.categoryItems = []
-        for(let i = 0; i < state.rawCategoryItems.length; i++){
-          if (filterQuery.startPrice <= state.rawCategoryItems[i].product_price && state.rawCategoryItems[i].product_price <= filterQuery.endPrice){
-            state.categoryItems.push(state.rawCategoryItems[i])
+        if (filterQuery.rate != null){
+          for(let i = 0; i < state.rawCategoryItems.length; i++){
+            if (filterQuery.startPrice <= state.rawCategoryItems[i].product_price && 
+              state.rawCategoryItems[i].product_price <= filterQuery.endPrice &&
+              state.rawCategoryItems[i].product_rating == filterQuery.rate){
+              state.categoryItems.push(state.rawCategoryItems[i])
+            }
+          }
+        } else {
+          for(let i = 0; i < state.rawCategoryItems.length; i++){
+            if (filterQuery.startPrice <= state.rawCategoryItems[i].product_price && 
+              state.rawCategoryItems[i].product_price <= filterQuery.endPrice){
+              state.categoryItems.push(state.rawCategoryItems[i])
+            }
           }
         }
       }

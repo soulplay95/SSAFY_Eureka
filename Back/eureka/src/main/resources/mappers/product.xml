@@ -13,7 +13,7 @@
 	<select id="getCategoryTopList" resultType="product">
 		SELECT *
 		FROM product p
-		WHERE product_category=4101
+		WHERE product_category=#{product_category}
 		ORDER BY Rand()
 		LIMIT 5;
 	</select>
@@ -64,7 +64,7 @@
 		WHERE product_name  LIKE concat('%', #{keyword}, '%')
 		OR product_brand LIKE concat('%', #{keyword}, '%')
 		OR product_category LIKE concat('%', #{keyword}, '%')
-		limit #{start}, 100;
+		limit #{start}, 30;
 	</select>
 	
 	<select id="getProductSearchCount" resultType="int">
@@ -77,6 +77,13 @@
 	
 	<select id="showItemListByCategory" resultType="product">
 		SELECT * 
+		FROM product
+		WHERE product_category = #{category}
+		limit #{start}, 30;
+	</select>
+	
+	<select id="getCountByCategory" resultType="int">
+		SELECT count(*) 
 		FROM product
 		WHERE product_category = #{category}
 	</select>
