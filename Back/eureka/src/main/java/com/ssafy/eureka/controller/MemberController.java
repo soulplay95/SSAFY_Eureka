@@ -1,12 +1,11 @@
 package com.ssafy.eureka.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.dto.Review;
 import com.ssafy.eureka.dto.Token;
 import com.ssafy.eureka.service.JWTService;
 import com.ssafy.eureka.service.MemberService;
@@ -183,4 +183,18 @@ public class MemberController {
 			return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 		}
 	}
+	
+	@ApiOperation(value = "유저가 작성한 리뷰 목록을 불러오는 API")
+	@GetMapping("/review/{member_userid}")
+	private ResponseEntity<List<Review>>getReview(@PathVariable("member_userid") String member_userid) {
+		
+		List<Review> reviews = service.getReviewByMid(member_userid);
+		
+		if(reviews != null) {
+			return new ResponseEntity<List<Review>>(reviews, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+	}
+	
 }

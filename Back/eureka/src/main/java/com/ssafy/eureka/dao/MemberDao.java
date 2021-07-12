@@ -1,10 +1,12 @@
 package com.ssafy.eureka.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.eureka.dto.Member;
+import com.ssafy.eureka.dto.Review;
 
 @Mapper
 public interface MemberDao {
@@ -20,4 +22,5 @@ public interface MemberDao {
 	public int logout(String member_userid);
 	public int modifyPwd(Map<String, String> map);
 	public Member checkDuplicate(String member_userid);
+	public List<Review> getReviewByMid(String member_userid);
 }
