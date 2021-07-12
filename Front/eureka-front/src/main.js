@@ -11,8 +11,8 @@ import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 
 // import vue-sidebar
-import VueSidebarMenu from 'vue-sidebar-menu'
-import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
+import VueSidebarMenu from 'vue-sidebar-menu';
+import 'vue-sidebar-menu/dist/vue-sidebar-menu.css';
 
 // import moment => 날짜 형식 출력을 위한
 import moment from 'moment';
@@ -63,10 +63,17 @@ app.config.globalProperties.$filters = {
     if (!value || !(value.length === 10 || value.length === 11)) return value;
     return value.replace(/^(\d{3})(\d{3,4})(\d{4})/g, '$1-$2-$3');
   },
-
   // 날짜 필터 ex) YYYY.MM.DD
   date(value) {
     return moment(new Date(value)).format('YYYY.MM.DD');
+  },
+  // 배송지 필터 in 배송 주소록
+  addressType(value) {
+    if (value == 1) {
+      return '기본배송지';
+    }
+
+    return '일반배송지';
   },
 };
 

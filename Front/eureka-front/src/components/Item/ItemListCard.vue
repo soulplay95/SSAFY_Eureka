@@ -18,6 +18,9 @@
                 </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -28,18 +31,18 @@ export default {
       type: Object,
     },
   },
-  data: function() {
+  data: function () {
     return {
       value: Number(this.item.product_rating),
-    }
+    };
   },
   methods: {
-    selectItem: function () {
+    selectItem: function (id) {
       // this.$store.dispatch('itemStore/selectItem', this.searchText);
-      this.$router.push({ name: 'ItemDetail' });
+      this.$router.push('/item/item-detail?product_id=' + id);
     },
   },
-}
+};
 </script>
 
 <style>

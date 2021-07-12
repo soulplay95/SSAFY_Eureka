@@ -24,11 +24,11 @@ import ReviewRegister from '@/components/productReview/reviewRegister.vue';
 import ReviewModify from '@/components/productReview/reviewModify.vue';
 
 // 관리자
-import AdminProfile from "@/views/Admin/AdminProfile.vue";
-import AdminUserList from "@/views/Admin/AdminUserList.vue";
-import AdminItemList from "@/views/Admin/AdminItemList.vue";
-import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue'
-import AdminItemModify from '@/views/Admin/AdminItemModify.vue'
+import AdminProfile from '@/views/Admin/AdminProfile.vue';
+import AdminUserList from '@/views/Admin/AdminUserList.vue';
+import AdminItemList from '@/views/Admin/AdminItemList.vue';
+import AdminItemRegister from '@/views/Admin/AdminItemRegister.vue';
+import AdminItemModify from '@/views/Admin/AdminItemModify.vue';
 
 // 고객센터
 import CSQna from '@/views/CS/CSQna.vue';
@@ -40,13 +40,13 @@ import ItemDetailImage from '@/components/Item/ItemDetailImage.vue';
 import ItemReview from '@/components/Item/ItemReview.vue';
 import ItemQna from '@/components/Item/ItemQna.vue';
 // JWT-common import
-import JWTcommon from '@/utils/JWT-common'
+import JWTcommon from '@/utils/JWT-common';
 
 // import mapGetters (admin)
 // import store from '@/store'
 
 // temp
-import Temp from '@/views/User/Temp.vue'
+import Temp from '@/views/User/Temp.vue';
 
 const routes = [
   // temp
@@ -113,9 +113,6 @@ const routes = [
     path: '/order',
     name: 'OrderView',
     component: OrderView,
-    meta: {
-      requiresAuth: true,
-    },
   },
   // 주문목록 페이지
   {
@@ -206,8 +203,8 @@ const routes = [
   },
   // 상품 수정
   {
-    path: "/admin/item-modify",
-    name: "AdminItemModify",
+    path: '/admin/item-modify',
+    name: 'AdminItemModify',
     component: AdminItemModify,
     meta: {
       requiresAuth: true,
@@ -242,7 +239,6 @@ const routes = [
     path: '/item/item-detail',
     name: 'itemDetail',
     component: ItemDetail,
-    // props: true, // for params
   },
   // 상품 상세설명
   {
@@ -277,14 +273,13 @@ router.beforeEach((to, from, next) => {
   // Access Token이 있는 지 검사하고 없으면 로그인
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     if (!JWTcommon.getAccessToken()) {
-      next({name: 'Login'})
-    }
-    else {
-      next()
+      next({ name: 'Login' });
+    } else {
+      next();
     }
   }
   // admin 사이트 접근 시 분기 처리 필요
-  next()
-})
+  next();
+});
 
 export default router;

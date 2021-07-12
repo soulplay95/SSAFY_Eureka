@@ -395,7 +395,7 @@ export default {
   computed: {
     // 로그인된 유저 정보
     user() {
-      return this.$store.getters['userStore/user'];
+      return this.$store.getters['userStore/currentUser'];
     },
     // 로그인된 유저의 배송 주소록
     addressBook() {
