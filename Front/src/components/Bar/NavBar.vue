@@ -190,18 +190,22 @@ export default {
 }
 .img {width:325px; height:280px; overflow:hidden }
 
+.navbar {
+  padding-top: 4rem !important;
+  padding-bottom: 0;
+}
+
 nav {
   font-family: GmarketSansMedium;
-  height: 185px;
-  padding: 1rem;
   color: white;
   background: #fff;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 2% auto;
+  margin-top: 2rem;
 }
+
 
 .nav-item {
   cursor: pointer;
