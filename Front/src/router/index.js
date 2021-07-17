@@ -277,9 +277,9 @@ router.beforeEach((to, from, next) => {
     } else {
       next();
     }
+  } else {
+    next();
   }
-  // admin 사이트 접근 시 분기 처리 필요
-  next();
 });
 
 export default router;
