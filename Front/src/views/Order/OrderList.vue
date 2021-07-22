@@ -1,13 +1,5 @@
 <template>
   <div>
-    <!-- @@@@@@@@@@@@@@@@@@@ Header - title @@@@@@@@@@@@@@@@@@@ -->
-    <section
-      class="bg-title-page flex-col-c-m"
-      style="background-image: url(https://picsum.photos/1920/239/?image=114)"
-    >
-      <h2 class="l-text2 t-center">Order List</h2>
-    </section>
-
     <!-- @@@@@@@@@@@@@@@@@@@ Contents @@@@@@@@@@@@@@@@@@@ -->
     <section class="cart bgwhite">
       <div class="container">

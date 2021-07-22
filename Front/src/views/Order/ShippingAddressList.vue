@@ -1,14 +1,5 @@
 <template>
   <div>
-    <!-- Header START -->
-    <section
-      class="bg-title-page flex-col-c-m"
-      style="background-image: url(https://picsum.photos/seed/picsum/1920/239)"
-    >
-      <h2 class="l-text2 t-center">Shipping Adress List</h2>
-    </section>
-    <!-- Header END -->
-
     <!-- Contents START -->
     <section class="cart bgwhite">
       <div class="container">

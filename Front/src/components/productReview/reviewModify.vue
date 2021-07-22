@@ -1,11 +1,5 @@
 <template>
   <div>
-    <section
-      class="bg-title-page flex-col-c-m"
-      style="background-image: url(https://picsum.photos/seed/picsum/1920/239)"
-    >
-      <h2 class="l-text2 t-center">Review Modify</h2>
-    </section>
     <section class="cart bgwhite">
       <div class="container">
         <!-- form -->

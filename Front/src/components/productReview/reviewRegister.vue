@@ -1,11 +1,11 @@
 <template>
   <div>
-    <section
+    <!-- <section
       class="bg-title-page flex-col-c-m"
       style="background-image: url(https://picsum.photos/1920/239/?image=233)"
     >
       <h2 class="l-text2 t-center">Review Register</h2>
-    </section>
+    </section> -->
 
     <section class="cart bgwhite">
       <div class="container">

@@ -1,11 +1,5 @@
 <template>
   <div>
-    <section
-      class="bg-title-page flex-col-c-m"
-      style="background-image: url(https://picsum.photos/1920/239/?image=1056)"
-    >
-      <h2 class="l-text2 t-center">Product Details</h2>
-    </section>
     <section class="cart bgwhite">
       <div class="container">
         <!-- 카테고리 Dropdown -->
@@ -180,8 +174,12 @@
                 justify-content: center;
               "
             >
-              <el-button type="primary">장바구니</el-button>&nbsp;&nbsp;&nbsp;
-              <el-button type="success">바로구매</el-button>
+              <el-button
+                type="primary"
+                @click="goCart(product.product.product_id)"
+                >장바구니</el-button
+              >&nbsp;&nbsp;&nbsp;
+              <el-button type="success" @click="goOrder()">바로구매</el-button>
             </div>
           </div>
         </div>
@@ -259,6 +257,8 @@
 </template>
 
 <script>
+import http from '@/utils/http-common';
+
 import StarRating from 'vue-star-rating';
 import itemDetailImage from '@/components/Item/ItemDetailImage';
 import itemReview from '@/components/Item/ItemReview';
@@ -291,6 +291,26 @@ export default {
   methods: {
     setMode(key) {
       this.mode = key;
+    },
+    goCart(product_id) {
+      // 장바구니에 수량 1개로 추가
+      http
+        .post('/cart', {
+          product_id,
+          member_userid:
+            this.$store.getters['userStore/currentUser'].member_userid,
+          quantity: 1,
+        })
+        .then((res) => {
+          if (res.status == 200) {
+            alert('장바구니 담기 성공!');
+          } else {
+            alert('실패!');
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
   },
 };
